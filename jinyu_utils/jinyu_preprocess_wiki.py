@@ -1,6 +1,7 @@
 import re
 from typing import Tuple
 from datasets import load_dataset
+from collections import defaultdict
 
 PATTEN_REG_WIKI = re.compile(r'^\s*(?P<left>(?:=\s*)+)\s*(?P<text>[^=\n]*?)\s*(?P<right>(?:=\s*)+)\s*$')
 
@@ -23,14 +24,12 @@ def parse_lines_with_index(pat, lines, index=0, target_indent=0) -> tuple[list[s
                     break
                 # end
             else: # left_indent > target_indent(cannot be the same)
-                print(f'handling {index} {left_indent} {target_indent}')
                 subdoc, index = parse_lines_with_index(pat, lines, index, left_indent)
                 mydoc['subdocs'].append(subdoc)
             # end
         else:
             if len(line) != 0:
-                line = line.lstrip().rstrip()
-                mydoc['texts'].append()
+                mydoc['texts'].append(line.lstrip().rstrip())
             # end
             index += 1
             continue
@@ -40,12 +39,12 @@ def parse_lines_with_index(pat, lines, index=0, target_indent=0) -> tuple[list[s
     return mydoc, index
 # end
 
-def merge_subdocs(doc) -> tuple[list[str], list[str]]:
+def merge_subdocs_deprecated(doc) -> tuple[list[str], list[str]]:
     lines = []
     titles = []
 
     lines += doc['texts']
-    titles += [doc['texts'][0]]
+    titles.append(subdoc['texts'][0])
 
     for subdoc in doc['subdocs']:
         sublines, subtitles = merge_subdocs(subdoc)
@@ -54,6 +53,49 @@ def merge_subdocs(doc) -> tuple[list[str], list[str]]:
     # end
 
     return lines, titles
+# end
+
+def merge_subdocs(subdocs) -> tuple[list[str], list[str]]:
+    lines = []
+    titles = []
+
+    for subdoc in subdocs:
+        lines += subdoc['texts']
+        titles.append(subdoc['texts'][0])
+
+        sublines, subtitles = merge_subdocs(subdoc['subdocs'])
+        lines += sublines
+        titles += subtitles
+    # end for
+    
+    return lines, titles
+# end
+
+
+def simple_calculate_sim(sample, predict):
+
+    dict_token_count_predict = defaultdict(int)
+    tokens_predict = [token for token in predict.split(' ') if len(token) > 2]
+    for token_predict in tokens_predict:
+        dict_token_count_predict[token_predict] += 1
+    # end
+
+    dict_token_count_sample = defaultdict(int)
+    tokens_sample = [token for token in sample.split(' ') if len(token) > 2]
+    tokens_sample = tokens_sample[:min(len(tokens_predict), len(tokens_sample))]
+
+    for token_sample in tokens_sample:
+        dict_token_count_sample[token_sample] += 1
+    # end
+
+    count_common = 0
+
+    for token, count_predict in dict_token_count_predict.items():
+        count_sample = dict_token_count_sample[token]
+        count_common += min(count_predict, count_sample)
+    # end
+
+    return count_common / sum(dict_token_count_predict.values())
 # end
 
 if __name__ == '__main__':
