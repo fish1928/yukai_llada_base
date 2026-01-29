@@ -95,7 +95,11 @@ def simple_calculate_sim(sample, predict):
         count_common += min(count_predict, count_sample)
     # end
 
-    return count_common / sum(dict_token_count_predict.values())
+    if sum(dict_token_count_predict.values()):
+        return count_common / sum(dict_token_count_predict.values())
+    else:
+        return 0
+    # end
 # end
 
 if __name__ == '__main__':
