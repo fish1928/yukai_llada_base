@@ -76,17 +76,8 @@ def generate(model, prompt, attention_mask=None, steps=128, gen_length=128, bloc
         num_transfer_tokens = get_num_transfer_tokens(block_mask_index, steps)
         for i in range(steps):
             mask_index = (x == mask_id)
-            if cfg_scale > 0.:
-                un_x = x.clone()
-                un_x[prompt_index] = mask_id
-                x_ = torch.cat([x, un_x], dim=0)
-                if attention_mask is not None:
-                    attention_mask_ = torch.cat([attention_mask, attention_mask], dim=0)
-                logits = model(x_, attention_mask=attention_mask_).logits
-                logits, un_logits = torch.chunk(logits, 2, dim=0)
-                logits = un_logits + (cfg_scale + 1) * (logits - un_logits)
-            else:
-                logits = model(x, attention_mask=attention_mask).logits
+            logits = model(x, attention_mask=attention_mask).logits
+            # end
 
             if logits_eos_inf:
                 logits[:, :, 126081] = -torch.inf
@@ -118,6 +109,7 @@ def generate(model, prompt, attention_mask=None, steps=128, gen_length=128, bloc
             x[transfer_index] = x0[transfer_index]
 
     return x
+# end
 
 
 def main():

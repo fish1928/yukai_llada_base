@@ -22,7 +22,6 @@ accelerator = ac.Accelerator()
 device = accelerator.device
 
 try:
-
     ### load model
     model = AutoModel.from_pretrained(id_model, trust_remote_code=True, device_map={'': f'{device}'})
     model = model.eval()
