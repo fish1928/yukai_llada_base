@@ -263,8 +263,6 @@ if __name__ == '__main__':
         samples.append({'text': paragraph_1 + ' ' + paragraph_remain})
     # end
 
-    ds_origin = Dataset.from_list(samples)
-
 
     '''initialize constant hyper-parameters'''
     id_model_g = 'GSAI-ML/LLaDA-8B-Base'
@@ -310,7 +308,7 @@ if __name__ == '__main__':
                     assert num_unmask_per_iter_g <= size_block_g
                     steps_g = int(len_target_g / num_unmask_per_iter_g)
 
-
+                    ds_origin = Dataset.from_list(samples)
                     '''start to handle dataset based on hyper-parameter'''
                     ds = ds_origin\
                         .filter(lambda x: x["text"] is not None and len(x["text"].strip()) > 0)\
