@@ -263,7 +263,7 @@ if __name__ == '__main__':
         samples.append({'text': paragraph_1 + ' ' + paragraph_remain})
     # end
 
-    ds = Dataset.from_list(samples)
+    ds_origin = Dataset.from_list(samples)
 
 
     '''initialize constant hyper-parameters'''
@@ -312,7 +312,7 @@ if __name__ == '__main__':
 
 
                     '''start to handle dataset based on hyper-parameter'''
-                    ds = ds\
+                    ds = ds_origin\
                         .filter(lambda x: x["text"] is not None and len(x["text"].strip()) > 0)\
                         .map(Tokenizer_wiki_simple(tokenizer, len_max_g), remove_columns=ds.column_names)\
                         .filter(lambda x: x["length"] >= len_max_g)\
@@ -345,7 +345,8 @@ if __name__ == '__main__':
                         )
 
                         with open(f'{len_prompt_g}-{len_target_g}-{num_blocks_g}-{num_unmask_per_iter_g}', 'a+') as file:
-                            file.write(calculate_ppl_and_conf(result[0], result[1]))
+                            ppl, conf = calculate_ppl_and_conf(result[0], result[1])
+                            file.write(f'{ppl} | {conf}\n')
                         # end
                     # end
                 # end
