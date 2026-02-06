@@ -204,8 +204,8 @@ def generate_with_prefix_cache(model, prompt, steps=128, gen_length=128, block_l
             
             i += 1
 
-
     return x, nfe
+
 
 @torch.no_grad()
 def generate_with_dual_cache(
@@ -292,7 +292,7 @@ def generate_with_dual_cache(
             nfe += 1
 
     return x, nfe
-
+# end
 
 
 def get_transfer_index(
