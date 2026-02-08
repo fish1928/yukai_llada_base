@@ -216,7 +216,7 @@ def run_model(
 
             if remasking == 'random_top_k':
                 idx_mask_current = mask_current_full.nonzero(as_tuple=True)[-1].reshape(mask_current_full.shape[0], -1) # 1d
-                perm = torch.argsort(torch.rand(idx_mask_current.shape[0], idx_mask_current.shape[1], device=mask_current_full.device), dim=-1)
+                perm = torch.argsort(torch.rand(idx_mask_current.shape[0], idx_mask_current.shape[1], device=mask_current_full.device), dim=-1, descending=True)
                 idx_unmask_k = idx_mask_current.gather(-1, perm)[:,:k]
             else:
                 _, idx_unmask_k = torch.topk(x0_p_current_full, k)
