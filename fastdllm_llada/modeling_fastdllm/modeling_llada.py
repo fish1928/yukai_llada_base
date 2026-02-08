@@ -750,6 +750,8 @@ class LLaDABlock(nn.Module):
                 
                 k = past_key
                 v = past_value
+            # end if replace_position
+        # end if layer_past
 
         present = (k, v) if use_cache else None #present: None
         query_len, key_len = q.shape[-2], k.shape[-2]  # could be different if layer_past not None
@@ -803,101 +805,12 @@ class LLaDABlock(nn.Module):
     @classmethod
     def build(cls, layer_id: int, config: ModelConfig, cache: BufferCache) -> LLaDABlock:
         if config.block_type == BlockType.sequential:
-            return LLaDASequentialBlock(layer_id, config, cache)
+            # return LLaDASequentialBlock(layer_id, config, cache)
+            raise NotImplementedError(f"Unknown block type: '{config.block_type}'")
         elif config.block_type == BlockType.llama:
             return LLaDALlamaBlock(layer_id, config, cache)
         else:
             raise NotImplementedError(f"Unknown block type: '{config.block_type}'")
-
-
-class LLaDASequentialBlock(LLaDABlock):
-    """
-    This is a typical transformer block where the output is computed as ``MLP(LN(x + Attention(LN(x))))``
-    (plus another skip connection).
-    """
-
-    def __init__(self, layer_id: int, config: ModelConfig, cache: BufferCache):
-        super().__init__(layer_id, config, cache)
-        # Layer norms.
-        self.attn_norm = LayerNorm.build(config)
-        self.ff_norm = LayerNorm.build(config)
-        # Attention input projection. Projects x -> (q, k, v)
-        head_dim = config.d_model // config.n_heads
-        self.fused_dims = (
-            config.d_model,
-            config.effective_n_kv_heads * head_dim,
-            config.effective_n_kv_heads * head_dim,
-        )
-        self.att_proj = nn.Linear(
-            config.d_model, sum(self.fused_dims), bias=config.include_bias | config.include_qkv_bias, device=config.init_device
-        )
-        # Feed-forward input projection.
-        self.ff_proj = nn.Linear(
-            config.d_model, self.hidden_size, bias=config.include_bias, device=config.init_device
-        )
-
-    def reset_parameters(self):
-        super().reset_parameters()
-        self.attn_norm.reset_parameters()
-        self.ff_norm.reset_parameters()
-        # NOTE: the standard deviation for these weights does not depend on the layer.
-        init_weights(
-            self.config, self.att_proj, d=self.config.d_model, layer_id=None, type_of_module=ModuleType.in_module
-        )
-        init_weights(
-            self.config, self.ff_proj, d=self.config.d_model, layer_id=None, type_of_module=ModuleType.in_module
-        )
-
-    def forward(
-        self,
-        x: torch.Tensor,
-        attention_bias: Optional[torch.Tensor] = None,
-        layer_past: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
-        use_cache: bool = False,
-    ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
-        # Get query, key, value projections.
-        # shape:
-        #  - for regular attn q, k, v: (batch_size, seq_len, d_model)
-        #  - for multi-query attn q: (batch_size, seq_len, d_model)
-        #                      k, v: (batch_size, seq_len, d_model // n_heads)
-        #  - for group query attn q: (batch_size, seq_len, d_model)
-        #                      k, v: (batch_size, seq_len, d_model // n_kv_heads)
-        if self._activation_checkpoint_fn is not None:
-            q, k, v = self.att_proj(self._activation_checkpoint_fn(self.attn_norm, x)).split(
-                self.fused_dims, dim=-1
-            )
-        else:
-            q, k, v = self.att_proj(self.attn_norm(x)).split(self.fused_dims, dim=-1)
-
-        # Get attention scores.
-        if self._activation_checkpoint_fn is not None:
-            att, cache = self._activation_checkpoint_fn(  # type: ignore
-                self.attention, q, k, v, attention_bias, layer_past=layer_past, use_cache=use_cache
-            )
-        else:
-            att, cache = self.attention(q, k, v, attention_bias, layer_past=layer_past, use_cache=use_cache)
-
-        # Add attention scores.
-        # shape: (B, T, C)
-        x = x + self.dropout(att)
-
-        # Add feed-forward projection.
-        # shape: (batch_size, seq_len, d_model)
-        og_x = x
-        if self._activation_checkpoint_fn is not None:
-            x = self._activation_checkpoint_fn(self.ff_norm, x)  # type: ignore
-        else:
-            x = self.ff_norm(x)
-        x = self.ff_proj(x)
-        if self._activation_checkpoint_fn is not None:
-            x = self._activation_checkpoint_fn(self.act, x)  # type: ignore
-        else:
-            x = self.act(x)
-        x = self.ff_out(x)
-        x = self.dropout(x)
-        x = og_x + x
-
-        return x, cache
 
 
 class LLaDALlamaBlock(LLaDABlock):
@@ -1003,113 +916,6 @@ class LLaDALlamaBlock(LLaDABlock):
 
         return x, cache
 
-
-class LLaDABlockDiffBlock(LLaDABlock):
-    """
-    This is a transformer block where the output is computed as ``MLP(LN(x + Attention(LN(x))))``
-    (plus another skip connection). This block is similar to `LLaDASequentialBlock`
-    but some operations have slightly different implementations to imitate the
-    behavior of Llama.
-    """
-
-    def __init__(self, layer_id: int, config: ModelConfig, cache: BufferCache):
-        super().__init__(layer_id, config, cache)
-        # Layer norms.
-        self.attn_norm = LayerNorm.build(config)
-        self.ff_norm = LayerNorm.build(config)
-        self.__cache = cache
-
-        # Attention input projection. Projects x -> (q, k, v)
-        head_dim = config.d_model // config.n_heads
-        q_proj_out_dim = config.d_model
-        k_proj_out_dim = config.effective_n_kv_heads * head_dim
-        v_proj_out_dim = config.effective_n_kv_heads * head_dim
-        self.q_proj = nn.Linear(
-            config.d_model, q_proj_out_dim, bias=config.include_bias | config.include_qkv_bias, device=config.init_device
-        )
-        self.k_proj = nn.Linear(
-            config.d_model, k_proj_out_dim, bias=config.include_bias | config.include_qkv_bias, device=config.init_device
-        )
-        self.v_proj = nn.Linear(
-            config.d_model, v_proj_out_dim, bias=config.include_bias | config.include_qkv_bias, device=config.init_device
-        )
-
-        # Feed-forward input projection.
-        self.ff_proj = nn.Linear(
-            config.d_model, self.hidden_size, bias=config.include_bias, device=config.init_device
-        )
-        # new add
-        self.up_proj = nn.Linear(
-            config.d_model, self.hidden_size, bias=config.include_bias, device=config.init_device
-        )
-
-    def reset_parameters(self):
-        super().reset_parameters()
-        self.attn_norm.reset_parameters()
-        self.ff_norm.reset_parameters()
-        # NOTE: the standard deviation for these weights does not depend on the layer.
-        init_weights(self.config, self.q_proj, d=self.config.d_model, layer_id=None)
-        init_weights(self.config, self.k_proj, d=self.config.d_model, layer_id=None)
-        init_weights(self.config, self.v_proj, d=self.config.d_model, layer_id=None)
-        init_weights(self.config, self.ff_proj, d=self.config.d_model, layer_id=None)
-        init_weights(self.config, self.up_proj, d=self.config.d_model, layer_id=None)  # new add
-
-    def cross_attn_flex(self, qkv, mask=None):
-        qkv = rearrange(qkv, 'b s three h d -> b h three s d', h=self.n_heads)
-        x = fused_flex_attention(
-        qkv[:, :, 0], qkv[:, :, 1], qkv[:, :, 2], mask=mask)
-        x = rearrange(x, 'b h s d -> b s (h d)')
-        return x
-
-    def forward(
-        self,
-        x: torch.Tensor,
-        attention_bias: Optional[torch.Tensor] = None,
-        layer_past: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
-        use_cache: bool = False,
-    ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
-        # Get query, key, value projections.
-        # shape:
-        #  - for regular attn q, k, v: (batch_size, seq_len, d_model)
-        #  - for multi-query attn q: (batch_size, seq_len, d_model)
-        #                      k, v: (batch_size, seq_len, d_model // n_heads)
-        #  - for group query attn q: (batch_size, seq_len, d_model)
-        #                      k, v: (batch_size, seq_len, d_model // n_kv_heads)
-        x_normed = self.attn_norm(x)
-        q = self.q_proj(x_normed)
-        k = self.k_proj(x_normed)
-        v = self.v_proj(x_normed)
-
-        # Get attention scores.
-        if self._activation_checkpoint_fn is not None:
-            att, cache = self._activation_checkpoint_fn(  # type: ignore
-                self.attention, q, k, v, attention_bias, layer_past=layer_past, use_cache=use_cache
-            )
-        else:
-            att, cache = self.attention(q, k, v, attention_bias, layer_past=layer_past, use_cache=use_cache)
-
-        # Add attention scores.
-        # shape: (B, T, C)
-        x = x + self.dropout(att)
-
-        # Add feed-forward projection.
-        # shape: (batch_size, seq_len, d_model)
-        og_x = x
-        if self._activation_checkpoint_fn is not None:
-            x = self._activation_checkpoint_fn(self.ff_norm, x)  # type: ignore
-        else:
-            x = self.ff_norm(x)
-        x, x_up = self.ff_proj(x), self.up_proj(x) # new add
-        if self._activation_checkpoint_fn is not None:
-            x = self._activation_checkpoint_fn(self.act, x)  # type: ignore
-        else:
-            x = self.act(x)
-        x = x * x_up # new add
-        x = self.ff_out(x)
-        x = self.dropout(x)
-        x = og_x + x
-
-        return x, cache
 
 
 class LLaDAOutput(NamedTuple):
