@@ -15,6 +15,11 @@ from llada_generate import get_num_transfer_tokens, add_gumbel_noise
 from tqdm import tqdm
 from modeling_llada.modeling_llada import LLaDAModelLM
 
+from datetime import datetime, timezone
+
+def get_current_time():
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+# end
 
 
 '''initialize global constants'''
@@ -63,8 +68,6 @@ class Tokenizer_wiki_simple(Tokenizer_):
 # end
 
 
-
-
 class Collater_(ABC):
     def __init__(self, len_max, len_prompt, len_target, id_mask):
         self.len_max = len_max
@@ -104,8 +107,7 @@ class Collater_wiki_simple(Collater_):
 # end
 
 
-
-
+''' ppl calculation function'''
 def calculate_ppl_and_conf(probs_all, mask_target, eps=1e-12):
     # probs_collected = probs_all[mask_target].reshape(mask_target.shape[0], -1)  # [B, K] ALERT: what it was
     probs_collected = probs_all[mask_target].reshape(-1)  # [B * K]
@@ -145,13 +147,10 @@ def run_model(
     ):
 
     # (batch, full_length)
-    x = ids_input_masked_full
-    y = ids_target_masked_full
-
+    x, y = ids_input_masked_full, ids_target_masked_full
     shape_prompt = (x.shape[0], len_prompt)
 
     probs_all = torch.zeros(x.shape, dtype=torch.bfloat16).to(model.device)
-
 
     if attention_mask is not None:
         attention_mask = torch.cat([attention_mask, torch.ones((shape_prompt[0], gen_length), dtype=attention_mask.dtype, device=model.device)], dim=-1)
@@ -162,8 +161,8 @@ def run_model(
 
     assert steps % num_blocks == 0
     steps_per_block = steps // num_blocks
-    for num_block in range(num_blocks):
 
+    for num_block in range(num_blocks):
         mask_block = (x[:, shape_prompt[1] + num_block*block_length : shape_prompt[1]+(num_block + 1)*block_length]) == mask_id
 
         nums_transfer_tokens = get_num_transfer_tokens(mask_block, steps_per_block)    # [[7,7,6],..] if steps_per_block = 3 and remainder = 2
