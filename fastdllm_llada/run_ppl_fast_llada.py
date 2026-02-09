@@ -110,7 +110,8 @@ class Collater_wiki_simple(Collater_):
 
 ''' ppl calculation function'''
 def calculate_ppl_and_conf(probs_all, mask_target, eps=1e-12):
-    probs_collected = probs_all[mask_target].reshape(mask_target.shape[0], -1)  # [B, K]
+    # probs_collected = probs_all[mask_target].reshape(mask_target.shape[0], -1)  # [B, K]
+    probs_collected = probs_all[mask_target].reshape(-1)  # [B * K]
 
     # Arithmetic mean confidence (what you currently call mean_prob)
     mean_prob = probs_collected.mean(dim=-1)  # [B]
@@ -206,11 +207,11 @@ def run_model_with_prefix_cache(
     ids_input_masked_full,
     ids_target_masked_full,
     len_prompt,
+    remasking='truth_top_k',
     steps=128,
     gen_length=128,
     block_length=128,
     temperature=0.,
-    remasking='truth_top_k',
     mask_id=126336,
     is_eval=True
 ):
@@ -364,61 +365,65 @@ if __name__ == '__main__':
 
     '''hyper parameter to be set'''
 
-    len_prompt_g = 128
-    len_target_g =  256
-    num_blocks_g = 8
-    num_unmask_per_iter_g = 1
+    # len_prompt_g = 128
+    # len_target_g =  128
+    # num_blocks_g = 8
+    # num_unmask_per_iter_g = 1
 
-    '''hyper parameter can be calculated'''
-    len_max_g = len_prompt_g + len_target_g
-    size_block_g = int(len_target_g / num_blocks_g)
-    assert num_unmask_per_iter_g <= size_block_g
-    steps_g = int(len_target_g / num_unmask_per_iter_g)
+    for len_prompt_g in (32,64,128):
+        for len_target_g in (128, 256):
+            for num_blocks_g in (8,4,1):
+                for num_unmask_per_iter_g in (1,2,4):
 
-
-    '''start to handle dataset based on hyper-parameter'''
-    ds = ds_origin\
-        .filter(lambda x: x["text"] is not None and len(x["text"].strip()) > 0)\
-        .map(Tokenizer_wiki_simple(tokenizer, len_max_g), remove_columns=ds_origin.column_names)\
-        .filter(lambda x: x["length"] >= len_max_g)\
-        .sort("length")
-    # end
-
-    '''prepare dataloader'''
-    loader = DataLoader(
-        ds,
-        batch_size=size_batch_g,
-        shuffle=False,                 # keep sorted order
-        collate_fn=Collater_wiki_simple(len_max_g, len_prompt_g, len_target_g, id_mask_g),
-        drop_last=False
-    )
+                    '''hyper parameter can be calculated'''
+                    len_max_g = len_prompt_g + len_target_g
+                    size_block_g = int(len_target_g / num_blocks_g)
+                    assert num_unmask_per_iter_g <= size_block_g
+                    steps_g = int(len_target_g / num_unmask_per_iter_g)
 
 
-    '''start the evaluation process'''
-    for batch in tqdm(loader):
+                    '''start to handle dataset based on hyper-parameter'''
+                    ds = ds_origin\
+                        .filter(lambda x: x["text"] is not None and len(x["text"].strip()) > 0)\
+                        .map(Tokenizer_wiki_simple(tokenizer, len_max_g), remove_columns=ds_origin.column_names)\
+                        .filter(lambda x: x["length"] >= len_max_g)\
+                        .sort("length")
+                    # end
 
-        result = run_model_with_prefix_cache(
-            model,
-            batch['ids_prompt_masked_full'].to(device_g),
-            batch['ids_target_masked_full'].to(device_g),
-            len_prompt_g,
-            'truth_top_k',
-            steps=steps_g,
-            gen_length=len_target_g,
-            block_length=size_block_g,
-            mask_id=id_mask_g
-        )
+                    '''prepare dataloader'''
+                    loader = DataLoader(
+                        ds,
+                        batch_size=size_batch_g,
+                        shuffle=False,                 # keep sorted order
+                        collate_fn=Collater_wiki_simple(len_max_g, len_prompt_g, len_target_g, id_mask_g),
+                        drop_last=False
+                    )
 
-        with open(f'{len_prompt_g}-{len_target_g}-{num_blocks_g}-{num_unmask_per_iter_g}.fastllada', 'a+') as file:
-            ppl, conf = calculate_ppl_and_conf(result[0], result[1])
-            str_ts_now = get_current_time_str()
-            file.write(f'[{str_ts_now}] {ppl} | {conf}\n')
+
+                    '''start the evaluation process'''
+                    for batch in tqdm(loader):
+
+                        result = run_model_with_prefix_cache(
+                            model,
+                            batch['ids_prompt_masked_full'].to(device_g),
+                            batch['ids_target_masked_full'].to(device_g),
+                            len_prompt_g,
+                            remasking='truth_top_k',
+                            steps=steps_g,
+                            gen_length=len_target_g,
+                            block_length=size_block_g,
+                            mask_id=id_mask_g
+                        )
+
+                        with open(f'{len_prompt_g}-{len_target_g}-{num_blocks_g}-{num_unmask_per_iter_g}.fastllada', 'a+') as file:
+                            ppl, conf = calculate_ppl_and_conf(result[0], result[1])
+                            str_ts_now = get_current_time_str()
+                            file.write(f'[{str_ts_now}] {ppl} | {conf}\n')
+                        # end
+                    # end
+                # end
+            # end
         # end
     # end
-
-
-
-
-
 # end if main
 

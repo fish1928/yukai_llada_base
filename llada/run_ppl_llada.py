@@ -283,10 +283,10 @@ if __name__ == '__main__':
 
     '''hyper parameter to be set'''
 
-    len_prompt_g = 128
-    len_target_g =  256
-    num_blocks_g = 8
-    num_unmask_per_iter_g = 1
+    # len_prompt_g = 128
+    # len_target_g =  256
+    # num_blocks_g = 8
+    # num_unmask_per_iter_g = 1
 
     for len_prompt_g in (32,64,128):
         for len_target_g in (128, 256, 512):
