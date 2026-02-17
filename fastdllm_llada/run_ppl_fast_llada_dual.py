@@ -347,7 +347,7 @@ if __name__ == '__main__':
     '''initialize constant hyper-parameters'''
     id_model_g = 'GSAI-ML/LLaDA-8B-Base'
     id_mask_g = 126336
-    device_g = 'cuda:1'
+    device_g = 'cuda:0'
     size_batch_g = 32
 
 
@@ -382,8 +382,8 @@ if __name__ == '__main__':
     # num_unmask_per_iter_g = 1
 
     for len_prompt_g in (64,):
-        for len_target_g in (128,):
-            for num_blocks_g in (1,):
+        for len_target_g in (256,):
+            for num_blocks_g in (4,):
                 for num_unmask_per_iter_g in (1,):
 
                     '''hyper parameter can be calculated'''

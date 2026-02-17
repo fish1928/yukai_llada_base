@@ -370,10 +370,10 @@ if __name__ == '__main__':
     # num_blocks_g = 8
     # num_unmask_per_iter_g = 1
 
-    for len_prompt_g in (32,64,128):
-        for len_target_g in (128, 256):
-            for num_blocks_g in (8,4,1):
-                for num_unmask_per_iter_g in (1,2,4):
+    for len_prompt_g in (64,):
+        for len_target_g in (256,):
+            for num_blocks_g in (4,):
+                for num_unmask_per_iter_g in (1,):
 
                     '''hyper parameter can be calculated'''
                     len_max_g = len_prompt_g + len_target_g
