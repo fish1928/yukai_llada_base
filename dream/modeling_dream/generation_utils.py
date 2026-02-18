@@ -386,7 +386,7 @@ class DreamGenerationMixin:
         generation_logits_hook_func
     ) -> Union[DreamModelOutput, torch.LongTensor]:
 
-        # 1. init values
+        ''' 1. init values '''
         output_history = generation_config.output_history
         return_dict_in_generate = generation_config.return_dict_in_generate
         max_length = generation_config.max_length
@@ -402,9 +402,11 @@ class DreamGenerationMixin:
         histories = [] if (return_dict_in_generate and output_history) else None
 
 
-        # 2. pad input_ids to max_length
+        ''' 2. pad input_ids to max_length '''
         x = F.pad(input_ids, (0, max_length - input_ids.shape[1]), value=mask_token_id)
 
+
+        ''' 3. handle attentions '''
         if attention_mask is not None and torch.any(attention_mask == 0.0):
             # we do not mask the [MASK] tokens so value = 1.0
             attention_mask = F.pad(attention_mask, (0, max_length - attention_mask.shape[1]), value=1.0)
@@ -421,21 +423,22 @@ class DreamGenerationMixin:
             attention_mask = "full"
         # end if-else
 
+        ''' 4. prepare timestamp '''
         timesteps = torch.linspace(1, eps, steps + 1, device=x.device)
 
-        # this allows user-defined token control of the intermediate steps
-        x = generation_tokens_hook_func(None, x, None)
         for i in range(steps):
             mask_index = (x == mask_token_id)
+
+            ### THESE TWO STEPS NEED TO BE COPIED ###
             logits = self(x, attention_mask, tok_idx).logits    # <----- forward here
-            logits = torch.cat([logits[:,:1], logits[:, :-1]], dim=1)   # <----- 
+            logits = torch.cat([logits[:,:1], logits[:, :-1]], dim=1)   # <-----
+            ### THESE TWO STEPS NEED TO BE COPIED ###
 
-            # this allows user-defined logits control of the intermediate steps
-            logits = generation_logits_hook_func(i, x, logits)
+            logits_masked = logits[mask_index]
 
-            mask_logits = logits[mask_index]
             t = timesteps[i]
             s = timesteps[i + 1]
+
             kv_args_sample_tokens = {
                 'temperature': temperature,
                 'top_p': top_p,
@@ -449,24 +452,24 @@ class DreamGenerationMixin:
                 transfer_index_t_s = torch.rand(*x0.shape, device=self.device) < p_transfer
 
                 _, x0[transfer_index_t_s] = sample_tokens(
-                    mask_logits[transfer_index_t_s],
+                    logits_masked[transfer_index_t_s],
                     **kv_args_sample_tokens
                 )
                 x[mask_index] = x0.clone()
             else:
-                case alg:
-                    match 'maskgit_plus':
+                match alg:
+                    case 'maskgit_plus':
                         pass
-                    match 'topk_margin':
+                    case 'topk_margin':
                         kv_args_sample_tokens['margin_confidence'] = True
-                    match 'entropy':
+                    case 'entropy':
                         kv_args_sample_tokens['neg_entropy'] = True
-                    match _:
+                    case _:
                         raise NotImplementedError(f'Unknown alg: {alg}')
                     # end
                 # end case
 
-                confidence, x0 = sample_tokens(mask_logits, **kv_args_sample_tokens)
+                confidence, x0 = sample_tokens(logits_masked, **kv_args_sample_tokens)
                 del kv_args_sample_tokens
 
                 num_mask_token = mask_index.sum() / mask_index.shape[0]
@@ -493,9 +496,6 @@ class DreamGenerationMixin:
                 # end if
             # end alg == origin or others
 
-
-            # this allows user-defined token control of the intermediate steps
-            x = generation_tokens_hook_func(i, x, logits)
 
             if histories is not None:
                 histories.append(x.clone())
