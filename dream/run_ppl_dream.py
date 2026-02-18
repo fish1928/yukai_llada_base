@@ -299,8 +299,8 @@ if __name__ == '__main__':
     ds_origin = Dataset.from_list(samples)
 
     '''initialize constant hyper-parameters'''
-    id_model_g = 'GSAI-ML/LLaDA-8B-Base'
-    id_mask_g = 126336
+    id_model_g = 'Dream-org/Dream-v0-Base-7B'
+    id_mask_g = ID_TOKEN_MASK
     device_g = 'cuda:0'
     size_batch_g = 32
     folder_log_base = 'logs_ppl_conf_dream'
@@ -309,7 +309,8 @@ if __name__ == '__main__':
     '''load model tokenizer'''
     tokenizer = DreamTokenizer.from_pretrained(
         id_model_g,
-        trust_remote_code=True
+        trust_remote_code=True,
+        padding_side='left'
     )
 
 

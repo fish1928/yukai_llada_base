@@ -1,40 +1,7 @@
 nohup: ignoring input
-The tokenizer class you load from this checkpoint is not the same type as the class this function is called from. It may result in unexpected tokenization. 
-The tokenizer class you load from this checkpoint is 'PreTrainedTokenizerFast'. 
-The class this function is called from is 'DreamTokenizer'.
-Traceback (most recent call last):
-  File "/home/exx/miniconda3/lib/python3.13/site-packages/transformers/tokenization_utils_base.py", line 2292, in _from_pretrained
-    tokenizer = cls(*init_inputs, **init_kwargs)
-  File "/home/exx/Workspace/yukai_llada_base/dream/modeling_dream/tokenization_dream.py", line 173, in __init__
-    with open(vocab_file, encoding="utf-8") as vocab_handle:
-         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: expected str, bytes or os.PathLike object, not NoneType
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/exx/Workspace/yukai_llada_base/dream/run_ppl_dream.py", line 310, in <module>
-    tokenizer = DreamTokenizer.from_pretrained(
-        id_model_g,
-        trust_remote_code=True
-    )
-  File "/home/exx/miniconda3/lib/python3.13/site-packages/transformers/tokenization_utils_base.py", line 2052, in from_pretrained
-    return cls._from_pretrained(
-           ~~~~~~~~~~~~~~~~~~~~^
-        resolved_vocab_files,
-        ^^^^^^^^^^^^^^^^^^^^^
-    ...<9 lines>...
-        **kwargs,
-        ^^^^^^^^^
-    )
-    ^
-  File "/home/exx/miniconda3/lib/python3.13/site-packages/transformers/tokenization_utils_base.py", line 2293, in _from_pretrained
-    except import_protobuf_decode_error():
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "/home/exx/miniconda3/lib/python3.13/site-packages/transformers/tokenization_utils_base.py", line 87, in import_protobuf_decode_error
-    raise ImportError(PROTOBUF_IMPORT_ERROR.format(error_message))
-ImportError: 
- requires the protobuf library but it was not found in your environment. Checkout the instructions on the
-installation page of its repo: https://github.com/protocolbuffers/protobuf/tree/master/python#installation and follow the ones
-that match your environment. Please note that you may need to restart your runtime after installation.
-
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  6.74it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  7.57it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  7.70it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  8.11it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  7.85it/s]
+Filter:   0%|          | 0/751 [00:00<?, ? examples/s]Filter: 100%|██████████| 751/751 [00:00<00:00, 76138.41 examples/s]
+Map:   0%|          | 0/751 [00:00<?, ? examples/s]Map:   1%|          | 9/751 [00:00<00:11, 65.34 examples/s]Map:   3%|▎         | 21/751 [00:00<00:08, 89.12 examples/s]Map:   4%|▍         | 33/751 [00:00<00:07, 93.63 examples/s]Map:   6%|▋         | 48/751 [00:00<00:08, 85.28 examples/s]Map:   9%|▊         | 64/751 [00:00<00:06, 103.82 examples/s]Map:  12%|█▏        | 87/751 [00:00<00:04, 136.56 examples/s]Map:  14%|█▍        | 105/751 [00:00<00:05, 122.70 examples/s]Map:  16%|█▌        | 120/751 [00:01<00:05, 119.12 examples/s]Map:  18%|█▊        | 134/751 [00:01<00:05, 123.37 examples/s]Map:  20%|█▉        | 150/751 [00:01<00:04, 125.58 examples/s]Map:  22%|██▏       | 167/751 [00:01<00:04, 132.14 examples/s]Map:  24%|██▍       | 183/751 [00:01<00:04, 130.19 examples/s]Map:  27%|██▋       | 205/751 [00:01<00:04, 127.94 examples/s]Map:  30%|██▉       | 222/751 [00:01<00:03, 133.68 examples/s]Map:  32%|███▏      | 242/751 [00:02<00:03, 131.21 examples/s]Map:  35%|███▍      | 261/751 [00:02<00:03, 140.84 examples/s]Map:  37%|███▋      | 277/751 [00:02<00:03, 140.33 examples/s]Map:  42%|████▏     | 316/751 [00:02<00:02, 194.89 examples/s]Map:  45%|████▌     | 341/751 [00:02<00:02, 182.12 examples/s]Map:  48%|████▊     | 363/751 [00:02<00:02, 163.19 examples/s]Map:  52%|█████▏    | 387/751 [00:02<00:02, 150.92 examples/s]Map:  54%|█████▍    | 409/751 [00:02<00:02, 163.76 examples/s]Map:  57%|█████▋    | 430/751 [00:03<00:02, 151.45 examples/s]Map:  60%|█████▉    | 449/751 [00:03<00:01, 155.77 examples/s]Map:  63%|██████▎   | 471/751 [00:03<00:01, 148.34 examples/s]Map:  65%|██████▌   | 491/751 [00:03<00:01, 155.02 examples/s]Map:  68%|██████▊   | 512/751 [00:03<00:01, 158.90 examples/s]Map:  71%|███████   | 531/751 [00:03<00:01, 145.31 examples/s]Map:  73%|███████▎  | 550/751 [00:03<00:01, 152.64 examples/s]Map:  75%|███████▌  | 567/751 [00:04<00:01, 153.70 examples/s]Map:  79%|███████▊  | 590/751 [00:04<00:01, 151.80 examples/s]Map:  81%|████████  | 609/751 [00:04<00:01, 137.85 examples/s]Map:  83%|████████▎ | 625/751 [00:04<00:00, 135.63 examples/s]Map:  85%|████████▌ | 642/751 [00:04<00:00, 136.88 examples/s]Map:  89%|████████▊ | 666/751 [00:04<00:00, 138.42 examples/s]Map:  91%|█████████ | 685/751 [00:04<00:00, 129.72 examples/s]Map:  93%|█████████▎| 699/751 [00:05<00:00, 130.36 examples/s]Map:  95%|█████████▌| 717/751 [00:05<00:00, 139.05 examples/s]Map:  98%|█████████▊| 733/751 [00:05<00:00, 142.34 examples/s]Map: 100%|██████████| 751/751 [00:05<00:00, 132.50 examples/s]Map: 100%|██████████| 751/751 [00:05<00:00, 138.80 examples/s]
+Filter:   0%|          | 0/751 [00:00<?, ? examples/s]Filter: 100%|██████████| 751/751 [00:00<00:00, 43729.49 examples/s]
+  0%|          | 0/23 [00:00<?, ?it/s]
