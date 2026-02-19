@@ -35,6 +35,8 @@ class DiscreteDiffusionModel(nn.Module, PyTorchModelHubMixin):
             self.model = AutoModelForCausalLM.from_config(config_pt)
         else:
             self.model = model
+        # end
+        
         self.config = config
         self.embed_dim = self.config.hidden_size
         self.hidden_dim = self.config.hidden_size
