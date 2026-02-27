@@ -710,6 +710,7 @@ class LLaDABlock(nn.Module):
         use_cache: bool = False,
         replace_position: Optional[torch.Tensor] = None,
     ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
+        
         B, T, C = q.size()  # batch size, sequence length, d_model
         dtype = k.dtype
 
