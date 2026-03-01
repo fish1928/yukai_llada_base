@@ -107,7 +107,8 @@ class LLaDALlamaBlock(LLaDABlock):
             )
         else:
             att, cache = self.attention(
-                q_denoising, k, v, attention_bias=attention_bias,
+                q_denoising, k, v,
+                attention_bias=attention_bias,
                 layer_past=layer_past,
                 use_cache=use_cache,
                 idx_refresh=idx_refresh,
@@ -149,7 +150,7 @@ class LLaDALlamaBlock(LLaDABlock):
 
 def attention(
     self,
-    q: torch.Tensor,
+    q_denoising: torch.Tensor,
     k: torch.Tensor,
     v: torch.Tensor,
     mask: Optional[torch.Tensor] = None,
@@ -167,17 +168,25 @@ def attention(
 
     # Optionally apply layer norm to keys and queries.
     if self.q_norm is not None and self.k_norm is not None: #self.q_norm: None, self.k_norm: None
-        q = self.q_norm(q).to(dtype=dtype)
+        q_denoising = self.q_norm(q_denoising).to(dtype=dtype)
         k = self.k_norm(k).to(dtype=dtype)
+    # end
 
     # Move head forward to be next to the batch dim.
     # shape: (B, nh, T, hs)
     # self.config.n_heads: 32
-    q = q.view(B, T, self.config.n_heads, C // self.config.n_heads).transpose(1, 2)
+    q_denoising = q_denoising.view(B, T, self.config.n_heads, C // self.config.n_heads).transpose(1, 2)
     # shape: (B, n_kv_h, T, hs)
     k = k.view(B, T, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
     # shape: (B, n_kv_h, T, hs)
     v = v.view(B, T, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
+
+
+    
+
+
+
+
 
     if layer_past is not None: 
         past_key, past_value = layer_past
