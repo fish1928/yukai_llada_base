@@ -1,10 +1,4 @@
 class LLaDALlamaBlock(LLaDABlock):
-    """
-    This is a transformer block where the output is computed as ``MLP(LN(x + Attention(LN(x))))``
-    (plus another skip connection). This block is similar to `LLaDASequentialBlock`
-    but some operations have slightly different implementations to imitate the
-    behavior of Llama.
-    """
 
     def __init__(self, layer_id: int, config: ModelConfig, cache: BufferCache):
         super().__init__(layer_id, config, cache)
@@ -148,109 +142,62 @@ class LLaDALlamaBlock(LLaDABlock):
     # end
 # end
 
+'''[current] = [refresh|denoising]'''
 def attention(
     self,
     q_denoising: torch.Tensor,
-    k: torch.Tensor,
-    v: torch.Tensor,
+    k_current: torch.Tensor,
+    v_current: torch.Tensor,
     mask: Optional[torch.Tensor] = None,
     attention_bias: Optional[torch.Tensor] = None,
     layer_past: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
     use_cache: bool = False,
     idx_refresh: Optional[torch.Tensor] = None,
     idx_denoising: Optional[torch.Tensor] = None,
-    shape_target=Optional[Tuple[int, int, int]] = None
+    shape_target: Optional[Tuple[int, int, int]] = None
 
 ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
     
-    B, T, C = q.size()  # batch size, sequence length, d_model
-    dtype = k.dtype
+    B, T_q, C = q_denoising.size()  # batch size, sequence length, d_model
+    T_kv = k_current.shape[1]
+    dtype = k_current.dtype
 
     # Optionally apply layer norm to keys and queries.
     if self.q_norm is not None and self.k_norm is not None: #self.q_norm: None, self.k_norm: None
         q_denoising = self.q_norm(q_denoising).to(dtype=dtype)
-        k = self.k_norm(k).to(dtype=dtype)
+        k_current = self.k_norm(k_current).to(dtype=dtype)
     # end
 
     # Move head forward to be next to the batch dim.
     # shape: (B, nh, T, hs)
     # self.config.n_heads: 32
-    q_denoising = q_denoising.view(B, T, self.config.n_heads, C // self.config.n_heads).transpose(1, 2)
+    q_denoising = q_denoising.view(B, T_q, self.config.n_heads, C // self.config.n_heads).transpose(1, 2)
     # shape: (B, n_kv_h, T, hs)
-    k = k.view(B, T, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
+    k_current = k_current.view(B, T_kv, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
     # shape: (B, n_kv_h, T, hs)
-    v = v.view(B, T, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
+    v_current = v_current.view(B, T_kv, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
 
+    if not layer_past:
+        raise NotImplementedError('no layer_past case is current not supported.')
+    # end
 
-    
+    k_previous, v_previous = layer_past
 
+    k_final = concat_and_replace(k_previous, k_current, idx_refresh, idx_denoising, shape_target)
+    v_final = concat_and_replace(v_previous, v_current, idx_refresh, idx_denoising, shape_target)
 
+    max_replace_pos = k_final.shape[1]
+    q_denoising_rotated, k_final_rotated = self.rotary_emb(q_denoising, k_final, max_replace_pos)   # WARNING: might have problem
 
-
-
-    if layer_past is not None: 
-        past_key, past_value = layer_past
-        if replace_position is None:
-            k = torch.cat((past_key, k), dim=-2)
-            v = torch.cat((past_value, v), dim=-2)
-        else:
-            # k shape is [B, n_kv_h, selected_length, hs]
-            # replace_position shape is [B, L], where L contains 0s and 1s, 0 means no replacement, 1 means replace, with selected_length number of 1s
-            # past_key shape is [B, n_kv_h, L, hs]
-            # Replace selected_length number of 1s in past_key with k
-            
-            # Handle batched replace_position correctly
-            B = replace_position.shape[0]
-            for batch_idx in range(B):
-                # Get indices for this batch
-                batch_replace_indices = replace_position[batch_idx].nonzero(as_tuple=True)[0]
-                if len(batch_replace_indices) > 0:
-                    # Replace positions in past_key and past_value for this batch
-                    past_key[batch_idx, :, batch_replace_indices] = k[batch_idx, :, :len(batch_replace_indices)]
-                    past_value[batch_idx, :, batch_replace_indices] = v[batch_idx, :, :len(batch_replace_indices)]
-                # end
-            # end
-            
-            k = past_key
-            v = past_value
-        # end if replace_position
-    # end if layer_past
-
-    present = (k, v) if use_cache else None #present: None
-    query_len, key_len = q.shape[-2], k.shape[-2]  # could be different if layer_past not None
-
-    if self.config.rope:
-        # Apply rotary embeddings.
-        if replace_position is None:
-            q, k = self.rotary_emb(q, k)
-        else:
-            # For batched replace_position, use the maximum position across all batches
-            max_replace_pos = replace_position.nonzero(as_tuple=True)[1].max() + 1 if replace_position.any() else key_len
-            q, k = self.rotary_emb(q, k, max_replace_pos)
-
-    if attention_bias is not None:
-        # Resize and cast attention bias.
-        # The current dtype of the attention bias might not match the dtype that the SDP attn function will
-        # run in if AMP is enabled, and this can be a problem if some tokens are masked out due to padding
-        # as down-casting the attention bias to the autocast precision will result in -infs, which will
-        # cause the SDP attn function to produce NaNs.
-        attention_bias = self._cast_attn_bias(
-            attention_bias[:, :, key_len - query_len : key_len, :key_len], dtype
-        )
-
-    # Get the attention scores.
-    # shape: (B, nh, T, hs)
-    att = self._scaled_dot_product_attention(
-        q,
-        k,
-        v,
+    hidden = self._scaled_dot_product_attention(
+        q_denoising_rotated, 
+        k_final_rotated,
+        v_final,
         attn_mask=None,
         dropout_p=0.0 if not self.training else self.config.attention_dropout,
-        is_causal=False,
+        is_causal=False
     )
-    # Re-assemble all head outputs side-by-side.
-    att = att.transpose(1, 2).contiguous().view(B, T, C)
 
-    # Apply output projection.
-    return self.attn_out(att), present
+    hidden = hidden.transpose(1,2).contiguous().view(B,T_q,C)
+    return self.attn_out(hidden), (k_final, v_final)
 # end
