@@ -206,7 +206,7 @@ def get_transfer_index(
 
 
 @torch.no_grad()
-def run_model_with_dual_cache(
+def run_model_with_budget(
     model,
     ids_input_masked_full,
     ids_target_masked_full,
@@ -231,64 +231,46 @@ def run_model_with_dual_cache(
     assert steps % num_blocks == 0
     steps_per_block = steps // num_blocks
 
-    nfe = 0
+    x_prompt = x[:, :len_prompt]
+    idx_prompt = torch.arange(x_prompt.shape[1])
+    out_prompt = model(x_prompt, use_cache=True, idx_denoising=idx_prompt)
+    past_key_values = out_prompt.past_key_values
+
+    count_step_diffusion = 0
 
     for id_block in range(num_blocks):
+
         position_start = len_prompt + id_block * block_length
         position_end = position_start + block_length
-
-        # Masks/indices for the current block
         block_mask_index = (x[:, position_start:position_end] == mask_id)  # (B, block_length)
         num_transfer_tokens = get_num_transfer_tokens(block_mask_index, steps_per_block)  # (B, steps_per_block)
-
-        # 1) Warm KV-cache on the full prefix once per block
-        out_full = model(x, use_cache=True)
-        past_key_values = out_full.past_key_values
-        nfe += 1
 
         # Build a replace_position tensor indicating the block range (static slice)
         mask_position_replace = torch.zeros_like(x, dtype=torch.bool)
         mask_position_replace[:, position_start:position_end] = True  # boolean mask (not a dynamic slice bound)
 
-        # Step 0: do an initial transfer on the full logits
-        mask_masked_full = (x == mask_id)
-        # Do not touch beyond current block in this phase
-        mask_masked_full[:, position_end:] = False
-
-        quota0 = num_transfer_tokens[:, 0]  # (B,)
-        x0, x0_p, transfer_index = get_transfer_index(
-            out_full.logits,
-            temperature,
-            remasking,
-            mask_masked_full,
-            x,
-            y,
-            quota0
-        )
-
-        # In-place update via torch.where (no tensor-slice assignment with mask)
-        # x = torch.where(transfer_index, x0, x)   # -> replace by jinyu
-        if is_eval:
-            x[transfer_index] = y[transfer_index]
-            probs_all[transfer_index] = x0_p[transfer_index]
-        else:
-            x[transfer_index] = x0[transfer_index]
-        # end
-
-        # 2) Semi-autoregressive refinement, fixed number of steps (graph-friendly)
-        #    Each iteration runs on the current block with KV-cache and replace_position
-        for step_in_block in range(1, steps_per_block):
+        for step_in_block in range(steps_per_block):
             # Evaluate logits only for current block with cache
             if (x[:, position_start:position_end] == mask_id).sum() == 0:
                 break
             # end
 
-            logits_blk = model(
-                x[:, position_start:position_end],
+            idx_refresh = get_refresh_idx()
+            idx_denoising = torch.arange(position_start, position_end,dtype=torch.long)
+            idx_current = torch.cat([idx_refresh, idx_denoising])
+            x_current = x[:, idx_current]
+
+            output_blk = model(
+                x_current,
                 past_key_values=past_key_values,
                 use_cache=True,
-                replace_position=mask_position_replace
-            ).logits  # shape expected by get_transfer_index*
+                idx_refresh=idx_refresh,
+                idx_denoising=idx_denoising,
+                shape_target=(x.shape[0], position_end, -1)
+            )
+
+            logits_blk = output_blk.logits
+            past_key_values=output_blk.past_key_values  # update past_key_values here
 
             # Mask and quota for this step (all tensor ops)
             mask_blk = (x[:, position_start:position_end] == mask_id)  # (B, block_length)
@@ -314,11 +296,10 @@ def run_model_with_dual_cache(
                 blk_x[transfer_idx_blk] = blk_x0[transfer_idx_blk]
             # end
 
-            nfe += 1
+            count_step_diffusion += 1
 
     return probs_all, y != mask_id
 # end
-
 
 
 

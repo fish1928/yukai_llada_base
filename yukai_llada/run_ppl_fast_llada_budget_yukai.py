@@ -1,7 +1,7 @@
 import torch
 
 @torch.no_grad()
-def run_model_with_dual_cache(
+def run_model_with_budget(
     model,
     ids_input_masked_full,
     ids_target_masked_full,

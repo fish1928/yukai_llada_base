@@ -52,7 +52,7 @@ from transformers.modeling_outputs import CausalLMOutputWithPast
 from transformers.models.auto import AutoModel
 from transformers.cache_utils import Cache
 
-from .configuration_llada import (
+from configuration_llada import (
     LLaDAConfig,
     StrEnum,
     InitFnType,
@@ -94,7 +94,7 @@ log = logging.getLogger(__name__)
 # write a same-idx-for-rows version first
 # [current] = [refresh|denoising
 @torch.compile()
-def concat_and_replace(matrix_origin, matrix_current, idx_refresh, idx_denoising, shape_target): # (B, L, H)
+def concat_and_replace(matrix_origin, matrix_current, idx_current, shape_target): # (B, L, H)
 
     if matrix_origin.shape[-2] < shape_target[-2]:   # need patch
         length_patch = shape_target[-2] - matrix_origin.shape[-2]
@@ -109,7 +109,6 @@ def concat_and_replace(matrix_origin, matrix_current, idx_refresh, idx_denoising
     assert matrix_origin.shape[-2] == shape_target[-2],\
         f'origin shape should equal to target shape after patch, {matrix_origin.shape[-2]} == {shape_target[-2]}'
 
-    idx_current = torch.cat([idx_refresh, idx_denoising], dim=-2)
     matrix_origin[:, idx_current, :] = matrix_current
     return matrix_origin
 # end
@@ -458,12 +457,17 @@ class RotaryEmbedding(nn.Module):
     def apply_rotary_pos_emb(self, pos_sin: torch.Tensor, pos_cos: torch.Tensor, t: torch.Tensor) -> torch.Tensor:
         return ((t * pos_cos) + (self.rotate_half(t) * pos_sin)).to(t.dtype)
 
+    # jinyu rotary
     def forward(self, q: torch.Tensor, k: torch.Tensor,
-                block_end_index: Optional[torch.Tensor] = None) -> Tuple[torch.Tensor, torch.Tensor]:
+                block_end_index: Optional[torch.Tensor] = None,
+                idx_q: Optional[torch.Tensor] = None
+                ) -> Tuple[torch.Tensor, torch.Tensor]:
+        
         if self.config.rope_full_precision:
             q_, k_ = q.float(), k.float()
         else:
             q_, k_ = q, k
+        # end
 
         with torch.autocast(q.device.type, enabled=False):
             query_len, key_len = q_.shape[-2], k_.shape[-2]
@@ -471,27 +475,17 @@ class RotaryEmbedding(nn.Module):
             pos_sin = pos_sin.type_as(q_)
             pos_cos = pos_cos.type_as(q_)
 
-            # Build tensor indices instead of using .item()
-            if block_end_index is None:
-                start = key_len - query_len
-                end = key_len
-            else:
-                # block_end_index is a tensor; keep ops tensor-based
-                start = (block_end_index - query_len)
-                end = block_end_index
-
-            # Make an index tensor [start, ..., end-1] on the right device/dtype
-            idx = torch.arange(start, end, device=q_.device, dtype=torch.long)
-
             # Use index_select on the sequence dimension (dim=2)
-            pos_sin_slice = pos_sin.index_select(2, idx)
-            pos_cos_slice = pos_cos.index_select(2, idx)
+            pos_sin_slice = pos_sin.index_select(2, idx_q)
+            pos_cos_slice = pos_cos.index_select(2, idx_q)
 
             q_ = self.apply_rotary_pos_emb(pos_sin_slice, pos_cos_slice, q_)
             k_ = self.apply_rotary_pos_emb(pos_sin, pos_cos, k_)
+        # end
 
         return q_.type_as(q), k_.type_as(k)
-
+    # end
+# end
 
 
 class Activation(nn.Module):
@@ -729,52 +723,53 @@ class LLaDABlock(nn.Module):
     '''[current] = [refresh|denoising]'''
     def attention(
         self,
-        q_denoising: torch.Tensor,
+        q_current: torch.Tensor,
         k_current: torch.Tensor,
         v_current: torch.Tensor,
         mask: Optional[torch.Tensor] = None,
         attention_bias: Optional[torch.Tensor] = None,
         layer_past: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
         use_cache: bool = False,
-        idx_refresh: Optional[torch.Tensor] = None,
-        idx_denoising: Optional[torch.Tensor] = None,
+        idx_current: Optional[torch.Tensor] = None,
         shape_target: Optional[Tuple[int, int, int]] = None
 
     ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
         
-        B, T_q, C = q_denoising.size()  # batch size, sequence length, d_model
-        T_kv = k_current.shape[1]
+        B, T, C = q_current.size()  # batch size, sequence length, d_model
         dtype = k_current.dtype
 
         # Optionally apply layer norm to keys and queries.
         if self.q_norm is not None and self.k_norm is not None: #self.q_norm: None, self.k_norm: None
-            q_denoising = self.q_norm(q_denoising).to(dtype=dtype)
+            q_current = self.q_norm(q_current).to(dtype=dtype)
             k_current = self.k_norm(k_current).to(dtype=dtype)
         # end
 
         # Move head forward to be next to the batch dim.
         # shape: (B, nh, T, hs)
         # self.config.n_heads: 32
-        q_denoising = q_denoising.view(B, T_q, self.config.n_heads, C // self.config.n_heads).transpose(1, 2)
+        q_current = q_current.view(B, T, self.config.n_heads, C // self.config.n_heads).transpose(1, 2)
         # shape: (B, n_kv_h, T, hs)
-        k_current = k_current.view(B, T_kv, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
+        k_current = k_current.view(B, T, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
         # shape: (B, n_kv_h, T, hs)
-        v_current = v_current.view(B, T_kv, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
+        v_current = v_current.view(B, T, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
 
         if not layer_past:
-            raise NotImplementedError('no layer_past case is current not supported.')
+            k_final = k_current
+            v_final = v_current
+        else:
+            k_previous, v_previous = layer_past
+            k_final = concat_and_replace(k_previous, k_current, idx_current, shape_target)
+            v_final = concat_and_replace(v_previous, v_current, idx_current, shape_target)
         # end
 
-        k_previous, v_previous = layer_past
-
-        k_final = concat_and_replace(k_previous, k_current, idx_refresh, idx_denoising, shape_target)
-        v_final = concat_and_replace(v_previous, v_current, idx_refresh, idx_denoising, shape_target)
 
         max_replace_pos = k_final.shape[1]
-        q_denoising_rotated, k_final_rotated = self.rotary_emb(q_denoising, k_final, max_replace_pos)   # WARNING: might have problem
+        q_current_rotated, k_final_rotated = self.rotary_emb(
+            q_current, k_final, max_replace_pos, idx_current
+        )
 
         hidden = self._scaled_dot_product_attention(
-            q_denoising_rotated, 
+            q_current_rotated, 
             k_final_rotated,
             v_final,
             attn_mask=None,
@@ -782,7 +777,7 @@ class LLaDABlock(nn.Module):
             is_causal=False
         )
 
-        hidden = hidden.transpose(1,2).contiguous().view(B,T_q,C)
+        hidden = hidden.transpose(1,2).contiguous().view(B,T,C)
         return self.attn_out(hidden), (k_final, v_final)
     # end
 
@@ -794,6 +789,8 @@ class LLaDABlock(nn.Module):
         attention_bias: Optional[torch.FloatTensor] = None,
         layer_past: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
         use_cache: bool = False,
+        idx_current: Optional[torch.Tensor] = None,
+        shape_target: Tuple[int, int, int] = None
     ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
         raise NotImplementedError
 
@@ -880,8 +877,7 @@ class LLaDALlamaBlock(LLaDABlock):
         attention_bias: Optional[torch.Tensor] = None,
         layer_past: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
         use_cache: bool = False,
-        idx_refresh: Optional[torch.Tensor] = None,
-        idx_denoising: Optional[torch.Tensor] = None,
+        idx_current: Optional[torch.Tensor] = None,
         shape_target: Tuple[int, int, int] = None
     ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
         '''
@@ -896,35 +892,32 @@ class LLaDALlamaBlock(LLaDABlock):
         '''
 
         x_normed_current = self.attn_norm(x_current) #x:torch.Size([2, 168, 4096])
-        x_normed_denoising = x_normed_current[:, :-idx_denoising.shape[1], :]
-        q_denoising = self.q_proj(x_normed_denoising) #q:torch.Size([2, 168, 4096])
+        q_current = self.q_proj(q_current) #q:torch.Size([2, 168, 4096])
 
         k = self.k_proj(x_normed_current) #k:torch.Size([2, 168, 4096])
         v = self.v_proj(x_normed_current) #v:torch.Size([2, 168, 4096])
 
         if self._activation_checkpoint_fn is not None:
-            att, cache = self._activation_checkpoint_fn(  # type: ignore
-                self.attention, q_denoising, k, v, attention_bias=attention_bias,
+            attn, cache = self._activation_checkpoint_fn(  # type: ignore
+                self.attention, q_current, k, v, attention_bias=attention_bias,
                 layer_past=layer_past,
                 use_cache=use_cache,
-                idx_refresh=idx_refresh,
-                idx_denoising=idx_denoising
+                idx_current=idx_current,
             )
         else:
-            att, cache = self.attention(
-                q_denoising, k, v,
+            attn, cache = self.attention(
+                q_current, k, v,
                 attention_bias=attention_bias,
                 layer_past=layer_past,
                 use_cache=use_cache,
-                idx_refresh=idx_refresh,
-                idx_denoising=idx_denoising,
+                idx_current=idx_current,
                 shape_target=shape_target
             )
         # end
 
         # Add attention scores.
         # shape: (B, T, C)
-        x = x + self.dropout(att)
+        x = x + self.dropout(attn)
 
         # Add feed-forward projection.
         # shape: (batch_size, seq_len, d_model)
@@ -1187,9 +1180,10 @@ class LLaDAModel(nn.Module):
         attention_bias: Optional[torch.Tensor] = None,
         past_key_values: Optional[Sequence[Tuple[torch.Tensor, torch.Tensor]]] = None,
         use_cache: bool = False,
+        idx_current: Optional[torch.Tensor] = None,
+        shape_target: Tuple[int, int, int] = None,
         last_logits_only: bool = False,
         output_hidden_states: Optional[bool] = None,
-        replace_position: Optional[torch.Tensor] = None,
     ) -> LLaDAOutput:
         """
         :param input_ids: A tensor of shape `(batch_size, seq_len)`.
@@ -1330,11 +1324,24 @@ class LLaDAModel(nn.Module):
                 ):
                     # shape: (batch_size, seq_len, d_model)
                     x, cache = self._activation_checkpoint_fn(
-                        block, x, attention_bias=attention_bias, layer_past=layer_past, use_cache=use_cache,replace_position=replace_position
+                        block,
+                        x,
+                        attention_bias=attention_bias,
+                        layer_past=layer_past,
+                        use_cache=use_cache,
+                        idx_current=idx_current,
+                        shape_target=shape_target
                     )
                 else:
                     # shape: (batch_size, seq_len, d_model)
-                    x, cache = block(x, attention_bias=attention_bias, layer_past=layer_past, use_cache=use_cache,replace_position=replace_position)
+                    x, cache = block(
+                        x,attention_bias=attention_bias,
+                        layer_past=layer_past,
+                        use_cache=use_cache,
+                        idx_current=idx_current,
+                        shape_target=shape_target
+                    )
+
                 if attn_key_values is not None:
                     assert cache is not None
                     attn_key_values.append(cache)
@@ -1352,8 +1359,14 @@ class LLaDAModel(nn.Module):
                     ]
                 )
                 x, cache = block_group(
-                    x, attention_bias=attention_bias, layers_past=layers_past, use_cache=use_cache
+                    x,
+                    attention_bias=attention_bias,
+                    layers_past=layers_past,
+                    use_cache=use_cache,
+                    idx_current=idx_current,
+                    shape_target=shape_target
                 )
+                
                 if attn_key_values is not None:
                     assert cache is not None
                     attn_key_values.extend(cache)
@@ -1423,10 +1436,12 @@ class LLaDAModelLM(PreTrainedModel):
         past_key_values: Optional[List[torch.FloatTensor]] = None,
         labels: Optional[torch.LongTensor] = None,
         use_cache: Optional[bool] = None,
+        idx_refresh: Optional[torch.Tensor] = None,
+        idx_denoising: Optional[torch.Tensor] = None,
+        shape_target: Tuple[int, int, int] = None,
         output_attentions: Optional[bool] = None,
         output_hidden_states: Optional[bool] = None,
         return_dict: Optional[bool] = None,
-        replace_position: Optional[torch.Tensor] = None,  # This is a hack mitigation of an issue in transformers `4.39.x`
     ) -> Union[Tuple, CausalLMOutputWithPast]:
         if use_cache is None:
             use_cache = self.config.use_cache
@@ -1444,9 +1459,12 @@ class LLaDAModelLM(PreTrainedModel):
             attention_bias=attention_bias,
             past_key_values=past_key_values,
             use_cache=use_cache,
-            output_hidden_states=output_hidden_states,
-            replace_position=replace_position,
+            idx_refresh=idx_refresh,
+            idx_denoising=idx_denoising,
+            shape_target=shape_target,
+            output_hidden_states=output_hidden_states
         )
+            
         # import pdb; pdb.set_trace()
         logits = outputs.logits
         hidden_states = outputs.hidden_states
