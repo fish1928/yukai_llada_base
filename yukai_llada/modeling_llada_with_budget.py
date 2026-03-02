@@ -93,23 +93,23 @@ log = logging.getLogger(__name__)
 
 # write a same-idx-for-rows version first
 # [current] = [refresh|denoising
-@torch.compile()
-def concat_and_replace(matrix_origin, matrix_current, idx_current, shape_target): # (B, L, H)
+# @torch.compile()
+def concat_and_replace(matrix_origin, matrix_current, idx_current, shape_target): # (B, Hd, L, H)
 
     if matrix_origin.shape[-2] < shape_target[-2]:   # need patch
         length_patch = shape_target[-2] - matrix_origin.shape[-2]
 
         assert matrix_current.shape[-2] >= length_patch,\
             f'current shape should be >= patch shape, {matrix_current.shape[-2]} >= {length_patch}'
-        matrix_patch = matrix_current[:, -length_patch:, :]   # TODO: check this
-        print(matrix_origin.shape, matrix_patch.shape)
+        matrix_patch = matrix_current[:, :, -length_patch:, :]   # TODO: check this
+
         matrix_origin = torch.cat([matrix_origin, matrix_patch], dim=-2)
     # end
 
     assert matrix_origin.shape[-2] == shape_target[-2],\
         f'origin shape should equal to target shape after patch, {matrix_origin.shape[-2]} == {shape_target[-2]}'
 
-    matrix_origin[:, idx_current, :] = matrix_current
+    matrix_origin[:, :, idx_current, :] = matrix_current
     return matrix_origin
 # end
 
@@ -762,6 +762,7 @@ class LLaDABlock(nn.Module):
             v_final = concat_and_replace(v_previous, v_current, idx_current, shape_target)
         # end
 
+        # print('!!!!!!!!!!!!!!! idx_current.device {}'.format(idx_current.device))
 
         max_replace_pos = k_final.shape[1]
         q_current_rotated, k_final_rotated = self.rotary_emb(
@@ -892,7 +893,7 @@ class LLaDALlamaBlock(LLaDABlock):
         '''
 
         x_normed_current = self.attn_norm(x_current) #x:torch.Size([2, 168, 4096])
-        q_current = self.q_proj(q_current) #q:torch.Size([2, 168, 4096])
+        q_current = self.q_proj(x_normed_current) #q:torch.Size([2, 168, 4096])
 
         k = self.k_proj(x_normed_current) #k:torch.Size([2, 168, 4096])
         v = self.v_proj(x_normed_current) #v:torch.Size([2, 168, 4096])
@@ -905,7 +906,7 @@ class LLaDALlamaBlock(LLaDABlock):
                 idx_current=idx_current,
             )
         else:
-            attn, cache = self.attention(
+            attn_current, cache = self.attention(
                 q_current, k, v,
                 attention_bias=attention_bias,
                 layer_past=layer_past,
@@ -917,32 +918,32 @@ class LLaDALlamaBlock(LLaDABlock):
 
         # Add attention scores.
         # shape: (B, T, C)
-        x = x + self.dropout(attn)
+        x_final = x_current + self.dropout(attn_current)
 
         # Add feed-forward projection.
         # shape: (batch_size, seq_len, d_model)
-        og_x = x
+        og_x_final = x_final
 
         if self._activation_checkpoint_fn is not None:
-            x = self._activation_checkpoint_fn(self.ff_norm, x)  # type: ignore
+            x_final = self._activation_checkpoint_fn(self.ff_norm, x_final)  # type: ignore
         else:
-            x = self.ff_norm(x)
+            x_final = self.ff_norm(x_final)
         # end
 
-        x, x_up = self.ff_proj(x), self.up_proj(x) # new add
+        x_final, x_final_up = self.ff_proj(x_final), self.up_proj(x_final) # new add
 
         if self._activation_checkpoint_fn is not None:
-            x = self._activation_checkpoint_fn(self.act, x)  # type: ignore
+            x_final = self._activation_checkpoint_fn(self.act, x_final)  # type: ignore
         else:
-            x = self.act(x)
+            x_final = self.act(x_final)
         # end
 
-        x = x * x_up # new add
-        x = self.ff_out(x)
-        x = self.dropout(x)
-        x = og_x + x
+        x_final = x_final * x_final_up # new add
+        x_final = self.ff_out(x_final)
+        x_final = self.dropout(x_final)
+        x_final = og_x_final + x_final
 
-        return x, cache
+        return x_final, cache
     # end
 # end
 
@@ -1436,8 +1437,7 @@ class LLaDAModelLM(PreTrainedModel):
         past_key_values: Optional[List[torch.FloatTensor]] = None,
         labels: Optional[torch.LongTensor] = None,
         use_cache: Optional[bool] = None,
-        idx_refresh: Optional[torch.Tensor] = None,
-        idx_denoising: Optional[torch.Tensor] = None,
+        idx_current: Optional[torch.Tensor] = None,
         shape_target: Tuple[int, int, int] = None,
         output_attentions: Optional[bool] = None,
         output_hidden_states: Optional[bool] = None,
@@ -1459,8 +1459,7 @@ class LLaDAModelLM(PreTrainedModel):
             attention_bias=attention_bias,
             past_key_values=past_key_values,
             use_cache=use_cache,
-            idx_refresh=idx_refresh,
-            idx_denoising=idx_denoising,
+            idx_current=idx_current,
             shape_target=shape_target,
             output_hidden_states=output_hidden_states
         )
