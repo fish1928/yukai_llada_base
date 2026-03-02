@@ -725,6 +725,7 @@ class LLaDABlock(nn.Module):
                 is_causal=False,
             )
 
+    # jinyu attention
     '''[current] = [refresh|denoising]'''
     def attention(
         self,
@@ -872,9 +873,10 @@ class LLaDALlamaBlock(LLaDABlock):
     # end
     
 
+    # jinyu forward
     def forward(
         self,
-        x: torch.Tensor,
+        x_current: torch.Tensor,
         attention_bias: Optional[torch.Tensor] = None,
         layer_past: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
         use_cache: bool = False,
@@ -893,12 +895,12 @@ class LLaDALlamaBlock(LLaDABlock):
             - [current] = [refresh|denoising]
         '''
 
-        x_normed = self.attn_norm(x) #x:torch.Size([2, 168, 4096])
-        x_normed_denoising = x_normed[:, -idx_denoising.shape[1], :]
+        x_normed_current = self.attn_norm(x_current) #x:torch.Size([2, 168, 4096])
+        x_normed_denoising = x_normed_current[:, :-idx_denoising.shape[1], :]
         q_denoising = self.q_proj(x_normed_denoising) #q:torch.Size([2, 168, 4096])
 
-        k = self.k_proj(x_normed) #k:torch.Size([2, 168, 4096])
-        v = self.v_proj(x_normed) #v:torch.Size([2, 168, 4096])
+        k = self.k_proj(x_normed_current) #k:torch.Size([2, 168, 4096])
+        v = self.v_proj(x_normed_current) #v:torch.Size([2, 168, 4096])
 
         if self._activation_checkpoint_fn is not None:
             att, cache = self._activation_checkpoint_fn(  # type: ignore
