@@ -729,10 +729,8 @@ class LLaDABlock(nn.Module):
         mask: Optional[torch.Tensor] = None,
         attention_bias: Optional[torch.Tensor] = None,
         layer_past: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
-        use_cache: bool = False,
         idx_current: Optional[torch.Tensor] = None,
-        shape_target: Optional[Tuple[int, int, int]] = None,
-        cache_kv: bool = False
+        shape_target: Optional[Tuple[int, int, int]] = None
 
     ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
         
@@ -793,7 +791,7 @@ class LLaDABlock(nn.Module):
         use_cache: bool = False,
         idx_current: Optional[torch.Tensor] = None,
         shape_target: Tuple[int, int, int] = None,
-        cache_kv: bool = False
+        cache_kv_previous: bool = False
     ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
         raise NotImplementedError
 
@@ -882,7 +880,7 @@ class LLaDALlamaBlock(LLaDABlock):
         use_cache: bool = False,
         idx_current: Optional[torch.Tensor] = None,
         shape_target: Tuple[int, int, int] = None,
-        cache_kv: bool = False
+        cache_kv_previous: bool = False
     ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
         '''
         Get query, key, value projections.
@@ -895,28 +893,22 @@ class LLaDALlamaBlock(LLaDABlock):
             - [current] = [refresh|denoising]
         '''
 
-        if cache_kv:
+        if cache_kv_previous:
             self._k_previous = None
             self._v_previous = None
         # end
 
-
         x_normed_current = self.attn_norm(x_current) #x:torch.Size([2, 168, 4096])
         q_current = self.q_proj(x_normed_current) #q:torch.Size([2, 168, 4096])
+
 
         k = self.k_proj(x_normed_current) #k:torch.Size([2, 168, 4096])
         v = self.v_proj(x_normed_current) #v:torch.Size([2, 168, 4096])
 
-        if cache_kv:
+        if cache_kv_previous:
             self._k_previous = k
             self._v_previous = v
-        else:
-            if self.layer_id == 31:
-                print('cache_kv is None here')
-            # end
         # end
-
-
 
         if self._activation_checkpoint_fn is not None:
             attn, cache = self._activation_checkpoint_fn(  # type: ignore
@@ -924,16 +916,14 @@ class LLaDALlamaBlock(LLaDABlock):
                 layer_past=layer_past,
                 use_cache=use_cache,
                 idx_current=idx_current,
-                shape_target=shape_target,
             )
         else:
             attn_current, cache = self.attention(
                 q_current, k, v,
                 attention_bias=attention_bias,
                 layer_past=layer_past,
-                use_cache=use_cache,
                 idx_current=idx_current,
-                shape_target=shape_target,
+                shape_target=shape_target
             )
         # end
 
@@ -1001,62 +991,6 @@ class LLaDAGenerateOutput(NamedTuple):
     """
 
 
-class LLaDABlockGroup(nn.ModuleList):
-    def __init__(self, config: ModelConfig, layer_offset: int, modules: Optional[Iterable[nn.Module]] = None):
-        super().__init__(modules)
-        self.config = config
-        self.layer_offset = layer_offset
-        self.activation_checkpointing_strategy: Optional[ActivationCheckpointingStrategy] = None
-        self._activation_checkpoint_fn = activation_checkpoint_function(self.config)
-
-    def forward(
-        self,
-        x: torch.Tensor,
-        attention_bias: Optional[torch.FloatTensor] = None,
-        layers_past: Optional[List[Tuple[torch.Tensor, torch.Tensor]]] = None,
-        use_cache: bool = False,
-    ) -> Tuple[torch.Tensor, Optional[List[Tuple[torch.Tensor, torch.Tensor]]]]:
-        attn_key_values: Optional[List[Tuple[torch.Tensor, torch.Tensor]]] = [] if use_cache else None
-        for block_idx, block in enumerate(self):
-            layer_past = None if layers_past is None else layers_past[block_idx]
-            block_idx += self.layer_offset
-            if (
-                (self.activation_checkpointing_strategy == ActivationCheckpointingStrategy.whole_layer)
-                or (
-                    self.activation_checkpointing_strategy == ActivationCheckpointingStrategy.one_in_two
-                    and block_idx % 2 == 0
-                )
-                or (
-                    self.activation_checkpointing_strategy == ActivationCheckpointingStrategy.one_in_three
-                    and block_idx % 3 == 0
-                )
-                or (
-                    self.activation_checkpointing_strategy == ActivationCheckpointingStrategy.one_in_four
-                    and block_idx % 4 == 0
-                )
-            ):
-                # shape: (batch_size, seq_len, d_model)
-                x, cache = self._activation_checkpoint_fn(  # type: ignore
-                    block, x, attention_bias=attention_bias, layer_past=layer_past, use_cache=use_cache
-                )
-            else:
-                # shape: (batch_size, seq_len, d_model)
-                x, cache = block(x, attention_bias=attention_bias, layer_past=layer_past, use_cache=use_cache)
-            if attn_key_values is not None:
-                assert cache is not None
-                attn_key_values.append(cache)
-        return x, attn_key_values
-
-    def reset_parameters(self):
-        for block in self:
-            block.reset_parameters()
-
-    def set_activation_checkpointing(self, strategy: Optional[ActivationCheckpointingStrategy]):
-        self.activation_checkpointing_strategy = strategy
-        for block in self:
-            block.set_activation_checkpointing(strategy)
-
-
 class LLaDAModel(nn.Module):
     def __init__(self, config: ModelConfig, init_params: bool = True):
         super().__init__()
@@ -1103,14 +1037,8 @@ class LLaDAModel(nn.Module):
         )
 
         blocks = [LLaDABlock.build(i, config, self.__cache) for i in range(config.n_layers)]
-        if self.config.block_group_size > 1:
-            block_groups = [
-                LLaDABlockGroup(config, i, blocks[i : i + config.block_group_size])
-                for i in range(0, config.n_layers, config.block_group_size)
-            ]
-            self.transformer.update({"block_groups": nn.ModuleList(block_groups)})
-        else:
-            self.transformer.update({"blocks": nn.ModuleList(blocks)})
+
+        self.transformer.update({"blocks": nn.ModuleList(blocks)})
 
         if not (self.config.alibi or self.config.rope):
             self.transformer.update(
@@ -1206,7 +1134,7 @@ class LLaDAModel(nn.Module):
         shape_target: Tuple[int, int, int] = None,
         last_logits_only: bool = False,
         output_hidden_states: Optional[bool] = None,
-        cache_kv: bool = False
+        cache_kv_previous: bool = False
     ) -> LLaDAOutput:
         """
         :param input_ids: A tensor of shape `(batch_size, seq_len)`.
@@ -1354,7 +1282,7 @@ class LLaDAModel(nn.Module):
                         use_cache=use_cache,
                         idx_current=idx_current,
                         shape_target=shape_target,
-                        cache_kv=cache_kv
+                        cache_kv_previous=cache_kv_previous
                     )
                 else:
                     # shape: (batch_size, seq_len, d_model)
@@ -1364,7 +1292,7 @@ class LLaDAModel(nn.Module):
                         use_cache=use_cache,
                         idx_current=idx_current,
                         shape_target=shape_target,
-                        cache_kv=cache_kv
+                        cache_kv_previous=cache_kv_previous
                     )
 
                 if attn_key_values is not None:
@@ -1389,7 +1317,8 @@ class LLaDAModel(nn.Module):
                     layers_past=layers_past,
                     use_cache=use_cache,
                     idx_current=idx_current,
-                    shape_target=shape_target
+                    shape_target=shape_target,
+                    cache_kv_previous=cache_kv_previous
                 )
                 
                 if attn_key_values is not None:
@@ -1466,6 +1395,7 @@ class LLaDAModelLM(PreTrainedModel):
         output_attentions: Optional[bool] = None,
         output_hidden_states: Optional[bool] = None,
         return_dict: Optional[bool] = None,
+        cache_kv_previous: bool = False
     ) -> Union[Tuple, CausalLMOutputWithPast]:
         if use_cache is None:
             use_cache = self.config.use_cache
@@ -1485,7 +1415,8 @@ class LLaDAModelLM(PreTrainedModel):
             use_cache=use_cache,
             idx_current=idx_current,
             shape_target=shape_target,
-            output_hidden_states=output_hidden_states
+            output_hidden_states=output_hidden_states,
+            cache_kv_previous=cache_kv_previous
         )
             
         # import pdb; pdb.set_trace()
