@@ -444,6 +444,7 @@ if __name__ == '__main__':
     len_target_g = 256
     num_blocks_g = 4
     num_unmask_per_iter_g = 1
+    path_output_g = 'sims_kv'
 
 
     '''hyper parameter can be calculated'''
@@ -484,7 +485,8 @@ if __name__ == '__main__':
             gen_length=len_target_g,
             block_length=size_block_g,
             mask_id=id_mask_g,
-            id_batch=id_batch
+            id_batch=id_batch,
+            path_output=path_output_g
         )
 
     # end for
