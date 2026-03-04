@@ -217,55 +217,7 @@ def get_transfer_index(
     return x0, x0_p, transfer_index
 # end
 
-'''load dataset first'''
-name_dataset = jinyu_dataset.LIST_DATASET[1]
-ds = load_dataset(*name_dataset, split='all')
-docs, _ = parse_lines_with_index(PATTEN_REG_WIKI, ds['text'])
-docs = docs['subdocs']
 
-samples = []
-for doc in docs:
-    lines_1 = doc['texts']
-    paragraph_1 = ' '.join(lines_1)
-    lines_remain, titles = merge_subdocs(doc['subdocs'])
-    paragraph_remain = ' '.join(lines_remain)
-    prefix = paragraph_1
-    target = paragraph_remain
-    samples.append({'text': paragraph_1 + ' ' + paragraph_remain})
-# end
-
-ds_origin = Dataset.from_list([samples[:100]])
-
-
-'''initialize constant hyper-parameters'''
-id_model_g = 'GSAI-ML/LLaDA-8B-Base'
-id_mask_g = 126336
-device_g = 'cuda:0'
-size_batch_g = 1
-
-
-'''load tokenizer'''
-tokenizer = AutoTokenizer.from_pretrained(
-    id_model_g,
-    trust_remote_code=True
-)
-
-if tokenizer.padding_side != 'left':
-    tokenizer.padding_side = 'left'
-# end
-assert tokenizer.pad_token_id != 126336
-
-
-'''load model'''
-model_kwargs = {}
-model = LLaDAModelLM.from_pretrained(
-    id_model_g,
-    trust_remote_code=True,
-    torch_dtype=torch.bfloat16,
-    **model_kwargs
-)
-
-model = model.eval().to(device_g)
 
 
 
@@ -438,6 +390,58 @@ def run_model_without_budget_and_collect_kv(
 
 
 if __name__ == '__main__':
+
+    '''load dataset first'''
+    name_dataset = jinyu_dataset.LIST_DATASET[1]
+    ds = load_dataset(*name_dataset, split='all')
+    docs, _ = parse_lines_with_index(PATTEN_REG_WIKI, ds['text'])
+    docs = docs['subdocs']
+
+    samples = []
+    for doc in docs:
+        lines_1 = doc['texts']
+        paragraph_1 = ' '.join(lines_1)
+        lines_remain, titles = merge_subdocs(doc['subdocs'])
+        paragraph_remain = ' '.join(lines_remain)
+        prefix = paragraph_1
+        target = paragraph_remain
+        samples.append({'text': paragraph_1 + ' ' + paragraph_remain})
+    # end
+
+    print(len(samples))
+
+    ds_origin = Dataset.from_list(samples[:100])
+
+
+    '''initialize constant hyper-parameters'''
+    id_model_g = 'GSAI-ML/LLaDA-8B-Base'
+    id_mask_g = 126336
+    device_g = 'cuda:0'
+    size_batch_g = 1
+
+
+    '''load tokenizer'''
+    tokenizer = AutoTokenizer.from_pretrained(
+        id_model_g,
+        trust_remote_code=True
+    )
+
+    if tokenizer.padding_side != 'left':
+        tokenizer.padding_side = 'left'
+    # end
+    assert tokenizer.pad_token_id != 126336
+
+
+    '''load model'''
+    model_kwargs = {}
+    model = LLaDAModelLM.from_pretrained(
+        id_model_g,
+        trust_remote_code=True,
+        torch_dtype=torch.bfloat16,
+        **model_kwargs
+    )
+
+    model = model.eval().to(device_g)
 
     '''hyper parameter to be set'''
     len_prompt_g = 128
