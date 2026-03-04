@@ -1,3 +1,4 @@
+import os
 import torch
 import torch.nn.functional as F
 from jinyu_utils import jinyu_dataset
@@ -12,13 +13,15 @@ from torch.utils.data import DataLoader
 from fastdllm_generate import add_gumbel_noise, get_num_transfer_tokens
 
 from tqdm import tqdm
-from modeling_fastdllm.modeling_llada import LLaDAModelLM
+from modeling_llada_with_budget_and_cachekv import LLaDAModelLM
 
 from datetime import datetime, timezone
+from collections import defaultdict
 
 def get_current_time_str():
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 # end
+
 
 
 '''initialize global constants'''
@@ -107,6 +110,15 @@ class Collater_wiki_simple(Collater_):
     # end _collate
 # end
 
+def get_refresh_idx(x, len_prompt=0, type_refresh=None):
+    
+    if type_refresh == 'previous_all':
+        return torch.arange(len_prompt, dtype=torch.long, device=x.device)
+    # end
+
+    return torch.tensor([0,1], dtype=torch.long, device=x.device)
+# end
+
 
 ''' ppl calculation function'''
 def calculate_ppl_and_conf(probs_all, mask_target, eps=1e-12):
@@ -156,6 +168,7 @@ def get_transfer_index(
     # x0_p = torch.rand(x0.shape, device=x0.device, dtype=torch.float64)  # (B, L)  # removed by jinyu
 
     # Only modify masked spots; keep others as original x and set their confidence to -inf
+    # TODO: we have error here
     x0 = torch.where(mask_index, x0, x) # mask_index is only this block
 
     neg_inf = torch.tensor(torch.finfo(x0_p.dtype).min, device=x0.device, dtype=x0_p.dtype)
@@ -204,9 +217,60 @@ def get_transfer_index(
     return x0, x0_p, transfer_index
 # end
 
+'''load dataset first'''
+name_dataset = jinyu_dataset.LIST_DATASET[1]
+ds = load_dataset(*name_dataset, split='all')
+docs, _ = parse_lines_with_index(PATTEN_REG_WIKI, ds['text'])
+docs = docs['subdocs']
+
+samples = []
+for doc in docs:
+    lines_1 = doc['texts']
+    paragraph_1 = ' '.join(lines_1)
+    lines_remain, titles = merge_subdocs(doc['subdocs'])
+    paragraph_remain = ' '.join(lines_remain)
+    prefix = paragraph_1
+    target = paragraph_remain
+    samples.append({'text': paragraph_1 + ' ' + paragraph_remain})
+# end
+
+ds_origin = Dataset.from_list([samples[:100]])
+
+
+'''initialize constant hyper-parameters'''
+id_model_g = 'GSAI-ML/LLaDA-8B-Base'
+id_mask_g = 126336
+device_g = 'cuda:0'
+size_batch_g = 1
+
+
+'''load tokenizer'''
+tokenizer = AutoTokenizer.from_pretrained(
+    id_model_g,
+    trust_remote_code=True
+)
+
+if tokenizer.padding_side != 'left':
+    tokenizer.padding_side = 'left'
+# end
+assert tokenizer.pad_token_id != 126336
+
+
+'''load model'''
+model_kwargs = {}
+model = LLaDAModelLM.from_pretrained(
+    id_model_g,
+    trust_remote_code=True,
+    torch_dtype=torch.bfloat16,
+    **model_kwargs
+)
+
+model = model.eval().to(device_g)
+
+
 
 @torch.no_grad()
-def run_model_with_budget(
+def run_model_without_budget_and_collect_kv(
     model,
     ids_input_masked_full,
     ids_target_masked_full,
@@ -217,7 +281,10 @@ def run_model_with_budget(
     block_length=128,
     temperature=0.,
     mask_id=126336,
-    is_eval=True
+    is_eval=True,
+    cache_kv_previous=True,
+    id_batch=0,
+    path_output='sims_kv'
 ):
     
     x, y = ids_input_masked_full, ids_target_masked_full
@@ -231,12 +298,14 @@ def run_model_with_budget(
     assert steps % num_blocks == 0
     steps_per_block = steps // num_blocks
 
-    x_prompt = x[:, :len_prompt]
-    idx_prompt = torch.arange(x_prompt.shape[1])
-    out_prompt = model(x_prompt, use_cache=True, idx_denoising=idx_prompt)
-    past_key_values = out_prompt.past_key_values
+    names_hidden = ('_k_previous','_v_previous')
+    dict_hidden_to_matrixs_sim_per_step = {}
+    for name_hidden in names_hidden:
+        dict_hidden_to_matrixs_sim_per_step[name_hidden] = []
+    # end
 
-    count_step_diffusion = 0
+    dict_cache_kv_previous = {}
+
 
     for id_block in range(num_blocks):
 
@@ -245,32 +314,28 @@ def run_model_with_budget(
         block_mask_index = (x[:, position_start:position_end] == mask_id)  # (B, block_length)
         num_transfer_tokens = get_num_transfer_tokens(block_mask_index, steps_per_block)  # (B, steps_per_block)
 
-        # Build a replace_position tensor indicating the block range (static slice)
-        mask_position_replace = torch.zeros_like(x, dtype=torch.bool)
-        mask_position_replace[:, position_start:position_end] = True  # boolean mask (not a dynamic slice bound)
-
         for step_in_block in range(steps_per_block):
             # Evaluate logits only for current block with cache
             if (x[:, position_start:position_end] == mask_id).sum() == 0:
                 break
             # end
 
-            idx_refresh = get_refresh_idx()
-            idx_denoising = torch.arange(position_start, position_end,dtype=torch.long)
+            idx_refresh = get_refresh_idx(x, position_start, type_refresh='previous_all') # full prompt is to refresh
+            idx_denoising = torch.arange(position_start, position_end,dtype=torch.long, device=x.device)
             idx_current = torch.cat([idx_refresh, idx_denoising])
             x_current = x[:, idx_current]
 
-            output_blk = model(
+            output_current = model(
                 x_current,
-                past_key_values=past_key_values,
-                use_cache=True,
-                idx_refresh=idx_refresh,
-                idx_denoising=idx_denoising,
-                shape_target=(x.shape[0], position_end, -1)
+                use_cache=False,
+                idx_current=idx_current,
+                shape_target=(x.shape[0], position_end, -1),
+                cache_kv_previous=cache_kv_previous
             )
 
-            logits_blk = output_blk.logits
-            past_key_values=output_blk.past_key_values  # update past_key_values here
+            # (B, [refresh|blk])
+            logits_current = output_current.logits
+            logits_blk = logits_current[:, idx_denoising] # (B, [blk])
 
             # Mask and quota for this step (all tensor ops)
             mask_blk = (x[:, position_start:position_end] == mask_id)  # (B, block_length)
@@ -289,133 +354,138 @@ def run_model_with_budget(
                 quota_i
             )
 
-            if is_eval:
-                blk_x[transfer_idx_blk] = blk_y[transfer_idx_blk]
-                blk_prob[transfer_idx_blk] = blk_x0_p[transfer_idx_blk]
-            else:
-                blk_x[transfer_idx_blk] = blk_x0[transfer_idx_blk]
+            blk_x[transfer_idx_blk] = blk_y[transfer_idx_blk] if is_eval else blk_x0[transfer_idx_blk]
+            blk_prob[transfer_idx_blk] = blk_x0_p[transfer_idx_blk]
+
+            if not cache_kv_previous:
+                continue
+            #
+
+            dict_hidden_to_sims_layer = {}
+            for name_hidden in names_hidden:
+                dict_hidden_to_sims_layer[name_hidden] = []
             # end
 
-            count_step_diffusion += 1
+            for block_transformer in model.model.transformer.blocks[:]:                       # take last all layers
+                id_block_transformer = block_transformer.layer_id
+                name_cache_base = f'batch_{id_batch}_layer_{id_block_transformer}'  # block and step in block
+
+                for name_hidden in names_hidden:
+                    if hasattr(block_transformer, name_hidden):
+                        cache_current = getattr(block_transformer, name_hidden)
+                        name_cache = f'{name_cache_base}.{name_hidden}'
+
+                        if name_cache not in dict_cache_kv_previous:
+                            dict_cache_kv_previous[name_cache] = cache_current
+                            continue
+                        # end
+
+                        # we have current and last, calculate similarity
+                        cache_last = dict_cache_kv_previous[name_cache]
+                        dict_cache_kv_previous[name_cache] = cache_current  # udpate cache
+
+                        if cache_last.shape[1] < cache_current.shape[1]:
+                            cache_last = torch.cat([cache_last, cache_current[:, cache_last.shape[1]:, :]], dim=1)
+                            # cache_last = F.pad(cache_last, (0,0,0,  cache_current.shape[1] - cache_last.shape[1]), value=0.0)
+                            
+                        # end
+
+                        sim_neighbour = F.cosine_similarity(cache_current, cache_last, dim=-1)
+                        
+                        if sim_neighbour.shape[-1] < x.shape[-1]:
+                            sim_neighbour_padded = F.pad(
+                                sim_neighbour,
+                                (0, x.shape[-1]-sim_neighbour.shape[1]),
+                                value=1.0
+                            ).squeeze(0)
+                        else:
+                            sim_neighbour_padded = sim_neighbour.squeeze(0)
+                        # end
+
+                        dict_hidden_to_sims_layer[name_hidden].append(sim_neighbour_padded)
+                    # end
+                # end
+            # end
+
+            for name_hidden in names_hidden:
+                sims_layer = dict_hidden_to_sims_layer[name_hidden]
+
+                if len(sims_layer) == 0:
+                    break
+                # end
+                
+                matrix_sim_per_step = torch.stack(sims_layer, dim=0)
+                dict_hidden_to_matrixs_sim_per_step[name_hidden].append(matrix_sim_per_step)
+            # end
+
+        # end for step
+    # end for block
+
+    os.makedirs(path_output, exist_ok=True)
+
+    for name_hidden in names_hidden:
+        matrixs_sim_per_step = dict_hidden_to_matrixs_sim_per_step[name_hidden]
+        matrix_sim_per_step_layer_token = torch.stack(matrixs_sim_per_step, 0)
+        name_sim_final = f'batch_{id_batch}{name_hidden}.pt'
+        path_sim_final = os.path.join(path_output, name_sim_final)
+        # print(f'saving {path_sim_final} with shape {matrix_sim_per_step_layer_token.shape}')
+        torch.save(matrix_sim_per_step_layer_token.detach().float().cpu(), path_sim_final)
+    # end
+
 
     return probs_all, y != mask_id
 # end
 
 
-
 if __name__ == '__main__':
 
-    '''load dataset first'''
-    name_dataset = jinyu_dataset.LIST_DATASET[1]
-    ds = load_dataset(*name_dataset, split='all')
-    docs, _ = parse_lines_with_index(PATTEN_REG_WIKI, ds['text'])
-    docs = docs['subdocs']
-
-    samples = []
-    for doc in docs:
-        lines_1 = doc['texts']
-        paragraph_1 = ' '.join(lines_1)
-        lines_remain, titles = merge_subdocs(doc['subdocs'])
-        paragraph_remain = ' '.join(lines_remain)
-        prefix = paragraph_1
-        target = paragraph_remain
-        samples.append({'text': paragraph_1 + ' ' + paragraph_remain})
-    # end
-
-    ds_origin = Dataset.from_list(samples)
-
-
-    '''initialize constant hyper-parameters'''
-    id_model_g = 'GSAI-ML/LLaDA-8B-Base'
-    id_mask_g = 126336
-    device_g = 'cuda:0'
-    size_batch_g = 32
-
-
-    '''load tokenizer'''
-    tokenizer = AutoTokenizer.from_pretrained(
-        id_model_g,
-        trust_remote_code=True
-    )
-
-    if tokenizer.padding_side != 'left':
-        tokenizer.padding_side = 'left'
-    # end
-    assert tokenizer.pad_token_id != 126336
-
-
-    '''load model'''
-    model_kwargs = {}
-    model = LLaDAModelLM.from_pretrained(
-        id_model_g,
-        trust_remote_code=True,
-        torch_dtype=torch.bfloat16,
-        **model_kwargs
-    )
-
-    model = model.eval().to(device_g)
-
     '''hyper parameter to be set'''
-
-    # len_prompt_g = 128
-    # len_target_g =  128
-    # num_blocks_g = 8
-    # num_unmask_per_iter_g = 1
-
-    for len_prompt_g in (64,):
-        for len_target_g in (256,):
-            for num_blocks_g in (4,):
-                for num_unmask_per_iter_g in (1,):
-
-                    '''hyper parameter can be calculated'''
-                    len_max_g = len_prompt_g + len_target_g
-                    size_block_g = int(len_target_g / num_blocks_g)
-                    assert num_unmask_per_iter_g <= size_block_g
-                    steps_g = int(len_target_g / num_unmask_per_iter_g)
+    len_prompt_g = 128
+    len_target_g = 256
+    num_blocks_g = 4
+    num_unmask_per_iter_g = 1
 
 
-                    '''start to handle dataset based on hyper-parameter'''
-                    ds = ds_origin\
-                        .filter(lambda x: x["text"] is not None and len(x["text"].strip()) > 0)\
-                        .map(Tokenizer_wiki_simple(tokenizer, len_max_g), remove_columns=ds_origin.column_names)\
-                        .filter(lambda x: x["length"] >= len_max_g)\
-                        .sort("length")
-                    # end
-
-                    '''prepare dataloader'''
-                    loader = DataLoader(
-                        ds,
-                        batch_size=size_batch_g,
-                        shuffle=False,                 # keep sorted order
-                        collate_fn=Collater_wiki_simple(len_max_g, len_prompt_g, len_target_g, id_mask_g),
-                        drop_last=False
-                    )
+    '''hyper parameter can be calculated'''
+    len_max_g = len_prompt_g + len_target_g
+    size_block_g = int(len_target_g / num_blocks_g)
+    assert num_unmask_per_iter_g <= size_block_g
+    steps_g = int(len_target_g / num_unmask_per_iter_g)
 
 
-                    '''start the evaluation process'''
-                    for batch in tqdm(loader):
-
-                        result = run_model_with_dual_cache(
-                            model,
-                            batch['ids_prompt_masked_full'].to(device_g),
-                            batch['ids_target_masked_full'].to(device_g),
-                            len_prompt_g,
-                            remasking='truth_top_k',
-                            steps=steps_g,
-                            gen_length=len_target_g,
-                            block_length=size_block_g,
-                            mask_id=id_mask_g
-                        )
-
-                        with open(f'{len_prompt_g}-{len_target_g}-{num_blocks_g}-{num_unmask_per_iter_g}.dualllada', 'a+') as file:
-                            ppl, conf = calculate_ppl_and_conf(result[0], result[1])
-                            str_ts_now = get_current_time_str()
-                            file.write(f'[{str_ts_now}] {ppl} | {conf}\n')
-                        # end
-                    # end
-                # end
-            # end
-        # end
+    '''start to handle dataset based on hyper-parameter'''
+    ds = ds_origin\
+        .filter(lambda x: x["text"] is not None and len(x["text"].strip()) > 0)\
+        .map(Tokenizer_wiki_simple(tokenizer, len_max_g), remove_columns=ds_origin.column_names)\
+        .filter(lambda x: x["length"] >= len_max_g)\
+        .sort("length")
     # end
-# end if main
 
+    '''prepare dataloader'''
+    loader = DataLoader(
+        ds,
+        batch_size=size_batch_g,
+        shuffle=False,                 # keep sorted order
+        collate_fn=Collater_wiki_simple(len_max_g, len_prompt_g, len_target_g, id_mask_g),
+        drop_last=False
+    )
+
+
+    '''start the evaluation process'''
+    for id_batch, batch in enumerate(tqdm(loader)):
+
+        run_model_without_budget_and_collect_kv(
+            model,
+            batch['ids_prompt_masked_full'].to(device_g),
+            batch['ids_target_masked_full'].to(device_g),
+            len_prompt_g,
+            remasking='truth_top_k',
+            steps=steps_g,
+            gen_length=len_target_g,
+            block_length=size_block_g,
+            mask_id=id_mask_g,
+            id_batch=id_batch
+        )
+
+    # end for
+# end
