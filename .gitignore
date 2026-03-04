@@ -4,3 +4,4 @@ __pycache__
 *.pyc
 scores/*
 kv_states*
+*.pt
