@@ -5,3 +5,4 @@ __pycache__
 scores/*
 kv_states*
 *.pt
+*.json

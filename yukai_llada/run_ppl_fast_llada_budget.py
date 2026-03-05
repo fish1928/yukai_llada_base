@@ -410,7 +410,7 @@ if __name__ == '__main__':
 
     print(len(samples))
 
-    ds_origin = Dataset.from_list(samples[:100])
+    ds_origin = Dataset.from_list(samples[:115])
 
 
     '''initialize constant hyper-parameters'''
