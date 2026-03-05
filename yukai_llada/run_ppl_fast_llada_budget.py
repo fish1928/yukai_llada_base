@@ -342,7 +342,7 @@ def run_model_without_budget_and_collect_kv(
                             
                         # end
 
-                        sim_neighbour = F.cosine_similarity(cache_current, cache_last, dim=-1)
+                        sim_neighbour = F.cosine_similarity(cache_current, cache_last, dim=-1).clamp(-1.0, 1.0)
                         
                         if sim_neighbour.shape[-1] < x.shape[-1]:
                             sim_neighbour_padded = F.pad(
