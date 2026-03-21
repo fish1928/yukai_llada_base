@@ -751,7 +751,7 @@ class LLaDABlock(nn.Module):
         # shape: (B, n_kv_h, T, hs)
         v_current = v_current.view(B, T, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
 
-        k_final, v_final = self.enable_past_kv.load()
+        k_final, v_final = self.cache_past_kv.load()
 
         max_replace_pos = k_final.shape[1]
         q_current_rotated, k_final_rotated = self.rotary_emb(
@@ -769,7 +769,7 @@ class LLaDABlock(nn.Module):
 
         hidden = hidden.transpose(1,2).contiguous().view(B,T,C)
 
-        self.enable_past_kv.save()
+        self.cache_past_kv.save()
 
         return self.attn_out(hidden)
     # end
@@ -849,7 +849,7 @@ class LLaDALlamaBlock(LLaDABlock):
             bias=config.include_bias,
             device=config.init_device
         )
-    # end
+    # end __init__
 
     def reset_parameters(self):
         super().reset_parameters()
@@ -873,7 +873,7 @@ class LLaDALlamaBlock(LLaDABlock):
         shape_target: Tuple[int, int, int] = None,
     ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
 
-        self.cache_kv_previous.refresh()    # refresh to avoid double memory storage
+        self.save_kv_previous.refresh()    # refresh to avoid double memory storage
 
         x_normed_current = self.attn_norm(x_current) #x:torch.Size([2, 168, 4096])
         q_current = self.q_proj(x_normed_current) #q:torch.Size([2, 168, 4096])
@@ -881,7 +881,7 @@ class LLaDALlamaBlock(LLaDABlock):
         k = self.k_proj(x_normed_current) #k:torch.Size([2, 168, 4096])
         v = self.v_proj(x_normed_current) #v:torch.Size([2, 168, 4096])
 
-        self.cache_kv_previous.save()
+        self.save_kv_previous.save()
 
         if self._activation_checkpoint_fn is not None:
             attn_current = self._activation_checkpoint_fn(  # type: ignore
@@ -1010,10 +1010,6 @@ class LLaDAModel(nn.Module):
 
         self.transformer.update({"blocks": nn.ModuleList(blocks)})
 
-        if not (self.config.alibi or self.config.rope):
-            self.transformer.update(
-                {"wpe": nn.Embedding(config.max_sequence_length, config.d_model, device=config.init_device)}
-            )
         if not config.weight_tying:
             self.transformer.update(
                 {
@@ -1028,21 +1024,42 @@ class LLaDAModel(nn.Module):
         # When `init_device="meta"` FSDP will call `reset_parameters()` to initialize weights.
         if init_params and self.config.init_device != "meta":
             self.reset_parameters()
-        self.__num_fwd_flops: Optional[int] = None
-        # Warm up cache.
-        if self.config.alibi:
-            get_causal_attention_bias(self.__cache, config.max_sequence_length, _non_meta_init_device(config))
-            self.get_alibi_attention_bias(config.max_sequence_length, _non_meta_init_device(config))
+        # end
 
+        self.__num_fwd_flops: Optional[int] = None
+    # end
+
+    def fill_plugin(self, klass_plugin):
+        for _, block in enumerate(self.transformer.blocks):
+            instance_plugin = klass_plugin()
+            setattr(block, instance_plugin.get_plugin_name(), instance_plugin)
+        # end
+    # end
+
+    def collect_plugins_with_index(self, klass_plugin):
+        name_plugin = klass_plugin().get_plugin_name()
+        plugins= []
+
+        for idx_block, block in enumerate(self.transformer.blocks):
+            instance_plugin = getattr(block, name_plugin)
+            plugins.append((idx_block, instance_plugin))
+        # end
+
+        return plugins
+    # end
 
     def set_activation_checkpointing(self, strategy: Optional[ActivationCheckpointingStrategy]):
         self.activation_checkpointing_strategy = strategy
         if self.config.block_group_size != 1:
             for block_group in self.transformer.block_groups:
                 block_group.set_activation_checkpointing(strategy)
+            # end for
         else:
             for block in self.transformer.blocks:
                 block.set_activation_checkpointing(strategy)
+            # end for 
+        # end if
+    # end def
 
     @property
     def device(self) -> torch.device:
@@ -1091,6 +1108,8 @@ class LLaDAModel(nn.Module):
             alibi_bias = alibi_attention_bias(seq_len, self.config, device)
         self.__cache["alibi_attention_bias"] = alibi_bias
         return alibi_bias
+    # end
+
 
     def forward(
         self,
@@ -1098,205 +1117,53 @@ class LLaDAModel(nn.Module):
         input_embeddings: Optional[torch.FloatTensor] = None,
         attention_mask: Optional[torch.Tensor] = None,
         attention_bias: Optional[torch.Tensor] = None,
-        past_key_values: Optional[Sequence[Tuple[torch.Tensor, torch.Tensor]]] = None,
         idx_current: Optional[torch.Tensor] = None,
         shape_target: Tuple[int, int, int] = None,
         last_logits_only: bool = False,
-        output_hidden_states: Optional[bool] = None,
     ) -> LLaDAOutput:
-        """
-        :param input_ids: A tensor of shape `(batch_size, seq_len)`.
-        :param input_embeddings: A tensor of shape `(batch_size, seq_len, d_model)` with input
-            embeddings. When provided, it is treated as the output of the input embedding layer.
-        :param attention_mask: A tensor of shape `(batch_size, seq_len)` that indicates
-            which input IDs are masked. A `1` value in the mask means that
-            the corresponding input ID should *not* be ignored. A `0` means
-            that the corresponding input ID is masked.
 
-            This has the same meaning as the `attention_mask` in HuggingFace's `transformers`
-            library.
-        :param attention_bias: A tensor of shape `(batch_size, 1, seq_len, seq_len)`,
-            `(1, 1, seq_len, seq_len)`, or `(seq_len, seq_len)`. This is used
-            to introduce causal or other biases.
-
-            If the tensor is a bool or byte tensor, a `True` or `1` at `attention_bias[:, :, i, j]`
-            indicates that the i-th element in the sequence is allowed to attend to the j-th
-            element in the sequence.
-
-            If the tensor is a float tensor, it will just be added to the attention
-            scores before the softmax.
-
-            The default is causal, which corresponds to a lower-diagonal byte matrix of ones.
-        :param past_key_values: Pre-computed keys and values for each attention block.
-            Can be used to speed up sequential decoding. The `input_ids` which have
-            their past given to this model should not be passed as `input_ids` as they have already been computed.
-        :param use_cache: If `True`, return key and value tensors for each block.
-        :param last_logits_only: If `True`, only compute the logits for the last token of each sequence.
-            This can speed up decoding when you only care about the next token.
-        """
         # Add Basic MDM Model config check
         assert not self.config.alibi, "Alibi length extrapolation is not supported for MDM."
         assert self.config.rope, "Rope must be used in Llama-Encoder for MDM."
         # assert (past_key_values is None and not use_cache), "The kvcache is not suppotred for MDM."
 
-        output_hidden_states = output_hidden_states if output_hidden_states is not None else False
-
-        if past_key_values:
-            assert len(past_key_values) == self.config.n_layers
-
         batch_size, seq_len = input_ids.size() if input_embeddings is None else input_embeddings.size()[:2]
-        if past_key_values is None:
-            past_length = 0
-        else:
-            past_length = past_key_values[0][0].size(-2)
 
-        # Get embeddings of input.
-        # shape: (batch_size, seq_len, d_model)
         x = self.transformer.wte(input_ids) if input_embeddings is None else input_embeddings  # type: ignore
 
         if self.config.input_emb_norm:
             x = x * (self.config.d_model**0.5)
 
-        if not (self.config.alibi or self.config.rope):
-            # Get positional embeddings.
-            # shape: (1, seq_len)
-            pos = torch.arange(past_length, past_length + seq_len, dtype=torch.long, device=x.device).unsqueeze(0)
-            # shape: (1, seq_len, d_model)
-            pos_emb = self.transformer.wpe(pos)  # type: ignore
-            x = pos_emb + x
-
-        # Add input + positional embeddings and apply dropout.
-        # shape: (batch_size, seq_len, d_model)
         x = self.transformer.emb_drop(x)  # type: ignore
 
-        # Transform the attention mask into what the blocks expect.
         if attention_mask is not None and 0.0 in attention_mask:
-            # shape: (batch_size, 1, 1, seq_len)
             attention_mask = attention_mask.to(dtype=torch.float).view(batch_size, -1)[:, None, None, :]
             attention_mask = (1.0 - attention_mask) * torch.finfo(attention_mask.dtype).min
         else:
             attention_mask = None
 
-        # Merge attention mask with attention bias.
-        if (
-            attention_bias is not None
-            or attention_mask is not None
-            or self.config.alibi
-            # NOTE (epwalsh): we need to initialize the attn bias in order for attn to work properly
-            # with key+value cache. Otherwise `F.scaled_dot_product_attention()` doesn't seem to compute
-            # scores correctly.
-            or past_key_values is not None
-        ):
-            if attention_bias is None and self.config.alibi:
-                attention_bias = get_causal_attention_bias(
-                    self.__cache, past_length + seq_len, x.device
-                ) + self.get_alibi_attention_bias(past_length + seq_len, x.device)
-            elif attention_bias is None:
-                attention_bias = get_causal_attention_bias(self.__cache, past_length + seq_len, x.device)
-            elif attention_bias.dtype in (torch.int8, torch.bool):
-                attention_bias = attention_bias.to(dtype=torch.float)
-                attention_bias.masked_fill_(attention_bias == 0.0, torch.finfo(attention_bias.dtype).min)
-
-            # Transform to the right shape and data type.
-            mask_len = seq_len
-            if attention_mask is not None:
-                mask_len = attention_mask.shape[-1]
-            elif past_key_values is not None:
-                mask_len = past_key_values[0][0].shape[-2] + seq_len
-            attention_bias = attention_bias[:, :, :mask_len, :mask_len].to(dtype=torch.float)
-
-            # Add in the masking bias.
-            if attention_mask is not None:
-                attention_bias = attention_bias + attention_mask
-                # Might get -infs after adding attention mask, since dtype.min + dtype.min = -inf.
-                # `F.scaled_dot_product_attention()` doesn't handle -inf like you'd expect, instead
-                # it can produce NaNs.
-                ensure_finite_(attention_bias, check_neg_inf=True, check_pos_inf=False)
-
-        attn_key_values: Optional[List[Tuple[torch.Tensor, torch.Tensor]]] = [] if use_cache else None
-
-        # decoder layers
-        all_hidden_states = []
-
         # Apply blocks one-by-one.
         if self.config.block_group_size == 1:
             for block_idx, block in enumerate(self.transformer.blocks):
-                if output_hidden_states:
-                    # add hidden states
-                    all_hidden_states.append(x)
-
-                layer_past = None if past_key_values is None else past_key_values[block_idx]
-                if (
-                    (self.activation_checkpointing_strategy == ActivationCheckpointingStrategy.whole_layer)
-                    or (
-                        self.activation_checkpointing_strategy == ActivationCheckpointingStrategy.one_in_two
-                        and block_idx % 2 == 0
-                    )
-                    or (
-                        self.activation_checkpointing_strategy == ActivationCheckpointingStrategy.one_in_three
-                        and block_idx % 3 == 0
-                    )
-                    or (
-                        self.activation_checkpointing_strategy == ActivationCheckpointingStrategy.one_in_four
-                        and block_idx % 4 == 0
-                    )
-                ):
-                    # shape: (batch_size, seq_len, d_model)
-                    x, cache = self._activation_checkpoint_fn(
-                        block,
-                        x,
-                        attention_bias=attention_bias,
-                        layer_past=layer_past,
-                        idx_current=idx_current,
-                        shape_target=shape_target,
-                    )
-                else:
-                    # shape: (batch_size, seq_len, d_model)
-                    x, cache = block(
-                        x,attention_bias=attention_bias,
-                        layer_past=layer_past,
-                        idx_current=idx_current,
-                        shape_target=shape_target,
-                    )
-
-                if attn_key_values is not None:
-                    assert cache is not None
-                    attn_key_values.append(cache)
-        else:
-            for group_idx, block_group in enumerate(self.transformer.block_groups):
-                if output_hidden_states:
-                    # add hidden states
-                    all_hidden_states.append(x)
-
-                layers_past = (
-                    None
-                    if past_key_values is None
-                    else past_key_values[
-                        group_idx * self.config.block_group_size : (group_idx + 1) * self.config.block_group_size
-                    ]
-                )
-                x, cache = block_group(
-                    x,
-                    attention_bias=attention_bias,
-                    layers_past=layers_past,
+                x = block(
+                    x,attention_bias=attention_bias,
                     idx_current=idx_current,
                     shape_target=shape_target,
                 )
-                
-                if attn_key_values is not None:
-                    assert cache is not None
-                    attn_key_values.extend(cache)
+
+            # end for block_id
+        else:
+            raise NotImplemented('block is removed from yukai llada version')
+        # end if
 
         if last_logits_only:
             # shape: (batch_size, 1, d_model)
             x = x[:, -1, :].unsqueeze(1)
+        # end
 
         # Apply final layer norm.
         # shape: (batch_size, seq_len or 1, d_model)
         x = self.transformer.ln_f(x)  # type: ignore
-        if output_hidden_states:
-            # add final hidden state post-final-layernorm, following HuggingFace's convention
-            all_hidden_states.append(x)
 
         # Get logits.
         # shape: (batch_size, seq_len or 1, vocab_size)
@@ -1304,17 +1171,17 @@ class LLaDAModel(nn.Module):
             logits = F.linear(x, self.transformer.wte.weight, None)  # type: ignore
         else:
             logits = self.transformer.ff_out(x)  # type: ignore
+        # end
+
         if self.config.scale_logits:
             logits.mul_(1 / math.sqrt(self.config.d_model))
+        # end
 
-        return LLaDAOutput(logits=logits, attn_key_values=attn_key_values, hidden_states=tuple(all_hidden_states) if output_hidden_states else None)  # type: ignore[arg-type]
+        return LLaDAOutput(logits=logits, hidden_states=tuple(all_hidden_states) if output_hidden_states else None)  # type: ignore[arg-type]
+    # end def forward
 
 
 def create_model_config_from_pretrained_config(config: LLaDAConfig):
-    """
-    Utility function
-    """
-
     kwargs = {}
     for field in fields(ModelConfig):
         kwargs[field.name] = getattr(config, field.name)
@@ -1349,14 +1216,11 @@ class LLaDAModelLM(PreTrainedModel):
         inputs_embeds: Optional[torch.FloatTensor] = None,
         attention_mask: Optional[torch.Tensor] = None,
         attention_bias: Optional[torch.Tensor] = None,
-        past_key_values: Optional[List[torch.FloatTensor]] = None,
         labels: Optional[torch.LongTensor] = None,
         idx_current: Optional[torch.Tensor] = None,
         shape_target: Tuple[int, int, int] = None,
         output_attentions: Optional[bool] = None,
-        output_hidden_states: Optional[bool] = None,
         return_dict: Optional[bool] = None,
-        cache_kv_previous: bool = False
     ) -> Union[Tuple, CausalLMOutputWithPast]:
 
         if output_attentions:
@@ -1370,11 +1234,8 @@ class LLaDAModelLM(PreTrainedModel):
             input_embeddings=inputs_embeds,
             attention_mask=attention_mask,
             attention_bias=attention_bias,
-            past_key_values=past_key_values,
             idx_current=idx_current,
             shape_target=shape_target,
-            output_hidden_states=output_hidden_states,
-            cache_kv_previous=cache_kv_previous
         )
             
         # import pdb; pdb.set_trace()
@@ -1394,6 +1255,15 @@ class LLaDAModelLM(PreTrainedModel):
             past_key_values=outputs.attn_key_values,
             hidden_states=hidden_states,
         )
+    
+    def fill_plugin(self, klass_plugin):
+        self.model.fill_plugin(klass_plugin)
+        return self
+    # end
+
+    def collect_plugins_with_index(self, klass_plugin):
+        return self.model.collect_plugins_with_index(klass_plugin)
+    # end
 
     def can_generate(self) -> bool:
         return True

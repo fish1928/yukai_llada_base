@@ -1,7 +1,14 @@
 import inspect
+from abc import ABC, abstractmethod
 
 
-class Inspector:
+class InspectorPlugin(ABC):
+
+    @abstractmethod
+    def get_plugin_name(self):
+        raise NotImplementedError
+    # end
+
     def load_vars(self, *args):
         frame = inspect.currentframe().f_back.f_back
         vars_caller = frame.f_locals
@@ -23,11 +30,19 @@ class Inspector:
             self_caller[k] = v
         # end     
     # end
+
+    def __bool__(self):
+        name_klass = self.__class__ # <class '__main__.A_Enabled'>
+        str_enabled = str(name_klass).split('.')[-1].split("'")[0].split('_')[-1].lower()
+
+        return str_enabled == 'enabled'
+    # end
 # end
 
-class PluginKVCache_Disabled(Inspector):
-    def __bool__(self):
-        return False
+class CachePastKVPlugin_Disabled(InspectorPlugin):
+
+    def get_plugin_name(self):
+        return 'cache_paste_kv'
     # end
 
     def load(self):
@@ -40,9 +55,10 @@ class PluginKVCache_Disabled(Inspector):
     # end
 # end
 
-class PluginKVCache_Enabled(Inspector):
-    def __bool__(self):
-        return True
+class CachePastKVPlugin_Enabled(InspectorPlugin):
+
+    def get_plugin_name(self):
+        return 'cache_paste_kv'
     # end
 
     def load(self):
@@ -71,7 +87,12 @@ class PluginKVCache_Enabled(Inspector):
 # end
 
 
-class PluginKVPrevious_Disabled(Inspector):
+class SaveKVPreviousPlugin_Disabled(InspectorPlugin):
+
+    def get_plugin_name(self):
+        'save_kv_previous'
+    # end
+
     def __bool__(self):
         return False
     # end
@@ -86,7 +107,12 @@ class PluginKVPrevious_Disabled(Inspector):
     # end
 # end
 
-class PluginKVPrevious_Enabled(Inspector):
+class SaveKVPreviousPlugin_Enabled(InspectorPlugin):
+    
+    def get_plugin_name(cls):
+        'save_kv_previous'
+    # end
+
     def __bool__(self):
         return True
     # end
