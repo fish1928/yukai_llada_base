@@ -873,7 +873,7 @@ class LLaDALlamaBlock(LLaDABlock):
         shape_target: Tuple[int, int, int] = None,
     ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
 
-        self.cache_kv_previous.refresh()
+        self.cache_kv_previous.refresh()    # refresh to avoid double memory storage
 
         x_normed_current = self.attn_norm(x_current) #x:torch.Size([2, 168, 4096])
         q_current = self.q_proj(x_normed_current) #q:torch.Size([2, 168, 4096])
@@ -1099,12 +1099,10 @@ class LLaDAModel(nn.Module):
         attention_mask: Optional[torch.Tensor] = None,
         attention_bias: Optional[torch.Tensor] = None,
         past_key_values: Optional[Sequence[Tuple[torch.Tensor, torch.Tensor]]] = None,
-        use_cache: bool = False,
         idx_current: Optional[torch.Tensor] = None,
         shape_target: Tuple[int, int, int] = None,
         last_logits_only: bool = False,
         output_hidden_states: Optional[bool] = None,
-        cache_kv_previous: bool = False
     ) -> LLaDAOutput:
         """
         :param input_ids: A tensor of shape `(batch_size, seq_len)`.
@@ -1249,20 +1247,16 @@ class LLaDAModel(nn.Module):
                         x,
                         attention_bias=attention_bias,
                         layer_past=layer_past,
-                        use_cache=use_cache,
                         idx_current=idx_current,
                         shape_target=shape_target,
-                        cache_kv_previous=cache_kv_previous
                     )
                 else:
                     # shape: (batch_size, seq_len, d_model)
                     x, cache = block(
                         x,attention_bias=attention_bias,
                         layer_past=layer_past,
-                        use_cache=use_cache,
                         idx_current=idx_current,
                         shape_target=shape_target,
-                        cache_kv_previous=cache_kv_previous
                     )
 
                 if attn_key_values is not None:
@@ -1285,10 +1279,8 @@ class LLaDAModel(nn.Module):
                     x,
                     attention_bias=attention_bias,
                     layers_past=layers_past,
-                    use_cache=use_cache,
                     idx_current=idx_current,
                     shape_target=shape_target,
-                    cache_kv_previous=cache_kv_previous
                 )
                 
                 if attn_key_values is not None:
@@ -1359,7 +1351,6 @@ class LLaDAModelLM(PreTrainedModel):
         attention_bias: Optional[torch.Tensor] = None,
         past_key_values: Optional[List[torch.FloatTensor]] = None,
         labels: Optional[torch.LongTensor] = None,
-        use_cache: Optional[bool] = None,
         idx_current: Optional[torch.Tensor] = None,
         shape_target: Tuple[int, int, int] = None,
         output_attentions: Optional[bool] = None,
@@ -1367,8 +1358,6 @@ class LLaDAModelLM(PreTrainedModel):
         return_dict: Optional[bool] = None,
         cache_kv_previous: bool = False
     ) -> Union[Tuple, CausalLMOutputWithPast]:
-        if use_cache is None:
-            use_cache = self.config.use_cache
 
         if output_attentions:
             raise ValueError("output_attentions is not yet supported in LLaDA")
@@ -1382,7 +1371,6 @@ class LLaDAModelLM(PreTrainedModel):
             attention_mask=attention_mask,
             attention_bias=attention_bias,
             past_key_values=past_key_values,
-            use_cache=use_cache,
             idx_current=idx_current,
             shape_target=shape_target,
             output_hidden_states=output_hidden_states,
@@ -1419,7 +1407,6 @@ class LLaDAModelLM(PreTrainedModel):
         model_inputs = {"input_ids": input_ids, "past_key_values": past_key_values}
 
         model_inputs.update(kwargs)
-        model_inputs["use_cache"] = kwargs.pop("use_cache", self.config.use_cache)
         return model_inputs
 
 
