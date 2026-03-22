@@ -1,7 +1,7 @@
 import torch
 import torch.nn.functional as F
 from abc import ABC, abstractmethod
-
+from tools_debug import jprint
 
 
 class DiffusionQuotaHelper(ABC):
@@ -45,6 +45,7 @@ class ConfKSorter:
 
     def argsort(self, conf_all):
         idx_sorted = torch.argsort(conf_all, dim=1, descending=True)
+        jprint('idx_sorted: {}'.format(idx_sorted.shape))
         return idx_sorted
     # end
 # end
@@ -58,7 +59,7 @@ class RandomKSorter(ConfKSorter):
                 confidence
             )
 
-        return self.super(confidence)
+        return super().argsort(confidence)
 
     # end
 # end
@@ -66,7 +67,8 @@ class RandomKSorter(ConfKSorter):
 
 class TopKSorter(ConfKSorter):
     def argsort(self, confidence, snapshot):
-        return self.super(confidence)
+        jprint('confidence: {}'.format(confidence.shape))
+        return super().argsort(confidence)
     # end
 # end
 
