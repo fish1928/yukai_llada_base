@@ -102,3 +102,22 @@ class LogitsTransformer:
         return x0_p
     # end
 # end
+
+
+class PPLCalculator:
+    def cal(self, probs_all, mask_target=None, eps=1e-12):
+        if mask_target is None:
+            mask_target = slice(None)
+        # end
+
+        probs_collected = probs_all[mask_target].reshape(-1)  # [B * K]
+
+        mean_prob = probs_collected.mean(dim=-1)  # [B]
+
+        nll_collected = -torch.log(probs_collected + eps)   # [B, K]
+        nll_per = nll_collected.mean(dim=-1)                 # [B]
+        ppl_per = torch.exp(nll_per)                        # [B]
+
+        return ppl_per.item(), mean_prob.item()
+    # end
+# end
