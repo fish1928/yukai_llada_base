@@ -88,7 +88,7 @@ class TruthCollector(ConfCollectorInterface):
 
 class MaxCollector(ConfCollectorInterface):
     def get_index(self, snapshot):
-        index = snapshot.x0
+        index = snapshot.x0.unsqueeze(-1)
         return index
     # end
 # end
