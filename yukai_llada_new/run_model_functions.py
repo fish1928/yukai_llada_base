@@ -1,5 +1,5 @@
 @ torch.no_grad()
-def run_model_semi(model, x, y, config_diffusion, *args):
+def run_model_semi(model, x, y, config_diffusion, *args, **kwargs):
 
     '''declare required variables'''
     num_blocks = config_diffusion.num_blocks
@@ -43,7 +43,7 @@ def run_model_semi(model, x, y, config_diffusion, *args):
 
 
 @ torch.no_grad()
-def run_model_semi_collect_kv(model, x, y, config_diffusion, id_batch=None, calculator_kvsim=None):
+def run_model_semi_collect_kv(model, x, y, config_diffusion, *args, **kwargs):
 
     '''declare required variables'''
     num_blocks = config_diffusion.num_blocks
@@ -53,6 +53,9 @@ def run_model_semi_collect_kv(model, x, y, config_diffusion, id_batch=None, calc
     len_prompt = config_diffusion.len_prompt
     sorter = config_diffusion.klass_sorter()
     collector = config_diffusion.klass_collector()
+
+    id_batch = kwargs['id_batch']
+    calculator_kvsim = kwargs['calculator_kvsim']
     
     p_finalized = torch.zeros(x.shape, dtype=torch.float64, device=x.device)
     position_start = 0
@@ -78,7 +81,7 @@ def run_model_semi_collect_kv(model, x, y, config_diffusion, id_batch=None, calc
 
             snapshot.materialize_by_idx_(idx_transform, conf_snapshot)
             snapshot.update_this(1, idx_transform, y=x).update_this(1, idx_transform, p_finalized=p_finalized)
-            calculator_kvsim.collect_kv_previous_and_calculate_sim_per_step_()
+            calculator_kvsim.collect_kv_previous_and_calculate_sim_per_step_()  # DIFF: this line is the only difference
         # end for step
     # end for block
 
