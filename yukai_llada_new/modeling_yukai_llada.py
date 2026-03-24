@@ -93,27 +93,7 @@ __all__ = [
 log = logging.getLogger(__name__)
 
 
-# write a same-idx-for-rows version first
-# [current] = [refresh|denoising
-# @torch.compile()
-def concat_and_replace(matrix_origin, matrix_current, idx_current, shape_target): # (B, Hd, L, H)
 
-    if matrix_origin.shape[-2] < shape_target[-2]:   # need patch
-        length_patch = shape_target[-2] - matrix_origin.shape[-2]
-
-        assert matrix_current.shape[-2] >= length_patch,\
-            f'current shape should be >= patch shape, {matrix_current.shape[-2]} >= {length_patch}'
-        matrix_patch = matrix_current[:, :, -length_patch:, :]   # TODO: check this
-
-        matrix_origin = torch.cat([matrix_origin, matrix_patch], dim=-2)
-    # end
-
-    assert matrix_origin.shape[-2] == shape_target[-2],\
-        f'origin shape should equal to target shape after patch, {matrix_origin.shape[-2]} == {shape_target[-2]}'
-
-    matrix_origin[:, :, idx_current, :] = matrix_current
-    return matrix_origin
-# end
 
 
 @torch.compile()
@@ -641,6 +621,30 @@ class LLaDABlock(nn.Module):
                 self.flash_attn_func = flash_attn_func
             except ModuleNotFoundError:
                 pass
+            # end
+        # end
+
+    # write a same-idx-for-rows version first
+    # [current] = [refresh|denoising
+    # @torch.compile()
+    def concat_and_replace(self, matrix_origin, matrix_current, idx_current, shape_target): # (B, Hd, L, H)
+
+        if matrix_origin.shape[-2] < shape_target[-2]:   # need patch
+            length_patch = shape_target[-2] - matrix_origin.shape[-2]
+
+            assert matrix_current.shape[-2] >= length_patch,\
+                f'current shape should be >= patch shape, {matrix_current.shape[-2]} >= {length_patch}'
+            matrix_patch = matrix_current[:, :, -length_patch:, :]   # TODO: check this
+
+            matrix_origin = torch.cat([matrix_origin, matrix_patch], dim=-2)
+        # end
+
+        assert matrix_origin.shape[-2] == shape_target[-2],\
+            f'origin shape should equal to target shape after patch, {matrix_origin.shape[-2]} == {shape_target[-2]}'
+
+        matrix_origin[:, :, idx_current, :] = matrix_current
+        return matrix_origin
+    # end
 
     def reset_parameters(self):
         if self.k_norm is not None:
@@ -782,11 +786,8 @@ class LLaDABlock(nn.Module):
         self,
         x: torch.Tensor,
         attention_bias: Optional[torch.FloatTensor] = None,
-        layer_past: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
-        use_cache: bool = False,
         idx_current: Optional[torch.Tensor] = None,
         shape_target: Tuple[int, int, int] = None,
-        cache_kv_previous: bool = False
     ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
         raise NotImplementedError
 

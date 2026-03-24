@@ -5,6 +5,8 @@ from abc import ABC, abstractmethod
 import torch
 import torch.nn.functional as F
 
+from tools_debug import jprint
+
 class InspectorPlugin(ABC):
 
     @abstractmethod
@@ -14,8 +16,15 @@ class InspectorPlugin(ABC):
 
     def load_vars(self, *args):
         frame = inspect.currentframe().f_back.f_back
+        locals_caller = frame.f_locals
+        return tuple(locals_caller[arg] for arg in args)
+    # end
+
+    def load_attrs(self, *args):
+        frame = inspect.currentframe().f_back.f_back
         vars_caller = frame.f_locals
-        return tuple(vars_caller[arg] for arg in args)
+        self_caller = vars_caller['self']
+        return tuple(getattr(self_caller, arg, None) for arg in args )
     # end
 
     def load_func(self, arg):
@@ -25,7 +34,7 @@ class InspectorPlugin(ABC):
         return getattr(self_caller, arg)
     # end
 
-    def save_vars(self, **kvargs):
+    def save_attrs(self, **kvargs):
         frame = inspect.currentframe().f_back.f_back
         vars_caller = frame.f_locals
         self_caller = vars_caller['self']
@@ -65,8 +74,10 @@ class CachePastKVPlugin_Enabled(InspectorPlugin):
     # end
 
     def load(self):
-        layer_past, k_current, v_current = self.load_vars('layer_past', 'k_current', 'v_current')
+        layer_past = self.load_attrs('layer_past')[0]
 
+        k_current, v_current = self.load_vars('k_current', 'v_current')
+        
         if layer_past is None:  # the first time
             k_final, v_final = k_current, v_current
             return k_final, v_final
@@ -79,13 +90,14 @@ class CachePastKVPlugin_Enabled(InspectorPlugin):
 
         k_final = concat_and_replace(k_previous, k_current, idx_current, shape_target)
         v_final = concat_and_replace(v_previous, v_current, idx_current, shape_target)
+        
         return k_final, v_final
     # end
 
     def save(self):
         k_final, v_final = self.load_vars('k_final', 'v_final')
         layer_past = (k_final, v_final)
-        self.save_vars(layer_past=layer_past)
+        self.save_attrs(layer_past=layer_past)
     # end
 # end
 
@@ -120,12 +132,12 @@ class SaveKVPreviousPlugin_Enabled(InspectorPlugin):
     # end
 
     def refresh(self):
-       self.save_vars(_k_previous=None, _v_previous=None)
+       self.save_attrs(_k_previous=None, _v_previous=None)
     # end
 
     def save(self):
         k, v = self.load_vars('k','v')
-        self.save_vars(_k_previous=k, _v_previous=v)
+        self.save_attrs(_k_previous=k, _v_previous=v)
     # end
 
     '''aggregation and calculation'''

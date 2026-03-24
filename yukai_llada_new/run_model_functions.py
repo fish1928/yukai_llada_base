@@ -13,8 +13,8 @@ def run_model_semi(model, x, y, config_diffusion, *args, **kwargs):
     p_finalized = torch.zeros(x.shape, dtype=torch.float64, device=x.device)
     position_start = 0
 
-    for id_block in range(1, num_blocks+1):
-        position_end = position_start + len_prompt + id_block * size_block
+    for id_block in range(num_blocks):
+        position_end = position_start + len_prompt + (id_block+1) * size_block
         mask_mask_blk = x[:,position_start:position_end] == id_mask
 
         B = x.shape[0]
@@ -60,8 +60,8 @@ def run_model_semi_collect_kv(model, x, y, config_diffusion, *args, **kwargs):
     p_finalized = torch.zeros(x.shape, dtype=torch.float64, device=x.device)
     position_start = 0
 
-    for id_block in range(1, num_blocks+1):
-        position_end = position_start + len_prompt + id_block * size_block
+    for id_block in range(num_blocks):
+        position_end = position_start + len_prompt + (id_block+1) * size_block
         mask_mask_blk = x[:,position_start:position_end] == id_mask
 
         B = x.shape[0]
