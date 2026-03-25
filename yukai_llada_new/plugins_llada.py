@@ -99,6 +99,14 @@ class CachePastKVPlugin_Enabled(InspectorPlugin):
         layer_past = (k_final, v_final)
         self.save_attrs(layer_past=layer_past)
     # end
+
+    def clear(self, model):
+        for block in model.model.transformer.blocks:
+            if hasattr(block, 'layer_past'):
+                del block.layer_past
+            # end
+        # end
+    # end
 # end
 
 
