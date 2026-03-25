@@ -148,11 +148,24 @@ class SaveKVPreviousPlugin_Enabled(InspectorPlugin):
         self.save_attrs(_k_previous=k, _v_previous=v)
     # end
 
+    def clear(self, model):
+        for block in model.model.transformer.blocks:
+            if hasattr(block, '_k_previous'):
+                del block._k_previous
+            # end
+
+            if hasattr(block, '_v_previous'):
+                del block._v_previous
+            # end            
+        # end
+    # end
+
     '''aggregation and calculation'''
 
     def _get_names_hidden(self):
         return ['_k_previous','_v_previous']
     # end
+
 
     def __init__(self):
         self.dict_hidden_to_matrixs_sim_per_step = {}
