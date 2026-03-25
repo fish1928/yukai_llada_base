@@ -121,3 +121,62 @@ class PPLCalculator:
         return ppl_per.item(), mean_prob.item()
     # end
 # end
+
+
+class RefreshIdxHelper:
+    TYPE_HIDDEN = {
+        'k':'_k_previous',
+        'v':'_v_previous'
+    }
+
+    def __init__(self, dict_filename_to_list_idx_sorted, type_hidden_str, size_block, randomed=False):
+        self.dict_filename_to_list_idx_sorted = dict_filename_to_list_idx_sorted
+        self.type_hidden=RefreshIdxHelper.TYPE_HIDDEN[type_hidden_str]
+        self.size_block = size_block
+        self.randomed = randomed
+    # end
+
+    def set_budget(self, budget):
+        self.budget = budget
+        return self
+    # end
+
+    def set_sample_id(self, id_sample):
+        self.id_sample = id_sample
+        return self
+    # end
+
+    def set_randomed(self, randomed):
+        self.randomed = randomed
+    # end
+
+    def get_refresh_idx(self, x, id_step, id_block, return_sorted=True):
+        id_sample = self.id_sample
+        budget = self.budget
+        size_block = self.size_block
+        id_step_global = id_step + id_block * size_block
+        randomed = self.randomed
+
+        filename = f'batch_{id_sample}{self.type_hidden}.pt'
+        list_step_list_idx_sorted = self.dict_filename_to_list_idx_sorted[filename]
+
+        assert list_step_list_idx_sorted[id_step_global]['step'] == id_step
+
+        list_idx_sorted = list_step_list_idx_sorted[id_step_global]['idx']
+
+        if budget < 1.0:
+            budget = int(len(list_idx_sorted) * budget) or 1
+        # end
+
+        list_idx_sorted = torch.tensor(list_idx_sorted, dtype=torch.long, device=x.device)
+
+        if randomed:
+            idxs_list_idx_rand = torch.randperm(list_idx_sorted.shape[0])
+            list_idx_sorted = list_idx_sorted[idxs_list_idx_rand]
+        # end
+
+        result = list_idx_sorted[:budget]
+
+        return torch.sort(result)[0] if return_sorted else result
+    # end
+# end
