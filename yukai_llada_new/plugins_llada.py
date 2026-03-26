@@ -269,6 +269,7 @@ class SaveKVPreviousPlugin_Enabled(InspectorPlugin):
     ) -> torch.Tensor:
 
         assert sim.ndim == 3, f"Expected 3D tensor [steps, layers, tokens], got shape {tuple(sim.shape)}"
+        S, L, T = sim.shape
 
         dim_aggregate = 1 if type_aggregate == 'step' else (0, 1)
 
@@ -280,7 +281,7 @@ class SaveKVPreviousPlugin_Enabled(InspectorPlugin):
         # end
 
         if score.dim() == 1:
-            score = score.unsqueeze(0)
+            score = score.view(1, -1).expand(S, -1)
         # end
 
         return score
