@@ -150,17 +150,20 @@ class RefreshIdxHelper:
         self.randomed = randomed
     # end
 
-    def get_refresh_idx(self, x, id_step, id_block, return_sorted=True):
+    def get_refresh_idx(self, x, id_step, id_block, return_sorted=True, id_step_global=None):
         id_sample = self.id_sample
         budget = self.budget
         size_block = self.size_block
-        id_step_global = id_step + id_block * size_block
+        if id_step_global is None:
+            id_step_global = id_step + id_block * size_block
+        # end
         randomed = self.randomed
 
         filename = f'batch_{id_sample}{self.type_hidden}.pt'
         list_step_list_idx_sorted = self.dict_filename_to_list_idx_sorted[filename]
 
-        assert list_step_list_idx_sorted[id_step_global]['step'] == id_step
+        assert list_step_list_idx_sorted[id_step_global]['step'] == id_step,\
+            f'{list_step_list_idx_sorted[id_step_global]['step']} == {id_step}'
 
         list_idx_sorted = list_step_list_idx_sorted[id_step_global]['idx']
 
