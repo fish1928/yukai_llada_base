@@ -1,3 +1,9 @@
+import torch
+
+import json
+from tqdm import tqdm
+from tools_llada import PPLCalculator, RefreshIdxHelper
+
 @ torch.no_grad()
 def run_model_semi(model, x, y, config_diffusion, *args, **kwargs):
 
@@ -197,91 +203,90 @@ def run_model_semi_cached_snapshot_refresh_one(model, x, y, config_diffusion, *a
 # end
 
 
-''''''
-
-@ torch.no_grad()
-def run_model_semi_cached_refresh(model, x, y, config_diffusion, *args, **kwargs):
-
-    '''declare required variables'''
-    num_blocks = config_diffusion.num_blocks
-    step_per_block = config_diffusion.step_per_block
-    size_block = config_diffusion.size_block
-    id_mask = config_diffusion.id_mask
-    len_prompt = config_diffusion.len_prompt
-    sorter = config_diffusion.klass_sorter()
-    collector = config_diffusion.klass_collector()
-    refresher = kwargs['refresher']
-
-    p_finalized = torch.zeros(x.shape, dtype=torch.float64, device=x.device)
-    idx_denoising = torch.arange(0, len_prompt, dtype=torch.long).to(x.device)
-    model(x[:, idx_denoising], idx_current=idx_denoising)   # save prompt for once
-
-    for id_block in range(num_blocks):
-        position_start = len_prompt + id_block * size_block
-        position_end = position_start + size_block
-        mask_mask_blk = x[:,position_start:position_end] == id_mask
-        idx_denoising = torch.arange(position_start, position_end, dtype=torch.long).to(x.device)
-        quota_helper = BlockDiffusionQuotaHelper(mask_mask_blk, size_block)
-
-        for step in range(step_per_block):
 
 
-            x_denoising,  y_denoising= x[:, idx_denoising], y[:, idx_denoising]
-            shape_target = (x.shape[0], position_end, -1)
-            logits = model(x_denoising, idx_current=idx_denoising, shape_target=shape_target).logits
-            snapshot = SimpleLogitsSnapshot(logits, x_denoising, y_denoising, id_mask)
-            
-            conf_snapshot = snapshot.transform_logits(collector)
-            idx_sorted_by_conf = sorter.argsort(conf_snapshot, snapshot)
-            num_unmask = quota_helper.get_quota(step)
-            idx_transform = idx_sorted_by_conf[:, :num_unmask]
 
-            snapshot.materialize_by_idx_(idx_transform, conf_snapshot)
-            snapshot.update_this(1, idx_src=idx_transform, idx_tgt=idx_denoising, y=x).update_this(1, idx_src=idx_transform, idx_tgt=idx_denoising, p_finalized=p_finalized)
-        # end for step
-    # end for block
+class RunModelCacheWithRefresh:
 
-    return p_finalized[:, len_prompt:]
+    @ torch.no_grad()
+    def run_model_semi_cached_refresh(self, model, x, y, config_diffusion, *args, **kwargs):
+
+        '''declare required variables'''
+        num_blocks = config_diffusion.num_blocks
+        step_per_block = config_diffusion.step_per_block
+        size_block = config_diffusion.size_block
+        id_mask = config_diffusion.id_mask
+        len_prompt = config_diffusion.len_prompt
+        sorter = config_diffusion.klass_sorter()
+        collector = config_diffusion.klass_collector()
+        refresher = kwargs['refresher']
+
+        p_finalized = torch.zeros(x.shape, dtype=torch.float64, device=x.device)
+        idx_denoising = torch.arange(0, len_prompt, dtype=torch.long).to(x.device)
+        model(x[:, idx_denoising], idx_current=idx_denoising)   # save prompt for once
+
+        for id_block in range(num_blocks):
+            position_start = len_prompt + id_block * size_block
+            position_end = position_start + size_block
+            mask_mask_blk = x[:,position_start:position_end] == id_mask
+            idx_denoising = torch.arange(position_start, position_end, dtype=torch.long).to(x.device)
+            quota_helper = BlockDiffusionQuotaHelper(mask_mask_blk, size_block)
+
+            for step in range(step_per_block):
+
+                idx_refresh = refresher.get_refresh_idx(x, step, id_block, return_sorted=True)
+                idx_current = torch.cat([idx_refresh, idx_denoising])
+                shape_target = (x.shape[0], position_end, -1)
+                x_current, x_denoising,  y_denoising= x[:, idx_current], x[:, idx_denoising], y[:, idx_denoising]
+
+                logits_current = model(x_current, idx_current=idx_current, shape_target=shape_target).logits
+                logits_denoising = logits_current[:, -idx_denoising.shape[-1]:]
+                snapshot = SimpleLogitsSnapshot(logits_denoising, x_denoising, y_denoising, id_mask)
+                
+                conf_snapshot = snapshot.transform_logits(collector)
+                idx_sorted_by_conf = sorter.argsort(conf_snapshot, snapshot)
+                num_unmask = quota_helper.get_quota(step)
+                idx_transform = idx_sorted_by_conf[:, :num_unmask]
+
+                snapshot.materialize_by_idx_(idx_transform, conf_snapshot)
+                snapshot.update_this(1, idx_src=idx_transform, idx_tgt=idx_denoising, y=x).update_this(1, idx_src=idx_transform, idx_tgt=idx_denoising, p_finalized=p_finalized)
+            # end for step
+        # end for block
+
+        return p_finalized[:, len_prompt:]
+    # end
+
+    def main(self, model, config):
+        filename = 'all_in_one_sim_report_abs_per_step_p.json'
+        with open(filename, 'r') as file:
+            data_refresh = json.load(file)
+        # end
+
+        refresher = RefreshIdxHelper(
+            data_refresh,
+            'v',
+            config.size_block,
+            randomed=False
+        )
+
+        calculator_ppl = PPLCalculator()
+        model.fill_plugin(config.klass_cache_past_kv).fill_plugin(config.klass_save_kv_previous)
+        plugin_cache_past_kv = config.klass_cache_past_kv()
+
+        '''start the evaluation process'''
+        for id_batch, batch in enumerate(tqdm(loader)):
+            plugin_cache_past_kv.clear(model)
+            refresher.set_budget(1).set_sample_id(id_batch)
+
+            conf = run_model_semi_cached_refresh(
+                model,
+                batch['ids_prompt_masked_full'].to(config.device),
+                batch['ids_target_masked_full'].to(config.device),
+                config,
+                refresher=refresher
+            )
+
+            print(calculator_ppl.cal(conf))
+        # end for        
+    # end
 # end
-
-
-import json
-from tqdm import tqdm
-from tools_llada import PPLCalculator, RefreshIdxHelper
-
-
-filename = 'all_in_one_sim_report_abs_per_step_p.json'
-with open(filename, 'r') as file:
-    data_refresh = json.load(file)
-# end
-
-type_hidden_refresh_str = filename.split('.')[0].split('_')[-1]
-refresher = RefreshIdxHelper(
-    data_refresh,
-    type_hidden_refresh_str,
-    config.size_block,
-    randomed=False
-)
-
-
-calculator_ppl = PPLCalculator()
-model.fill_plugin(config.klass_cache_past_kv).fill_plugin(config.klass_save_kv_previous)
-plugin_cache_past_kv = config.klass_cache_past_kv()
-
-
-
-
-
-'''start the evaluation process'''
-for id_batch, batch in enumerate(tqdm(loader)):
-    plugin_cache_past_kv.clear(model)
-    conf = run_model_semi_cached_refresh(
-        model,
-        batch['ids_prompt_masked_full'].to(config.device),
-        batch['ids_target_masked_full'].to(config.device),
-        config,
-        refresher=refresher
-    )
-
-    print(calculator_ppl.cal(conf))
-# end for

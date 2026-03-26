@@ -263,7 +263,48 @@ class SaveKVPreviousPlugin_Enabled(InspectorPlugin):
         return score
     # end
 
-    def load_sim_matrix_and_transform_to_most_diff_list(self, folder_kv_base, filename, num_block, len_prompt, size_block):
+    def load_sim_matrix_and_transform_to_most_diff_list_per_step(self, folder_kv_base, filename, num_block, len_prompt, size_block):
+        path_kv_file = os.path.join(folder_kv_base, filename)
+        matrix_sim_step_layer_token = torch.load(path_kv_file)
+        matrix_sim_step_layer_token = F.pad(matrix_sim_step_layer_token, (0,0,0,0,1,0), value=1.0)
+
+        list_idx_sim_sorted = []
+
+        for id_block in range(num_block):
+            position_start = len_prompt + size_block * id_block
+            matrix_sim_step_layer_token_cached = matrix_sim_step_layer_token[:size_block, :, :position_start]  #(steps_block, len_cached)
+            matrix_step_scores_diff_token = self.token_nonsimilarity_score_abs_per_step(matrix_sim_step_layer_token_cached)
+            matrix_step_idx_diff_token_decending = torch.argsort(matrix_step_scores_diff_token, dim=-1, descending=True)
+
+            for step in range(matrix_step_idx_diff_token_decending.shape[0]):
+                idxs_diff_token_decending = matrix_step_idx_diff_token_decending[step,:]
+                list_idx_sim_sorted.append({'filename': filename, 'block': id_block, 'step': step, 'idx': idxs_diff_token_decending.tolist(), 'value_raw': matrix_step_scores_diff_token[step,:].tolist()})
+            # end
+        # end
+
+        return list_idx_sim_sorted
+    # end
+
+    def token_nonsimilarity_score_abs_per_block(
+        self,
+        sim: torch.Tensor,
+        p: float = 3.0,
+        type_fn: str = 'p'
+    ) -> torch.Tensor:
+
+        assert sim.ndim == 3, f"Expected 3D tensor [steps, layers, tokens], got shape {tuple(sim.shape)}"
+
+        diff = torch.abs(1.0 - sim)
+        if type_fn == 'p':
+            score = diff.pow(p).mean(dim=(0, 1)).pow(1.0 / p)
+        elif type_fn == 'log':
+            score = torch.log1p(diff).mean(dim=(0, 1))
+        # end
+
+        return score
+    # end
+
+    def load_sim_matrix_and_transform_to_most_diff_list_per_block(self, folder_kv_base, filename, num_block, len_prompt, size_block):
         path_kv_file = os.path.join(folder_kv_base, filename)
         matrix_sim_step_layer_token = torch.load(path_kv_file)
         matrix_sim_step_layer_token = F.pad(matrix_sim_step_layer_token, (0,0,0,0,1,0), value=1.0)
@@ -285,6 +326,7 @@ class SaveKVPreviousPlugin_Enabled(InspectorPlugin):
 
         return list_idx_sim_sorted
     # end
+
 
     def dump_all_in_one(self):  # from test_get_top_change.ipynb
         folder_kv_base = 'sims_kv_0315'
