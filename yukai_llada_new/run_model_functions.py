@@ -99,6 +99,39 @@ class RunModelCacheWithRefresh:
     # end
 
 
+    import json
+    from tqdm import tqdm
+    from tools_llada import PPLCalculator
+
+    def main():
+        calculator_ppl = PPLCalculator()
+        model.fill_plugin(config.klass_cache_past_kv).fill_plugin(config.klass_save_kv_previous)
+
+        '''start the evaluation process'''
+        for id_batch, batch in enumerate(tqdm(loader)):
+
+            calculator_kvsim = config.klass_save_kv_previous()
+            calculator_kvsim.clear(model)
+
+            conf = run_model_semi_collect_kv(
+                model,
+                batch['ids_prompt_masked_full'].to(config.device),
+                batch['ids_target_masked_full'].to(config.device),
+                config,
+                id_batch=id_batch,
+                calculator_kvsim=calculator_kvsim
+            )
+
+            # print(calculator_ppl.cal(conf))
+
+            calculator_kvsim.aggregate_result_().dump_result_to_file(id_batch, config_aggregate.folder_output)
+            calculator_kvsim = None
+        # end for
+    # end
+# end
+
+
+
     @ torch.no_grad()
     def run_model_semi_cached_refresh_per_block(model, x, y, config_diffusion, *args, **kwargs):
 
