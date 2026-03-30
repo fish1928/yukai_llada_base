@@ -71,6 +71,27 @@ class CachePastKVPlugin_Disabled(InspectorPlugin):
     # end
 # end
 
+'''modeling_yuai_llada:630'''
+def concat_and_replace(matrix_origin, matrix_current, idx_current, shape_target): # (B, Hd, L, H)
+
+    if matrix_origin.shape[-2] < shape_target[-2]:   # need patch
+        length_patch = shape_target[-2] - matrix_origin.shape[-2]
+
+        assert matrix_current.shape[-2] >= length_patch,\
+            f'current shape should be >= patch shape, {matrix_current.shape[-2]} >= {length_patch}'
+        matrix_patch = matrix_current[:, :, -length_patch:, :]   # TODO: check this
+
+        matrix_origin = torch.cat([matrix_origin, matrix_patch], dim=-2)
+    # end
+
+    assert matrix_origin.shape[-2] == shape_target[-2],\
+        f'origin shape should equal to target shape after patch, {matrix_origin.shape[-2]} == {shape_target[-2]}'
+
+    matrix_origin[:, :, idx_current, :] = matrix_current
+    return matrix_origin
+# end
+
+
 class CachePastKVPlugin_Enabled(InspectorPlugin):
 
     def get_plugin_name(self):
@@ -94,7 +115,7 @@ class CachePastKVPlugin_Enabled(InspectorPlugin):
 
         k_final = concat_and_replace(k_previous, k_current, idx_current, shape_target)
         v_final = concat_and_replace(v_previous, v_current, idx_current, shape_target)
-        
+
         return k_final, v_final
     # end
 
