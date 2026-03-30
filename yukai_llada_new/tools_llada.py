@@ -150,11 +150,15 @@ class RefreshIdxHelper:
         self.randomed = randomed
     # end
 
-    def get_refresh_idx(self, x, id_step, id_block, return_sorted=True):
+    def get_refresh_idx(self, x, id_step, id_block, return_sorted=True, id_step_global=None):   # id_step_global is special case
         id_sample = self.id_sample
         budget = self.budget
         size_block = self.size_block
-        id_step_global = id_step + id_block * size_block
+
+        if id_step_global is None:  # this is used for special case
+            id_step_global = id_step + id_block * size_block
+        # end
+
         randomed = self.randomed
 
         filename = f'batch_{id_sample}{self.type_hidden}.pt'

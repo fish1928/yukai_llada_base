@@ -6,3 +6,4 @@ scores/*
 kv_states*
 *.pt
 *.json
+*.txt
