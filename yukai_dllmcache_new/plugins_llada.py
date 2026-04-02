@@ -102,7 +102,8 @@ class CacheKVOPlugin_Enabled(InspectorPlugin):
 
     def save_full_length(self, *args, **kwargs):
         for type_hidden, hidden in kwargs.items():
-            name_hidden = self.__class__.
+            name_hidden = self._get_property_name(type_hidden)
+            self.save_attrs(name_hidden,)
         # end
     # end
 

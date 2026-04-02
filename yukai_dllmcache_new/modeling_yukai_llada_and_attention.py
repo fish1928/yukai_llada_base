@@ -896,14 +896,14 @@ class LLaDALlamaBlock(LLaDABlock):
 
         x_normed_current = self.attn_norm(x_current) #x:torch.Size([2, 168, 4096])
         v = self.v_proj(x_normed_current) #v:torch.Size([2, 168, 4096])
-        v_previous_prompt = self.plugin_cache_kvo.load(hidden='v', length='prompt')
+
+        v_previous_prompt = self.plugin_cache_kvo.load(type_hidden='v', type_length='prompt')
         v_prompt = v[:, -v_previous_prompt.shape[1]:, :]
         sims_abs = F.cosine_similarity(v_prompt, v_previous_prompt, dim=-1).abs().clamp(0.0, 1.0)   # (Bs, Ts)
         idx_sim_sorted = torch.argsort(sims_abs, dim=-1)    # (0 -> 1)
         idx_sim_sorted = idx_sim_sorted + v_previous_prompt.shape[1]    # turn it into global index
 
-        budget_update = int(idx_sim_sorted.shape[1] / 4) or 1
-        # budget_update = self.plugin_cache_kvo.get_update_budget()
+        budget_update = self.plugin_cache_kvo.get_update_budget()
 
         idx_current = idx_sim_sorted[:, :budget_update]
         idx_current_3d_x = idx_current.view(idx_current.shape[0], idx_current.shape[1], 1).expand(idx_current.shape[0], idx_current.shape[1], x_current.shape[-1])
@@ -960,7 +960,7 @@ class LLaDALlamaBlock(LLaDABlock):
 
         x_final_previous = self.plugin_cache_kvo.load(hidden='o', length='all')
         x_final_previous.scatter_(x_final_previous, idx_current_3d_x, x_final)
-        self.plugin_cache_kvo.save_all(o=x_final_previous)
+        self.plugin_cache_kvo.save_full_length(o=x_final_previous)
 
         return x_final
     # end
