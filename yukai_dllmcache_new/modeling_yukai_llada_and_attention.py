@@ -762,6 +762,7 @@ class LLaDABlock(nn.Module):
             k_current = self.k_norm(k_current).to(dtype=dtype)
         # end
 
+
         # Move head forward to be next to the batch dim.
         # shape: (B, nh, T, hs)
         # self.config.n_heads: 32
@@ -773,12 +774,13 @@ class LLaDABlock(nn.Module):
 
         k_final, v_final = self.cache_past_kv.load()
 
+        
+
         max_replace_pos = k_final.shape[1]
         q_current_rotated, k_final_rotated = self.rotary_emb(
             q_current, k_final, max_replace_pos, idx_current
         )
 
-        self.cache_attn.save()
 
         hidden = self._scaled_dot_product_attention(
             q_current_rotated, 
@@ -892,26 +894,39 @@ class LLaDALlamaBlock(LLaDABlock):
         shape_target: Tuple[int, int, int] = None,
     ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
 
-        self.save_kv_previous.refresh()    # refresh to avoid double memory storage
-
         x_normed_current = self.attn_norm(x_current) #x:torch.Size([2, 168, 4096])
-        q_current = self.q_proj(x_normed_current) #q:torch.Size([2, 168, 4096])
-
-        k = self.k_proj(x_normed_current) #k:torch.Size([2, 168, 4096])
         v = self.v_proj(x_normed_current) #v:torch.Size([2, 168, 4096])
+        v_previous_prompt = self.plugin_cache_kvo.load(hidden='v', length='prompt')
+        v_prompt = v[:, -v_previous_prompt.shape[1]:, :]
+        sims_abs = F.cosine_similarity(v_prompt, v_previous_prompt, dim=-1).abs().clamp(0.0, 1.0)   # (Bs, Ts)
+        idx_sim_sorted = torch.argsort(sims_abs, dim=-1)    # (0 -> 1)
+        idx_sim_sorted = idx_sim_sorted + v_previous_prompt.shape[1]    # turn it into global index
 
-        self.save_kv_previous.save()
+        budget_update = int(idx_sim_sorted.shape[1] / 4) or 1
+        # budget_update = self.plugin_cache_kvo.get_update_budget()
+
+        idx_current = idx_sim_sorted[:, :budget_update]
+        idx_current_3d_x = idx_current.view(idx_current.shape[0], idx_current.shape[1], 1).expand(idx_current.shape[0], idx_current.shape[1], x_current.shape[-1])
+        idx_current_3d_v = idx_current.view(idx_current.shape[0], idx_current.shape[1], 1).expand(idx_current.shape[0], idx_current.shape[1], v.shape[-1])
+
+        x_normed_current = torch.gather(x_normed_current, 1, idx_current_3d_x)    # (B, budget, H)
+        q_current = self.q_proj(x_normed_current) #q:torch.Size([B, budget, 4096])
+        k = self.k_proj(x_normed_current) #k:torch.Size([B, budget, 4096])
+        v = torch.gather(v, 1, idx_current_3d_v) #k:torch.Size([B, budget, 4096])
+
+        idx_current_1d = idx_current.squeeze(0)
 
         if self._activation_checkpoint_fn is not None:
             attn_current = self._activation_checkpoint_fn(  # type: ignore
                 self.attention, q_current, k, v, attention_bias=attention_bias,
-                idx_current=idx_current,
+                idx_current=idx_current_1d,
+                shape_target=shape_target
             )
         else:
             attn_current = self.attention(
                 q_current, k, v,
                 attention_bias=attention_bias,
-                idx_current=idx_current,
+                idx_current=idx_current_1d,
                 shape_target=shape_target
             )
         # end
@@ -942,6 +957,10 @@ class LLaDALlamaBlock(LLaDABlock):
         x_final = self.ff_out(x_final)
         x_final = self.dropout(x_final)
         x_final = og_x_final + x_final
+
+        x_final_previous = self.plugin_cache_kvo.load(hidden='o', length='all')
+        x_final_previous.scatter_(x_final_previous, idx_current_3d_x, x_final)
+        self.plugin_cache_kvo.save_all(o=x_final_previous)
 
         return x_final
     # end

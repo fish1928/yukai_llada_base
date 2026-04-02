@@ -56,6 +56,70 @@ class InspectorPlugin(ABC):
 # end
 
 
+class CacheKVOPlugin_Disabled(InspectorPlugin):
+    def get_plugin_name(self):
+        return 'cache_kvo'
+    # end
+
+    def load(self, type_hidden=None, type_length=None):
+        pass
+    # end
+
+    def save_full_length(self, type_hidden=None):
+        pass
+    # end
+
+    def get_update_budget(self, feature):
+        pass
+    # end
+# end
+
+class CacheKVOPlugin_Enabled(InspectorPlugin):
+
+    LEN_PROMPT = 128
+    LEN_RESPONSE = 256
+    BUDGET_UPDATE_P = 0.25
+
+    MAP_HIDDEN_TYPE_PROPERTY_NAME = {
+        'v': 'v_previous',
+        'o': 'o_previous',
+        'k': 'k_previous'
+    }
+
+    MAP_LENGTH_TYPE_VARIABLE_NAME = {
+        'prompt': 'LEN_PROMPT',
+        'response': 'LEN_RESPONSE',
+        'all': 'LEN_ALL'
+    }
+
+    def get_plugin_name(self):
+        return 'cache_kvo'
+    # end
+
+    def load(self, type_hidden=None, type_length=None):
+        pass
+    # end
+
+    def save_full_length(self, *args, **kwargs):
+        for type_hidden, hidden in kwargs.items():
+            name_hidden = self.__class__.
+        # end
+    # end
+
+    def get_update_budget(self, sequence_full):
+        budget_percentage = self.__class__.BUDGET_UPDATE_P
+        length_full = sequence_full.shape[1]
+        budget_update = int(budget_percentage * length_full) or 1
+        return budget_update
+    # end
+
+    def _get_property_name(self, type_hidden):
+        return self.__class__[type_hidden]
+    # end
+
+# end
+
+
 class CacheAttnPlugin_Disabled(InspectorPlugin):
     def get_plugin_name(self):
         return 'cache_attn'
