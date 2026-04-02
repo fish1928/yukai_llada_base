@@ -55,6 +55,57 @@ class InspectorPlugin(ABC):
     # end
 # end
 
+
+class CacheAttnPlugin_Disabled(InspectorPlugin):
+    def get_plugin_name(self):
+        return 'cache_attn'
+    # end
+
+    def save(self):
+        pass
+    # end
+
+    def clear(self):
+        pass
+    # end
+# end
+
+
+class CacheAttnPlugin_Enabled(InspectorPlugin):
+    def get_plugin_name(self):
+        return 'cache_attn'
+    # end
+
+    def save(self):
+        q_current_rotated, k_final_rotated = self.load_vars('q_current_rotated', 'k_final_rotated')
+        get_attn_score_avg = self.load_func('get_attn_score_avg')
+
+        scores_attn_avg = get_attn_score_avg(q_current_rotated, k_final_rotated)
+        self.save_attrs(scores_attn_avg=scores_attn_avg)
+    # end
+
+    def collect_attn_from_all_blocks(self, model):
+        list_scores_attn_avg = []
+
+        for block_transformer in model.model.transformer.blocks[:]:
+            scores_attn_avg = block_transformer.scores_attn_avg.squeeze(0)  # from (B, Q, K) to (Q,K) because B is 1
+            list_scores_attn_avg.append(scores_attn_avg)
+        # end
+
+        return torch.stack(list_scores_attn_avg, dim=0)  # from [(1, Q, K),...] to [L, Q, K]
+    # end
+
+    def clear(self, model):
+        for block_transformer in model.model.transformer.blocks[:]:
+            if hasattr(block_transformer, 'scores_attn_avg'):
+                del block_transformer.scores_attn_avg
+            # end
+        # end        
+    # end
+# end
+
+
+
 class CachePastKVPlugin_Disabled(InspectorPlugin):
 
     def get_plugin_name(self):
