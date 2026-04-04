@@ -772,15 +772,13 @@ class LLaDABlock(nn.Module):
         # shape: (B, n_kv_h, T, hs)
         v_current = v_current.view(B, T, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
 
-        k_final, v_final = self.cache_past_kv.load()
-
+        k_final, v_final = self.plugin_cache_past_kv.load()
         
 
         max_replace_pos = k_final.shape[1]
         q_current_rotated, k_final_rotated = self.rotary_emb(
             q_current, k_final, max_replace_pos, idx_current
         )
-
 
         hidden = self._scaled_dot_product_attention(
             q_current_rotated, 
@@ -793,7 +791,7 @@ class LLaDABlock(nn.Module):
 
         hidden = hidden.transpose(1,2).contiguous().view(B,T,C)
 
-        self.cache_past_kv.save()
+        self.plugin_cache_past_kv.save()
 
         return self.attn_out(hidden)
     # end
@@ -897,17 +895,19 @@ class LLaDALlamaBlock(LLaDABlock):
         x_normed_current = self.attn_norm(x_current) #x:torch.Size([2, 168, 4096])
         v = self.v_proj(x_normed_current) #v:torch.Size([2, 168, 4096])
 
-        v_previous_prompt = self.plugin_cache_kvo.load(type_hidden='v', type_length='prompt')
-        v_prompt = v[:, -v_previous_prompt.shape[1]:, :]
-        sims_abs = F.cosine_similarity(v_prompt, v_previous_prompt, dim=-1).abs().clamp(0.0, 1.0)   # (Bs, Ts)
-        idx_sim_sorted = torch.argsort(sims_abs, dim=-1)    # (0 -> 1)
-        idx_sim_sorted = idx_sim_sorted + v_previous_prompt.shape[1]    # turn it into global index
+        '''v-verification starts'''
+        v_previous_response = self.plugin_cache_vo.load(name_hidden='v', name_length='prompt')
+        v_response = v[:, -v_previous_response.shape[1]:, :]
+        sims_response_abs = F.cosine_similarity(v_response, v_previous_response, dim=-1).abs().clamp(0.0, 1.0)   # (Bs, Ts)
+        idx_sim_sorted = torch.argsort(sims_response_abs, dim=-1)    # (0 -> 1)
 
-        budget_update = self.plugin_cache_kvo.get_update_budget()
+        idx_sim_sorted = idx_sim_sorted + self.plugin_cache_vo.LEN_PROMPT    # turn it into global index
+        budget_update = self.plugin_cache_vo.get_update_budget(v_response)
 
         idx_current = idx_sim_sorted[:, :budget_update]
-        idx_current_3d_x = idx_current.view(idx_current.shape[0], idx_current.shape[1], 1).expand(idx_current.shape[0], idx_current.shape[1], x_current.shape[-1])
-        idx_current_3d_v = idx_current.view(idx_current.shape[0], idx_current.shape[1], 1).expand(idx_current.shape[0], idx_current.shape[1], v.shape[-1])
+        B_update, L_update = idx_current.shape
+        idx_current_3d_x = idx_current.view(B_update, L_update, 1).expand(B_update, L_update, x_current.shape[-1])
+        idx_current_3d_v = idx_current.view(B_update, L_update, 1).expand(B_update, L_update, v.shape[-1])
 
         x_normed_current = torch.gather(x_normed_current, 1, idx_current_3d_x)    # (B, budget, H)
         q_current = self.q_proj(x_normed_current) #q:torch.Size([B, budget, 4096])
@@ -915,6 +915,7 @@ class LLaDALlamaBlock(LLaDABlock):
         v = torch.gather(v, 1, idx_current_3d_v) #k:torch.Size([B, budget, 4096])
 
         idx_current_1d = idx_current.squeeze(0)
+        '''v-verification ends'''
 
         if self._activation_checkpoint_fn is not None:
             attn_current = self._activation_checkpoint_fn(  # type: ignore
@@ -958,9 +959,9 @@ class LLaDALlamaBlock(LLaDABlock):
         x_final = self.dropout(x_final)
         x_final = og_x_final + x_final
 
-        x_final_previous = self.plugin_cache_kvo.load(hidden='o', length='all')
-        x_final_previous.scatter_(x_final_previous, idx_current_3d_x, x_final)
-        self.plugin_cache_kvo.save_full_length(o=x_final_previous)
+        output_hidden = self.plugin_cache_vo.load(hidden='o', length='all')
+        output_hidden.scatter_(1, idx_current_3d_x, x_final)
+        self.plugin_cache_vo.save_full_length(o=output_hidden)
 
         return x_final
     # end

@@ -56,9 +56,89 @@ class InspectorPlugin(ABC):
 # end
 
 
-class CacheKVOPlugin_Disabled(InspectorPlugin):
+
+class CacheVOPlugin_Enabled(InspectorPlugin):
+
+    '''class-level constants'''
+
+    LEN_PROMPT = 128
+    LEN_RESPONSE = 256
+    BUDGET_UPDATE_P = 0.25
+
+    @classmethod
+    def set_prompt_length(cls, len_prompt):
+        cls.LEN_PROMPT = len_prompt
+    # end
+
+    @classmethod
+    def set_response_length(cls, len_response):
+        cls.LEN_RESPONSE = len_response
+    # end
+
+    @classmethod
+    def set_update_budget_p(cls, budget_update_p):
+        cls.BUDGET_UPDATE_P = budget_update_p
+    # end
+
+
+    ''' handle hidden to attributes mapping'''
+
+    _MAP_NAME_HIDDEN_ATTR = {
+        'v': 'v_previous',
+        'o': 'o_previous',
+        'k': 'k_previous'
+    }
+
+    def _transform_hidden_name_to_attr_name(self, name_hidden):
+        return self.__class__._MAP_NAME_HIDDEN_ATTR[name_hidden]
+    # end
+
+
+    ''' handle hidden extraction'''
+
+    _MAP_LENGTH_TYPE_EXTRACT_LAMBDA = {
+        'prompt': lambda x, len_prompt, len_response: x[(torch.arange(1, len_prompt + len_response + 1) < len_response).view(1,-1,1).expand(x.shape[0],-1,x.shape[-1])].reshape(x.shape[0], -1, x.shape[-1]),
+        'response': lambda x, len_prompt, len_response: x[(torch.arange(1, len_prompt + len_response + 1) >= len_response).view(1,-1,1).expand(x.shape[0],-1,x.shape[-1])].reshape(x.shape[0], -1, x.shape[-1]),
+        'all': lambda x: x
+    }
+
+    def _extract_hidden_by_length(self, hidden, name_length):
+        lambda_extract = self.__class__._MAP_LENGTH_TYPE_EXTRACT_LAMBDA[name_length]
+        return lambda_extract(hidden, self.__class__.LEN_PROMPT, self.__class__.LEN_RESPONSE)
+    # end
+
+
+    ''' other functions'''
+    
     def get_plugin_name(self):
-        return 'cache_kvo'
+        return 'plugin_cache_vo'
+    # end
+
+    def load(self, name_hidden=None, type_length=None):
+        name_attr = self._transform_hidden_name_to_attr_name(name_hidden)
+        hidden = self.load_vars(name_attr)[0]
+        return self._extract_hidden_by_length(hidden, type_length)
+    # end
+
+    def save_full_length(self, *args, **kwargs):
+        for name_hidden, value_hidden in kwargs.items():
+            name_attr = self._transform_hidden_to_attribute_name(name_hidden)
+            self.save_attrs(**{name_attr: value_hidden})
+        # end
+    # end
+
+    def get_update_budget(self, sequence_full):
+        budget_percentage = self.__class__.BUDGET_UPDATE_P
+        length_full = sequence_full.shape[1]
+        budget_update = int(budget_percentage * length_full) or 1
+        return budget_update
+    # end
+# end
+
+
+class CacheVOPlugin_Disabled(InspectorPlugin):
+    def get_plugin_name(self):
+        return 'plugin_cache_vo'
     # end
 
     def load(self, type_hidden=None, type_length=None):
@@ -74,56 +154,10 @@ class CacheKVOPlugin_Disabled(InspectorPlugin):
     # end
 # end
 
-class CacheKVOPlugin_Enabled(InspectorPlugin):
-
-    LEN_PROMPT = 128
-    LEN_RESPONSE = 256
-    BUDGET_UPDATE_P = 0.25
-
-    MAP_HIDDEN_TYPE_PROPERTY_NAME = {
-        'v': 'v_previous',
-        'o': 'o_previous',
-        'k': 'k_previous'
-    }
-
-    MAP_LENGTH_TYPE_VARIABLE_NAME = {
-        'prompt': 'LEN_PROMPT',
-        'response': 'LEN_RESPONSE',
-        'all': 'LEN_ALL'
-    }
-
-    def get_plugin_name(self):
-        return 'cache_kvo'
-    # end
-
-    def load(self, type_hidden=None, type_length=None):
-        pass
-    # end
-
-    def save_full_length(self, *args, **kwargs):
-        for type_hidden, hidden in kwargs.items():
-            name_hidden = self._get_property_name(type_hidden)
-            self.save_attrs(name_hidden,)
-        # end
-    # end
-
-    def get_update_budget(self, sequence_full):
-        budget_percentage = self.__class__.BUDGET_UPDATE_P
-        length_full = sequence_full.shape[1]
-        budget_update = int(budget_percentage * length_full) or 1
-        return budget_update
-    # end
-
-    def _get_property_name(self, type_hidden):
-        return self.__class__[type_hidden]
-    # end
-
-# end
-
 
 class CacheAttnPlugin_Disabled(InspectorPlugin):
     def get_plugin_name(self):
-        return 'cache_attn'
+        return 'plugin_cache_attn'
     # end
 
     def save(self):
@@ -138,7 +172,7 @@ class CacheAttnPlugin_Disabled(InspectorPlugin):
 
 class CacheAttnPlugin_Enabled(InspectorPlugin):
     def get_plugin_name(self):
-        return 'cache_attn'
+        return 'plugin_cache_attn'
     # end
 
     def save(self):
@@ -174,7 +208,7 @@ class CacheAttnPlugin_Enabled(InspectorPlugin):
 class CachePastKVPlugin_Disabled(InspectorPlugin):
 
     def get_plugin_name(self):
-        return 'cache_past_kv'
+        return 'plugin_cache_past_kv'
     # end
 
     def load(self):
@@ -211,7 +245,7 @@ def concat_and_replace(matrix_origin, matrix_current, idx_current, shape_target)
 class CachePastKVPlugin_Enabled(InspectorPlugin):
 
     def get_plugin_name(self):
-        return 'cache_past_kv'
+        return 'plugin_cache_past_kv'
     # end
 
     def load(self):
@@ -254,7 +288,7 @@ class CachePastKVPlugin_Enabled(InspectorPlugin):
 class SaveKVPreviousPlugin_Disabled(InspectorPlugin):
 
     def get_plugin_name(self):
-        return 'save_kv_previous'
+        return 'plugin_save_kv_previous'
     # end
 
     def refresh(self):
@@ -270,7 +304,7 @@ class SaveKVPreviousPlugin_Disabled(InspectorPlugin):
 class SaveKVPreviousPlugin_Enabled(InspectorPlugin):
     
     def get_plugin_name(self):
-        return 'save_kv_previous'
+        return 'plugin_save_kv_previous'
     # end
 
     def refresh(self):
