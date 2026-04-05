@@ -18,6 +18,14 @@ class InspectorPlugin(ABC):
         raise NotImplementedError
     # end
 
+    def check_attr(self, name_attr):
+        frame = inspect.currentframe().f_back.f_back
+        vars_caller = frame.f_locals
+        self_caller = vars_caller['self']
+
+        return hasattr(self_caller, name_attr)
+    # end
+
     def load_vars(self, *args):
         frame = inspect.currentframe().f_back.f_back
         locals_caller = frame.f_locals
@@ -84,9 +92,8 @@ class CacheVOPlugin_Enabled(InspectorPlugin):
     ''' handle hidden to attributes mapping'''
 
     _MAP_NAME_HIDDEN_ATTR = {
-        'v': 'v_previous',
-        'o': 'o_previous',
-        'k': 'k_previous'
+        'v': 'layer_past',
+        'o': 'layer_output'
     }
 
     def _transform_hidden_name_to_attr_name(self, name_hidden):
@@ -114,16 +121,17 @@ class CacheVOPlugin_Enabled(InspectorPlugin):
         return 'plugin_cache_vo'
     # end
 
-    def load(self, name_hidden=None, type_length=None):
+    def load(self, name_hidden=None, name_length=None):
         name_attr = self._transform_hidden_name_to_attr_name(name_hidden)
-        hidden = self.load_vars(name_attr)[0]
-        return self._extract_hidden_by_length(hidden, type_length)
+        hidden = self.load_attrs(name_attr)[0][-1]   # layer_past and layer_output is all tuple, we only need v_past from layer_past, so
+
+        return self._extract_hidden_by_length(hidden, name_length)
     # end
 
     def save_full_length(self, *args, **kwargs):
         for name_hidden, value_hidden in kwargs.items():
-            name_attr = self._transform_hidden_to_attribute_name(name_hidden)
-            self.save_attrs(**{name_attr: value_hidden})
+            name_attr = self._transform_hidden_name_to_attr_name(name_hidden)
+            self.save_attrs(**{name_attr: (value_hidden,)})
         # end
     # end
 
@@ -132,6 +140,16 @@ class CacheVOPlugin_Enabled(InspectorPlugin):
         length_full = sequence_full.shape[1]
         budget_update = int(budget_percentage * length_full) or 1
         return budget_update
+    # end
+
+    def check_cached(self, name_hidden=None):
+        if name_hidden is None:
+            name_hidden = list(self.__class__._MAP_NAME_HIDDEN_ATTR.keys())[0]
+        # end
+
+        name_attr = self._transform_hidden_name_to_attr_name(name_hidden)
+
+        return self.check_attr(name_attr)
     # end
 # end
 
@@ -151,6 +169,10 @@ class CacheVOPlugin_Disabled(InspectorPlugin):
 
     def get_update_budget(self, feature):
         pass
+    # end
+
+    def check_cached(self):
+        return False
     # end
 # end
 
