@@ -76,16 +76,19 @@ class CacheVOPlugin_Enabled(InspectorPlugin):
     @classmethod
     def set_prompt_length(cls, len_prompt):
         cls.LEN_PROMPT = len_prompt
+        return cls
     # end
 
     @classmethod
     def set_response_length(cls, len_response):
         cls.LEN_RESPONSE = len_response
+        return cls
     # end
 
     @classmethod
     def set_update_budget_p(cls, budget_update_p):
         cls.BUDGET_UPDATE_P = budget_update_p
+        return cls
     # end
 
 
@@ -104,8 +107,8 @@ class CacheVOPlugin_Enabled(InspectorPlugin):
     ''' handle hidden extraction'''
 
     _MAP_LENGTH_TYPE_EXTRACT_LAMBDA = {
-        'prompt': lambda x, len_prompt, len_response: x[(torch.arange(1, len_prompt + len_response + 1) < len_response).view(1,-1,1).expand(x.shape[0],-1,x.shape[-1])].reshape(x.shape[0], -1, x.shape[-1]),
-        'response': lambda x, len_prompt, len_response: x[(torch.arange(1, len_prompt + len_response + 1) >= len_response).view(1,-1,1).expand(x.shape[0],-1,x.shape[-1])].reshape(x.shape[0], -1, x.shape[-1]),
+        'prompt': lambda x, len_prompt, len_response: x[(torch.arange(len_prompt + len_response) < len_prompt).view(1,-1,1).expand(x.shape[0],-1,x.shape[-1])].reshape(x.shape[0], -1, x.shape[-1]),
+        'response': lambda x, len_prompt, len_response: x[(torch.arange(len_prompt + len_response) >= len_prompt).view(1,-1,1).expand(x.shape[0],-1,x.shape[-1])].reshape(x.shape[0], -1, x.shape[-1]),
         'all': lambda x, len_prompt, len_response: x
     }
 

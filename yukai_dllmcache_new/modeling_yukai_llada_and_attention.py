@@ -642,6 +642,7 @@ class LLaDABlock(nn.Module):
         assert matrix_origin.shape[-2] == shape_target[-2],\
             f'origin shape should equal to target shape after patch, {matrix_origin.shape[-2]} == {shape_target[-2]}'
 
+        # return matrix_origin.scatter(2, idx_current.view(1,1,-1,1).expand(1,32,-1,matrix_current.shape[-1]), matrix_current)
         matrix_origin[:, :, idx_current, :] = matrix_current
         return matrix_origin
     # end
@@ -897,15 +898,16 @@ class LLaDALlamaBlock(LLaDABlock):
 
         '''v-verification starts'''
         if self.plugin_cache_vo.check_cached():
-            v_response_previous = self.plugin_cache_vo.load(name_hidden='v', name_length='prompt')
+            v_response_previous = self.plugin_cache_vo.load(name_hidden='v', name_length='response')
             v_response = v[:, -v_response_previous.shape[1]:, :]
             sims_response_abs = F.cosine_similarity(v_response, v_response_previous, dim=-1).abs().clamp(0.0, 1.0)   # (Bs, Ts)
             idx_sim_sorted = torch.argsort(sims_response_abs, dim=-1)    # (0 -> 1)
-
             idx_sim_sorted = idx_sim_sorted + self.plugin_cache_vo.LEN_PROMPT    # turn it into global index
+
             budget_update = self.plugin_cache_vo.get_update_budget(v_response)
 
             idx_current = idx_sim_sorted[:, :budget_update]
+            # idx_current = idx_sim_sorted[:, :]
             B_update, L_update = idx_current.shape
             idx_current_3d_x = idx_current.view(B_update, L_update, 1).expand(B_update, L_update, x_current.shape[-1])
             idx_current_3d_v = idx_current.view(B_update, L_update, 1).expand(B_update, L_update, v.shape[-1])
