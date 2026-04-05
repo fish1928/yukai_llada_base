@@ -897,9 +897,9 @@ class LLaDALlamaBlock(LLaDABlock):
 
         '''v-verification starts'''
         if self.plugin_cache_vo.check_cached():
-            v_previous_response = self.plugin_cache_vo.load(name_hidden='v', name_length='prompt')
-            v_response = v[:, -v_previous_response.shape[1]:, :]
-            sims_response_abs = F.cosine_similarity(v_response, v_previous_response, dim=-1).abs().clamp(0.0, 1.0)   # (Bs, Ts)
+            v_response_previous = self.plugin_cache_vo.load(name_hidden='v', name_length='prompt')
+            v_response = v[:, -v_response_previous.shape[1]:, :]
+            sims_response_abs = F.cosine_similarity(v_response, v_response_previous, dim=-1).abs().clamp(0.0, 1.0)   # (Bs, Ts)
             idx_sim_sorted = torch.argsort(sims_response_abs, dim=-1)    # (0 -> 1)
 
             idx_sim_sorted = idx_sim_sorted + self.plugin_cache_vo.LEN_PROMPT    # turn it into global index
@@ -939,7 +939,6 @@ class LLaDALlamaBlock(LLaDABlock):
 
         # Add attention scores.
         # shape: (B, T, C)
-        # print(f'[{self.layer_id}]: attn_current: {attn_current.shape}, x_current: {x_current.shape}')
 
         x_final = x_current + self.dropout(attn_current)
 
