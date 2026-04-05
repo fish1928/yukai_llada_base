@@ -106,7 +106,7 @@ class CacheVOPlugin_Enabled(InspectorPlugin):
     _MAP_LENGTH_TYPE_EXTRACT_LAMBDA = {
         'prompt': lambda x, len_prompt, len_response: x[(torch.arange(1, len_prompt + len_response + 1) < len_response).view(1,-1,1).expand(x.shape[0],-1,x.shape[-1])].reshape(x.shape[0], -1, x.shape[-1]),
         'response': lambda x, len_prompt, len_response: x[(torch.arange(1, len_prompt + len_response + 1) >= len_response).view(1,-1,1).expand(x.shape[0],-1,x.shape[-1])].reshape(x.shape[0], -1, x.shape[-1]),
-        'all': lambda x: x
+        'all': lambda x, len_prompt, len_response: x
     }
 
     def _extract_hidden_by_length(self, hidden, name_length):
@@ -124,6 +124,10 @@ class CacheVOPlugin_Enabled(InspectorPlugin):
     def load(self, name_hidden=None, name_length=None):
         name_attr = self._transform_hidden_name_to_attr_name(name_hidden)
         hidden = self.load_attrs(name_attr)[0][-1]   # layer_past and layer_output is all tuple, we only need v_past from layer_past, so
+
+        if hidden.ndim > 3:   # (B, Heads, L, Hiddens) -> (B, L, Heads x Hiddens)
+            hidden = hidden.transpose(1, 2).reshape(hidden.shape[0], hidden.shape[-2], -1)
+        # end
 
         return self._extract_hidden_by_length(hidden, name_length)
     # end

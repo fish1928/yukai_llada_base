@@ -910,6 +910,7 @@ class LLaDALlamaBlock(LLaDABlock):
             idx_current_3d_x = idx_current.view(B_update, L_update, 1).expand(B_update, L_update, x_current.shape[-1])
             idx_current_3d_v = idx_current.view(B_update, L_update, 1).expand(B_update, L_update, v.shape[-1])
 
+            x_current = torch.gather(x_current, 1, idx_current_3d_x)    # (B, budget, H)
             x_normed_current = torch.gather(x_normed_current, 1, idx_current_3d_x)    # (B, budget, H)
 
             v = torch.gather(v, 1, idx_current_3d_v) #k:torch.Size([B, budget, 4096])
@@ -938,6 +939,8 @@ class LLaDALlamaBlock(LLaDABlock):
 
         # Add attention scores.
         # shape: (B, T, C)
+        # print(f'[{self.layer_id}]: attn_current: {attn_current.shape}, x_current: {x_current.shape}')
+
         x_final = x_current + self.dropout(attn_current)
 
         # Add feed-forward projection.
