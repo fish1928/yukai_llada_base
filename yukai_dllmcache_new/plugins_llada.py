@@ -118,7 +118,7 @@ class CacheVOPlugin_Enabled(InspectorPlugin):
     # end
 
 
-    ''' other functions'''
+    ''' supportive functions'''
     
     def get_plugin_name(self):
         return 'plugin_cache_vo'
@@ -165,8 +165,52 @@ class CacheVOPlugin_Enabled(InspectorPlugin):
                 if hasattr(block_transformer, name_attr):
                     delattr(block_transformer, name_attr)
                 # end
+            # end for
         # end        
     # end
+
+
+    ''' core functions'''
+
+    def select_hidden(self, idx_current, x_current, x_normed_current, v, name_length='response'):
+        if not self.check_cached():
+            return idx_current, x_current, x_normed_current, v
+        # end
+
+        v_response_previous = self.load(name_hidden='v', name_length=name_length)
+        v_response = v[:, -v_response_previous.shape[1]:, :]
+        sims_response_abs = F.cosine_similarity(v_response, v_response_previous, dim=-1).abs().clamp(0.0, 1.0)   # (Bs, Ts)
+        idx_sim_sorted = torch.argsort(sims_response_abs, dim=-1)    # (0 -> 1)
+
+        if name_length == 'response':
+            idx_sim_sorted = idx_sim_sorted + self.plugin_cache_vo.LEN_PROMPT    # turn it into global index
+        # end
+
+        budget_update = self.get_update_budget(v_response)
+
+        idx_current = idx_sim_sorted[:, :budget_update]
+        # idx_current = idx_sim_sorted[:, :]
+        B_update, L_update = idx_current.shape
+        idx_current_3d_x = idx_current.view(B_update, L_update, 1).expand(B_update, L_update, x_current.shape[-1])
+        idx_current_3d_v = idx_current.view(B_update, L_update, 1).expand(B_update, L_update, v.shape[-1])
+
+        x_current = torch.gather(x_current, 1, idx_current_3d_x)    # (B, budget, H)
+        x_normed_current = torch.gather(x_normed_current, 1, idx_current_3d_x)    # (B, budget, H)
+
+        v = torch.gather(v, 1, idx_current_3d_v) #k:torch.Size([B, budget, 4096])
+        idx_current = idx_current.squeeze(0)
+
+        return idx_current, x_current, x_normed_current, v
+    # end
+
+    def update_hidden(self, x_final, name_hidden='o'):
+        idx_current = self.load_vars('id_current')[0]
+        B_update, L_update = idx_current.shape
+        idx_current_3d_x = idx_current.view(B_update, L_update, 1).expand(B_update, L_update, x_final.shape[-1])
+
+    # end
+
+
 # end
 
 
@@ -189,6 +233,18 @@ class CacheVOPlugin_Disabled(InspectorPlugin):
 
     def check_cached(self):
         return False
+    # end
+
+    def select_hidden(self, *args):
+        return args
+    # end
+
+    def update_hidden(self, *args, **kwargs):
+        if len(args) == 1:
+            return args[0]
+        # end
+
+        return args
     # end
 # end
 
