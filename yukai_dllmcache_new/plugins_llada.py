@@ -18,8 +18,18 @@ class InspectorPlugin(ABC):
         raise NotImplementedError
     # end
 
+    def _find_client_frame(self):
+        frame = inspect.currentframe()
+
+        while type(frame.f_locals.get('self')).__bases__[0] == InspectorPlugin: 
+            frame = frame.f_back
+        # end
+
+        return frame
+    # end
+
     def check_attr(self, name_attr):
-        frame = inspect.currentframe().f_back.f_back
+        frame = self._find_client_frame()
         vars_caller = frame.f_locals
         self_caller = vars_caller['self']
 
@@ -27,27 +37,27 @@ class InspectorPlugin(ABC):
     # end
 
     def load_vars(self, *args):
-        frame = inspect.currentframe().f_back.f_back
+        frame = self._find_client_frame()
         locals_caller = frame.f_locals
         return tuple(locals_caller[arg] for arg in args)
     # end
 
     def load_attrs(self, *args):
-        frame = inspect.currentframe().f_back.f_back
+        frame = self._find_client_frame()
         vars_caller = frame.f_locals
         self_caller = vars_caller['self']
         return tuple(getattr(self_caller, arg, None) for arg in args )
     # end
 
     def load_func(self, arg):
-        frame = inspect.currentframe().f_back.f_back
+        frame = self._find_client_frame()
         vars_caller = frame.f_locals
         self_caller = vars_caller['self']
         return getattr(self_caller, arg)
     # end
 
     def save_attrs(self, **kvargs):
-        frame = inspect.currentframe().f_back.f_back
+        frame = self._find_client_frame()
         vars_caller = frame.f_locals
         self_caller = vars_caller['self']
         for k, v in kvargs.items():
@@ -173,7 +183,7 @@ class CacheVOPlugin_Enabled(InspectorPlugin):
     ''' core functions'''
 
     def select_hidden(self, idx_current, x_current, x_normed_current, v, name_length='response'):
-        if not self.check_cached():
+        if not self.check_cached(): # check cached 的主体有问题
             return idx_current, x_current, x_normed_current, v
         # end
 
@@ -183,7 +193,7 @@ class CacheVOPlugin_Enabled(InspectorPlugin):
         idx_sim_sorted = torch.argsort(sims_response_abs, dim=-1)    # (0 -> 1)
 
         if name_length == 'response':
-            idx_sim_sorted = idx_sim_sorted + self.plugin_cache_vo.LEN_PROMPT    # turn it into global index
+            idx_sim_sorted = idx_sim_sorted + self.__class__.LEN_PROMPT    # turn it into global index
         # end
 
         budget_update = self.get_update_budget(v_response)
@@ -203,18 +213,50 @@ class CacheVOPlugin_Enabled(InspectorPlugin):
         return idx_current, x_current, x_normed_current, v
     # end
 
-    def update_hidden(self, x_final, name_hidden='o'):
-        idx_current = self.load_vars('id_current')[0]
-        B_update, L_update = idx_current.shape
-        idx_current_3d_x = idx_current.view(B_update, L_update, 1).expand(B_update, L_update, x_final.shape[-1])
+    def load_merge_and_update_hidden(self, x_final, name_hidden='o'):
 
+        if self.check_cached(name_hidden=name_hidden):
+            # jprint('move forward 2')
+            idx_current = self.load_vars('idx_current')[0]
+            B_update, L_update, H_update = x_final.shape
+            idx_current_3d_x = idx_current.view(B_update, L_update, 1).expand(B_update, L_update, H_update)
+
+            output_hidden = self.load(name_hidden=name_hidden, name_length='all')
+            output_hidden.scatter_(1, idx_current_3d_x, x_final)
+            x_final = output_hidden
+        # end
+
+        self.save_full_length(**{name_hidden: x_final})
+
+        return x_final
     # end
-
-
 # end
 
 
 class CacheVOPlugin_Disabled(InspectorPlugin):
+
+
+    @classmethod
+    def set_prompt_length(cls, len_prompt):
+        return cls
+    # end
+
+    @classmethod
+    def set_response_length(cls, len_response):
+        return cls
+    # end
+
+    @classmethod
+    def set_update_budget_p(cls, budget_update_p):
+        return cls
+    # end
+
+    _MAP_NAME_HIDDEN_ATTR = {
+        'v': 'layer_past',
+        'o': 'layer_output'
+    }
+
+
     def get_plugin_name(self):
         return 'plugin_cache_vo'
     # end
@@ -235,11 +277,19 @@ class CacheVOPlugin_Disabled(InspectorPlugin):
         return False
     # end
 
+    def clear_layer_past_and_output(self, model):
+        pass
+    # end
+
     def select_hidden(self, *args):
+        if len(args) == 1:
+            return args[0]
+        # end
+
         return args
     # end
 
-    def update_hidden(self, *args, **kwargs):
+    def load_merge_and_update_hidden(self, *args, **kwargs):
         if len(args) == 1:
             return args[0]
         # end

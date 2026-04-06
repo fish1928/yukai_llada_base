@@ -896,30 +896,7 @@ class LLaDALlamaBlock(LLaDABlock):
         x_normed_current = self.attn_norm(x_current) #x:torch.Size([2, 168, 4096])
         v = self.v_proj(x_normed_current) #v:torch.Size([2, 168, 4096])
 
-        '''v-verification starts'''
-        if self.plugin_cache_vo.check_cached():
-            v_response_previous = self.plugin_cache_vo.load(name_hidden='v', name_length='response')
-            v_response = v[:, -v_response_previous.shape[1]:, :]
-            sims_response_abs = F.cosine_similarity(v_response, v_response_previous, dim=-1).abs().clamp(0.0, 1.0)   # (Bs, Ts)
-            idx_sim_sorted = torch.argsort(sims_response_abs, dim=-1)    # (0 -> 1)
-            idx_sim_sorted = idx_sim_sorted + self.plugin_cache_vo.LEN_PROMPT    # turn it into global index
-
-            budget_update = self.plugin_cache_vo.get_update_budget(v_response)
-
-            idx_current = idx_sim_sorted[:, :budget_update]
-            # idx_current = idx_sim_sorted[:, :]
-            B_update, L_update = idx_current.shape
-            idx_current_3d_x = idx_current.view(B_update, L_update, 1).expand(B_update, L_update, x_current.shape[-1])
-            idx_current_3d_v = idx_current.view(B_update, L_update, 1).expand(B_update, L_update, v.shape[-1])
-
-            x_current = torch.gather(x_current, 1, idx_current_3d_x)    # (B, budget, H)
-            x_normed_current = torch.gather(x_normed_current, 1, idx_current_3d_x)    # (B, budget, H)
-
-            v = torch.gather(v, 1, idx_current_3d_v) #k:torch.Size([B, budget, 4096])
-            idx_current = idx_current.squeeze(0)
-        # end
-
-        '''v-verification ends'''
+        idx_current, x_current, x_normed_current, v = self.plugin_cache_vo.select_hidden(idx_current, x_current, x_normed_current, v)
 
         q_current = self.q_proj(x_normed_current) #q:torch.Size([B, budget, 4096])
         k = self.k_proj(x_normed_current) #k:torch.Size([B, budget, 4096])
@@ -967,13 +944,7 @@ class LLaDALlamaBlock(LLaDABlock):
         x_final = self.dropout(x_final)
         x_final = og_x_final + x_final
 
-        if self.plugin_cache_vo.check_cached(name_hidden='o'):
-            output_hidden = self.plugin_cache_vo.load(name_hidden='o', name_length='all')
-            output_hidden.scatter_(1, idx_current_3d_x, x_final)
-            x_final = output_hidden
-        # end
-
-        self.plugin_cache_vo.save_full_length(o=x_final)
+        x_final = self.plugin_cache_vo.load_merge_and_update_hidden(x_final)
         return x_final
     # end
 # end
