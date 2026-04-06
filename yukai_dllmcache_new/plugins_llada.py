@@ -158,6 +158,15 @@ class CacheVOPlugin_Enabled(InspectorPlugin):
 
         return self.check_attr(name_attr)
     # end
+
+    def clear_layer_past_and_output(self, model):
+        for block_transformer in model.model.transformer.blocks[:]:
+            for name_attr in self.__class__._MAP_NAME_HIDDEN_ATTR.values():
+                if hasattr(block_transformer, name_attr):
+                    delattr(block_transformer, name_attr)
+                # end
+        # end        
+    # end
 # end
 
 
