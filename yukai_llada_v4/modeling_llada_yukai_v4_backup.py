@@ -773,7 +773,8 @@ class LLaDABlock(nn.Module):
         # shape: (B, n_kv_h, T, hs)
         v_current = v_current.view(B, T, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
 
-        k_final, v_final = self.plugin_cache_past_kv.load()   
+        k_final, v_final = self.plugin_cache_past_kv.load()
+        
 
         max_replace_pos = k_final.shape[1]
         q_current_rotated, k_final_rotated = self.rotary_emb(
