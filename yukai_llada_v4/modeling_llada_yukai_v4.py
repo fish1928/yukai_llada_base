@@ -780,6 +780,8 @@ class LLaDABlock(nn.Module):
             q_current, k_final, max_replace_pos, idx_current
         )
 
+        self.plugin_cache_attn.save()
+
         hidden = self._scaled_dot_product_attention(
             q_current_rotated, 
             k_final_rotated,
