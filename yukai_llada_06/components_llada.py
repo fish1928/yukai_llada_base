@@ -49,11 +49,12 @@ class SimpleLogitsSnapshot:
         logits = self.logits
         mask_mask = self.x == self.id_mask
 
-        p = F.softmax(logits.to(torch.float64), dim=-1)   # [N, V]
+        p = F.softmax(logits.to(torch.float64), dim=-1)   # [B, N, D]
         p_sorted, _ = torch.sort(p, dim=-1, descending=True)    # rank 0 = largest prob
-        margin_p = p_sorted[:, idx_a] - p_sorted[:, idx_b]          # [N]
+        margin_p = p_sorted[:, :, idx_a] - p_sorted[:, :, idx_b]          # [B, N]
+
         neg_inf = torch.tensor(torch.finfo(p.dtype).min, device=p.device, dtype=p.dtype)
-        margin_p = torch.where(mask_mask.squeeze(-1), margin_p, neg_inf)
+        margin_p = torch.where(mask_mask.squeeze(0), margin_p.squeeze(0), neg_inf)
         return margin_p # [N]
     # end
 
