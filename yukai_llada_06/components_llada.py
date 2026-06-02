@@ -36,6 +36,29 @@ class SimpleLogitsSnapshot:
         return self.p_finalized
     # end
 
+    # def get_margin_p(self, idx_a=0, idx_b=1):
+    #     p = F.softmax(self.logits.to(torch.float64), dim=-1)
+    #     idx_sorted = torch.argsort(p, dim=-1, descending=True)        # [N, V]
+
+    #     a = torch.gather(p, -1, idx_sorted[:, idx_a:idx_a+1])         # [N, 1]  keep dim
+    #     b = torch.gather(p, -1, idx_sorted[:, idx_b:idx_b+1])         # [N, 1]
+    #     return (a - b).squeeze(-1)
+    # # end
+
+    def get_margin_p(self, idx_a=0, idx_b=1):   # returns p[rank a] - p[rank b], rank 0 = top-1
+        logits = self.logits
+        mask_mask = self.x == self.id_mask
+
+        p = F.softmax(logits.to(torch.float64), dim=-1)   # [N, V]
+        p_sorted, _ = torch.sort(p, dim=-1, descending=True)    # rank 0 = largest prob
+        margin_p = p_sorted[:, idx_a] - p_sorted[:, idx_b]          # [N]
+        neg_inf = torch.tensor(torch.finfo(p.dtype).min, device=p.device, dtype=p.dtype)
+        margin_p = torch.where(mask_mask.squeeze(-1), margin_p, neg_inf)
+        return margin_p # [N]
+    # end
+
+
+
     def transform_logits(self, collector):
 
         logits_tranform = self.logits

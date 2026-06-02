@@ -48,7 +48,7 @@ class RunModel:
 
         return p_finalized[:, len_prompt:]
     # end
-# ende
+# end
 
 
 class RunModelCollectKV:
