@@ -135,6 +135,19 @@ class ConfidenceOrderEval(AttnOrderEval):
 # end
 
 
+
+class ScoreOrderEval(AttnOrderEval):
+
+    def __init__(self, score, order):
+        super().__init__(score, order)
+    # end
+
+    def get_score(self):
+        return self.score
+    # end
+# end
+
+
 def summ(x):
     return "{:.3f} (n={})".format(x.nanmean().item(), int((~x.isnan()).sum()))
 # end
