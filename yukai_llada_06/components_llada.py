@@ -1,5 +1,6 @@
 import torch
 import torch.nn.functional as F
+import os
 
 class SimpleLogitsSnapshot:
 
@@ -128,5 +129,61 @@ class SimpleLogitsSnapshot:
 
         return self
     # end
+# end
 
+'''For RunModelAndCollectStats'''
+
+class IndexedElementList:
+    def __init__(self, idx_start, idx_end, name=None):
+        self.idx_start = idx_start
+        self.idx_end = idx_end
+        self.indexed_elements = [None] * (idx_end - idx_start)
+        self.name = name
+    # end
+
+    def add(self, idx_relative, element):
+        self.indexed_elements[idx_relative - self.idx_start] = element
+    # end
+
+    def get(self, idx_relative):
+        return self.indexed_elements[idx_relative - self.idx_start]
+    # end
+
+    def has_empty(self):
+        for indexed_element in self.indexed_elements:
+            if indexed_element is None:
+                return True
+            # end
+        # end
+
+        return False
+    # end
+
+    def stack_and_save(self, path_to_save):
+        stacked_elements = torch.stack(self.indexed_elements)
+        torch.save(stacked_elements, os.path.join(path_to_save, f'{self.name}_{self.idx_start}_{self.idx_end}.pt'))
+    # end
+# end
+
+
+class Stats:
+    _STATS = ('margin', 'conf', 'attn', 'unmask')
+
+    def __init__(self, idx_start, idx_end, margin_idx_a=0, margin_idx_b=1):
+        for name in self._STATS:
+            setattr(self, name, IndexedElementList(idx_start, idx_end, name=name))
+        # end
+
+        self.margin.idx_a = margin_idx_a
+        self.margin.idx_b = margin_idx_b
+    # end
+
+    def stack_and_save_all(self, path_to_save):
+        for name_stat in self._STATS:
+            statlist = getattr(self, name_stat)
+            if not statlist.has_empty():
+                statlist.stack_and_save(path_to_save)
+            # end
+        # end
+    # end
 # end
