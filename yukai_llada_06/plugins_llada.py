@@ -327,7 +327,7 @@ class CacheAttnPlugin_Enabled(InspectorPlugin):
         self.save_attrs(scores_attn_avg=scores_attn_avg)
     # end
 
-    def collect_attn_from_all_blocks(self, model):
+    def collect_attn_from_all_blocks(self, model): # -> (B,Q,K)
         list_scores_attn_avg = []
 
         for block_transformer in model.model.transformer.blocks[:]:
@@ -335,7 +335,7 @@ class CacheAttnPlugin_Enabled(InspectorPlugin):
             list_scores_attn_avg.append(scores_attn_avg)
         # end
 
-        return torch.stack(list_scores_attn_avg, dim=0)  # from [(1, Q, K),...] to [L, Q, K]
+        return torch.stack(list_scores_attn_avg, dim=0)  # from [(1, Q, K),...] to [B, Q, K]
     # end
 
     def clear(self, model):
