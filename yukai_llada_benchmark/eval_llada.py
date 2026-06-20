@@ -81,6 +81,7 @@ class LLaDAEvalHarness(LM):
         self.model.eval()
 
         self.device = torch.device(device)
+
         if self.accelerator is not None:
             self.model = self.accelerator.prepare(self.model)
             self.device = torch.device(f'{self.accelerator.device}')
@@ -88,6 +89,7 @@ class LLaDAEvalHarness(LM):
             self._world_size = self.accelerator.num_processes
         else: 
             self.model = self.model.to(device)
+        # end
 
         self.mask_id = mask_id
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
@@ -104,13 +106,18 @@ class LLaDAEvalHarness(LM):
         self.gen_length = gen_length
         self.block_length = block_length
         self.remasking = remasking    
+    # end
+
     @property
     def rank(self):
         return self._rank
+    # end
     
     @property
     def world_size(self):
         return self._world_size
+    # end
+
 
     def _forward_process(self, batch, prompt_index):
         b, l = batch.shape
@@ -127,12 +134,15 @@ class LLaDAEvalHarness(LM):
 
         for i in range(b):
             is_mask[i] = is_mask[i][torch.randperm(target_len)]
+        # end
 
         is_mask = torch.cat((torch.zeros(b, prompt_index.sum(), dtype=torch.bool, device=batch.device), is_mask), dim=1)
 
         noisy_batch = torch.where(is_mask, self.mask_id, batch)
 
         return noisy_batch, (x / target_len).unsqueeze(1).repeat(1, l)
+    # end
+
 
     @torch.no_grad()
     def get_logits(self, batch, prompt_index):
@@ -142,13 +152,17 @@ class LLaDAEvalHarness(LM):
             un_batch = batch.clone()
             un_batch[prompt_index] = self.mask_id
             batch = torch.cat([batch, un_batch])
+        # end
 
         logits = self.model(batch).logits
 
         if self.cfg > 0.:
             logits, un_logits = torch.chunk(logits, 2, dim=0)
             logits = un_logits + (self.cfg + 1) * (logits - un_logits)
+        # end
+
         return logits[:, :batch.shape[1]]
+    # end
 
     @torch.no_grad()
     def get_loglikelihood(self, prefix, target):
@@ -170,6 +184,7 @@ class LLaDAEvalHarness(LM):
             loss_acc.append(loss.item())
 
         return - sum(loss_acc) / len(loss_acc)
+    # end
 
     @torch.no_grad()
     def suffix_greedy_prediction(self, prefix, target):
@@ -194,6 +209,7 @@ class LLaDAEvalHarness(LM):
         correct = target == seq[0, len(prefix):]
         correct = torch.all(correct)
         return correct
+    # end
 
     def _encode_pair(self, context, continuation):
         n_spaces = len(context) - len(context.rstrip())
@@ -208,6 +224,7 @@ class LLaDAEvalHarness(LM):
         continuation_enc = whole_enc[context_enc_len:]
 
         return context_enc, continuation_enc
+    # end
 
     def loglikelihood(self, requests):
         def _tokenize(e):
@@ -241,9 +258,11 @@ class LLaDAEvalHarness(LM):
                 out.append((ll, 1.0 if is_target_greedy_dec else 0.0))
         torch.cuda.empty_cache()
         return out
+    # end
 
     def loglikelihood_rolling(self, requests):
         raise NotImplementedError
+    # end
 
     def generate_until(self, requests: list[Instance]):
 
@@ -261,9 +280,12 @@ class LLaDAEvalHarness(LM):
                                         temperature=0, cfg_scale=self.cfg, remasking=self.remasking, mask_id=self.mask_id)
             
             generated_answer = self.tokenizer.decode(generated_answer[0][prompt.shape[1]:], skip_special_tokens=False)
+
             for stop_seq in stop_tokens:
-                    if stop_seq in generated_answer:
-                        generated_answer = generated_answer.split(stop_seq)[0]
+                if stop_seq in generated_answer:
+                    generated_answer = generated_answer.split(stop_seq)[0]
+                # end if
+            # end for
 
             # remove special tokens
             generated_answer_ids = self.tokenizer(generated_answer)["input_ids"]
@@ -273,7 +295,9 @@ class LLaDAEvalHarness(LM):
             self.accelerator.wait_for_everyone()
 
         return out
-# end
+    # end
+# end class
+
 class Tokenizer_(ABC):
     def __init__(self, tokenizer):
         self.tokenizer = tokenizer
@@ -318,7 +342,7 @@ class Tokenizer_Generate(Tokenizer_):
 # end
 
 class Tokenizer_GenerateUntil(Tokenizer_):
-    def _tokenizer(self, e):
+    def _tokenize(self, e):
         return {
             'question': self.tokenizer(e['question'])['input_ids'],
             'question_text': e['question'],
