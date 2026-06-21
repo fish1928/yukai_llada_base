@@ -32,20 +32,21 @@ class RunModelSemiCached:
 
     #TODO: 有一个y的问题
     @ torch.no_grad()
-    def generate(self, model, x, config_diffusion, *args, **kwargs):
+    def generate(self, model, tokenizer, config_diffusion, *args, **kwargs):
 
         '''declare required variables'''
         num_blocks = config_diffusion.num_blocks
         step_per_block = config_diffusion.step_per_block
         size_block = config_diffusion.size_block
         id_mask = config_diffusion.id_mask
-        len_prompt = config_diffusion.len_prompt
         sorter = config_diffusion.klass_sorter()
         collector = config_diffusion.klass_collector()
 
-        words_stop = config_diffusion.words_stop
-        tokenizer = config_diffusion.tokenizer
-        text_prompt = config_diffusion.text_prompt
+        words_stop = kwargs['until']
+        text_prompt = kwargs['text_prompt']
+        len_prompt = kwargs['len_prompt']
+
+        x = kwargs['ids_input']
 
         has_done = False
         sentence_all = text_prompt
@@ -98,15 +99,17 @@ class RunModelSemiCached:
         return sentence_all, has_done
     # end
 
-    def run_one(self, model, config, batch):
+    def run_one(self, model, tokenizer, config, *args, **kwargs):
 
         plugin_cache_past_kv = self.config.klass_cache_past_kv()
         plugin_cache_past_kv.clear(self.model)
 
         sentence_generated, has_done = self.generate(
-            self.model,
-            batch['ids_prompt_masked_full'].to(self.config.device),
-            config
+            model,
+            tokenizer,
+            config,
+            *args,
+            **kwargs
         )
 
         return sentence_generated, has_done

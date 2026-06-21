@@ -38,7 +38,7 @@ def set_seed(seed):
 
 
 '''define token encoder function'''
-class Tokenizer_(ABC):
+class Preprocessor_(ABC):
 
     def __init__(self, tokenizer, config):
         self.tokenizer = tokenizer
@@ -55,7 +55,7 @@ class Tokenizer_(ABC):
     # end
 # end
 
-class Tokenizer_Until(Tokenizer_):
+class Preprocessor_Until(Preprocessor_):
 
     def _tokenize(self, ds_each):
         ids = self.tokenizer(
@@ -67,11 +67,11 @@ class Tokenizer_Until(Tokenizer_):
         return {
             'ids_prompt': ids,
             'text_prompt': ds_each['prompt'],
-            'until': ds_each['until'],
-            'id_mask': self.config.id_mask
+            'until': ds_each['until']
         }
     # end tokenize
 # end
+
 
 class Collater_(ABC):
     @abstractmethod
@@ -86,8 +86,9 @@ class Collater_(ABC):
 
 class Collater_Until_One(Collater_):
 
-    def __init__(self, len_target=None):
-        self.len_target = len_target
+    def __init__(self, config):
+        self.len_target = config.len_target
+        self.id_mask = config.id_mask
     # end
 
     def _collate(self, ds_batch):
@@ -95,21 +96,19 @@ class Collater_Until_One(Collater_):
             ds_batch = ds_batch[0]  #<- hit
         # end
 
-        id_mask = ds_batch['id_mask']
         ids_prompt = ds_batch['ids_prompt']
         len_prompt = len(ids_prompt)
 
-        ids_input = ids_prompt + [id_mask] * self.len_target
+        ids_input = ids_prompt + [self.id_mask] * self.len_target
         ids_input = torch.tensor(ids_input, dtype=torch.long).view(1, -1)
-        masks_input = torch.zeros_like(ids_input, dtype=torch.bool)
-        masks_input[:, len_prompt:] = True
+        # masks_input = torch.zeros_like(ids_input, dtype=torch.bool)
+        # masks_input[:, len_prompt:] = True
 
         return {
             'ids_input': ids_input,
-            'masks_input': masks_input,
-            'id_mask': id_mask,
-            'until': ds_batch['until'],
-            'len_target': self.len_target
+            # 'masks_input': masks_input,
+            'len_prompt': len_prompt,
+            'until': ds_batch['until']
         }
     # end
 # end
@@ -173,7 +172,7 @@ class TestLM(LM):
 
         ds = [{"prompt": req_eval.args[0], "until": req_eval.args[1]['until']} for req_eval in requests_eval]
         ds = Dataset.from_list(ds)
-        ds = ds.map(Tokenizer_Until(self.tokenizer))
+        ds = ds.map(Preprocessor_Until(self.tokenizer))
 
         '''prepare dataloader'''
         loader = DataLoader(
@@ -181,12 +180,14 @@ class TestLM(LM):
             batch_size=self.size_batch,
             shuffle=False,
             drop_last=False,
-            collate_fn=Collater_Until_One(self.len_target)
+            collate_fn=Collater_Until_One(self.config)
         )
 
         
         for id_batch, batch in enumerate(tqdm(loader)):
-            text_generated, has_done = self.runner_model.run(self.model, self.config, batch)
+            text_generated, has_done = self.runner_model.run_one(
+                self.model, self.tokenizer, self.config, **batch
+            )
         # end
     # end
 

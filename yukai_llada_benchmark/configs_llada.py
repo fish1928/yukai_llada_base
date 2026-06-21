@@ -35,7 +35,6 @@ class DiffusionConfig:
 @dataclass
 class DiffusionConfig_Eval:
     id_model: str
-    len_prompt: int
     len_target: int
     num_blocks: int
     num_unmask_per_step: int
