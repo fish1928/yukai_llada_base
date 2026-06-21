@@ -17,13 +17,14 @@ from lm_eval.api.model import LM
 from lm_eval.api.registry import register_model
 from tqdm import tqdm
 
+from tools_llada import TopKSorter, MaxCollector
 from modeling_llada_yukai_06 import LLaDAModelLM
-
+from run_model import RunModelSemiCached
+from configs_llada import DiffusionConfig_Eval
 from tools_debug import jprint
 
 
 DTYPE_EVAL = torch.bfloat16
-MASK_ID = 126336
 MASK_TEXT = '<|mdm_mask|>'
 
 def set_seed(seed):
@@ -39,8 +40,9 @@ def set_seed(seed):
 '''define token encoder function'''
 class Tokenizer_(ABC):
 
-    def __init__(self, tokenizer):
+    def __init__(self, tokenizer, config):
         self.tokenizer = tokenizer
+        self.config = config
     # end
 
     @abstractmethod
@@ -66,7 +68,7 @@ class Tokenizer_Until(Tokenizer_):
             'ids_prompt': ids,
             'text_prompt': ds_each['prompt'],
             'until': ds_each['until'],
-            'id_mask': MASK_ID
+            'id_mask': self.config.id_mask
         }
     # end tokenize
 # end
@@ -90,15 +92,12 @@ class Collater_Until_One(Collater_):
 
     def _collate(self, ds_batch):
         if type(ds_batch) is list:
-            jprint('is list')
-            ds_batch = ds_batch[0]
+            ds_batch = ds_batch[0]  #<- hit
         # end
 
         id_mask = ds_batch['id_mask']
         ids_prompt = ds_batch['ids_prompt']
         len_prompt = len(ids_prompt)
-
-        jprint(id_mask, ids_prompt)
 
         ids_input = ids_prompt + [id_mask] * self.len_target
         ids_input = torch.tensor(ids_input, dtype=torch.long).view(1, -1)
@@ -112,7 +111,6 @@ class Collater_Until_One(Collater_):
             'until': ds_batch['until'],
             'len_target': self.len_target
         }
-
     # end
 # end
 
@@ -122,13 +120,26 @@ class TestLM(LM):
     def __init__(self, *args, **kwargs):
         super().__init__()
 
-        id_model = kwargs['id_model']
-        self.size_batch = kwargs['size_batch']
-        self.len_target = kwargs['len_target']
+        self.config = DiffusionConfig_Eval(
+            id_model=kwargs['id_model'],
+            len_target=kwargs['len_target'],
+            num_blocks=kwargs['num_blocks'],
+            num_unmask_per_step=kwargs['num_unmask_per_step'],
+            id_mask=kwargs['id_mask'],
+            size_batch=kwargs['size_batch'],
+            device=kwargs['device'],
+            klass_sorter=TopKSorter,
+            klass_collector=MaxCollector
+        )
 
-        self.tokenizer = self._init_tokenizer(id_model)
+        self.tokenizer = self._init_tokenizer(self.config.id_model)
+        self.model = self._init_model(self.config.id_model).eval().to(self.config.device)
+        self.runner_model = RunModelSemiCached()
 
+        self.runner_model.config_plugin_(self.config)
+        self.runner_model.register_plugin_(self.model, self.config)
     # end
+
 
     def _init_tokenizer(self, id_model):
         tokenizer = AutoTokenizer.from_pretrained(
@@ -144,6 +155,7 @@ class TestLM(LM):
         return tokenizer
     # end
 
+
     def _init_model(self, id_model):
         model = LLaDAModelLM.from_pretrained(
             id_model,
@@ -156,22 +168,12 @@ class TestLM(LM):
 
 
     @torch.inference_mode()
-    def loglikelihood(self, requests):
-        for request_eval in requests:
-            jprint(request_eval)
-            raise "loglikelihood"
-        # end
-    # end
-
-
     def generate_until(self, requests_eval):    # requests_eval is all
         requests_eval = requests_eval[:1]
 
         ds = [{"prompt": req_eval.args[0], "until": req_eval.args[1]['until']} for req_eval in requests_eval]
         ds = Dataset.from_list(ds)
         ds = ds.map(Tokenizer_Until(self.tokenizer))
-
-        jprint(ds[0])
 
         '''prepare dataloader'''
         loader = DataLoader(
@@ -181,19 +183,23 @@ class TestLM(LM):
             drop_last=False,
             collate_fn=Collater_Until_One(self.len_target)
         )
+
         
         for id_batch, batch in enumerate(tqdm(loader)):
-            jprint(batch)
-            raise ''
+            text_generated, has_done = self.runner_model.run(self.model, self.config, batch)
         # end
     # end
 
 
+    @torch.inference_mode()
     def loglikelihood_rolling(self, requests):
-        for request_eval in requests:
-            jprint(request_eval)
-            raise "loglikelyhood_rolling"
-        # end
+        raise NotImplementedError
+    # end
+
+
+    @torch.inference_mode()
+    def loglikelihood(self, requests):
+        raise NotImplementedError
     # end
 
 # end
