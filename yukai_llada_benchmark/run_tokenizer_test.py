@@ -19,14 +19,18 @@ from tqdm import tqdm
 
 from tools_llada import TopKSorter, MaxCollector
 from modeling_llada_yukai_06 import LLaDAModelLM
-# from run_model_semi_cached import RunModelSemiCached
-from run_model_semi import RunModelSemi
+# from run_model_semi import RunModelSemi as RunModel
+# from run_model_semi_cached import RunModelSemiCached as RunModel
+from run_model_semi_cached_mlp import RunModelSemiCachedMLP as RunModel
+
+
+
 from configs_llada import DiffusionConfig_Eval
 from tools_debug import jprint
 
 
-DTYPE_EVAL = torch.bfloat16
-MASK_TEXT = '<|mdm_mask|>'
+from constants_llada import DTYPE_EVAL, TEXT_MASK
+
 
 def set_seed(seed):
     torch.manual_seed(seed)
@@ -115,25 +119,20 @@ class Collater_Until_One(Collater_):
 
 @register_model("test")
 class TestLM(LM):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, batch_size=1, *args, **kwargs):
         super().__init__()
 
+        kwargs['klass_sorter']=TopKSorter
+        kwargs['klass_collector']=MaxCollector
+
         self.config = DiffusionConfig_Eval(
-            id_model=kwargs['id_model'],
-            len_target=kwargs['len_target'],
-            num_blocks=kwargs['num_blocks'],
-            num_unmask_per_step=kwargs['num_unmask_per_step'],
-            id_mask=kwargs['id_mask'],
-            size_batch=kwargs['size_batch'],
-            device=kwargs['device'],
-            klass_sorter=TopKSorter,
-            klass_collector=MaxCollector
+            **kwargs
         )
 
         self.tokenizer = self._init_tokenizer(self.config.id_model)
         self.model = self._init_model(self.config.id_model).eval().to(self.config.device)
         # self.runner_model = RunModelSemiCached()
-        self.runner_model = RunModelSemi()
+        self.runner_model = RunModel()
 
         self.runner_model.config_plugin_(self.config)
         self.runner_model.register_plugin_(self.model, self.config)

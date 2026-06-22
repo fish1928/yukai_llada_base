@@ -44,6 +44,11 @@ class DiffusionConfig_Eval:
     klass_sorter: ConfKSorter
     klass_collector: ConfCollectorInterface
 
+    '''with mlp'''
+    step_refresh_remainder: Optional[int] = None
+    h: Optional[int] = None
+    '''with mlp'''
+
     klass_save_kv_previous: Optional[InspectorPlugin] = None
     klass_cache_past_kv: Optional[InspectorPlugin] = None
     klass_cache_attn: Optional[InspectorPlugin] = None
