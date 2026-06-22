@@ -131,7 +131,6 @@ class TestLM(LM):
 
         self.tokenizer = self._init_tokenizer(self.config.id_model)
         self.model = self._init_model(self.config.id_model).eval().to(self.config.device)
-        # self.runner_model = RunModelSemiCached()
         self.runner_model = RunModel()
 
         self.runner_model.config_plugin_(self.config)

@@ -56,6 +56,7 @@ class RunModelSemiCachedMLP:
         
         words_stop = kwargs['until']
         len_prompt = kwargs['len_prompt']
+        jprint(f'len_prompt: {len_prompt}')
         x = kwargs['ids_input']
 
         plugin_cache_attn = kwargs['plugin_cache_attn']
@@ -82,7 +83,6 @@ class RunModelSemiCachedMLP:
             shape_target = (x.shape[0], position_end, -1)
 
             for step in range(step_per_block):
-                jprint('step: {}'.format(step))
 
                 if step == 0 or step % step_refresh_remainder == 0:
                     idx_denoising = idx_block
@@ -128,8 +128,18 @@ class RunModelSemiCachedMLP:
                 num_unmask = quota_helper.get_quota(step)
                 idx_transform_2d = idx_sorted_by_conf[:, :num_unmask]
 
-                snapshot.materialize_by_idx_(idx_transform_2d, conf_snapshot)
-                snapshot.update_this(1, idx_src=idx_transform_2d, idx_tgt=idx_denoising, x0=x)
+                snapshot.materialize_by_idx_(idx_transform_2d, conf_snapshot) 
+
+
+                '''we have problem here'''
+                # snapshot.update_this(1, idx_src=idx_transform_2d, idx_tgt=idx_denoising, x0=x)
+                snapshot.update_this(1, idx_src=idx_transform_2d, x0=x)
+                # jprint(f'[{step}]: {x[:, idx_block]}')
+
+
+
+
+
                 idx_refresh = idx_transform_2d.squeeze(0)
             # end
 

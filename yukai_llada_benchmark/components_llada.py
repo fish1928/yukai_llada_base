@@ -137,8 +137,6 @@ class SimpleLogitsSnapshot:
 
     def update_this(self, dim, idx_src, idx_tgt=None, **kwargs):
 
-        jprint(idx_src, idx_tgt, self.x0.shape, list(kwargs.values())[0].shape)
-
         if idx_tgt is None:
             idx_transform = idx_src
         else:
