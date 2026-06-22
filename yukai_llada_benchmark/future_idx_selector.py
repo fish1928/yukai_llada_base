@@ -76,7 +76,7 @@ class RandomModel:
 
 
 class FutureIDXSelector:
-    def __init__(self, model, h=5, select_only_in_h=True):
+    def __init__(self, model, h=5, select_only_in_h=False):
         self.model = model
         self.select_only_in_h = select_only_in_h
         self.h = h
