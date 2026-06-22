@@ -63,7 +63,7 @@ class RunModelSemiCached:
             quota_helper = BlockDiffusionQuotaHelper(mask_mask_blk, size_block)
 
             for step in range(step_per_block):
-                x_denoising,  y_denoising= x[:, idx_denoising], y[:, idx_denoising]
+                x_denoising,  y_denoising= x[:, idx_denoising], x[:, idx_denoising]
                 shape_target = (x.shape[0], position_end, -1)
                 logits = model(x_denoising, idx_current=idx_denoising, shape_target=shape_target).logits
                 snapshot = SimpleLogitsSnapshot(logits, x_denoising, y_denoising, id_mask)
@@ -80,8 +80,8 @@ class RunModelSemiCached:
             sentence_block_current = tokenizer.batch_decode(x[:, idx_denoising])[0]
 
             for word_stop in words_stop:
-                if word_stop in sentence_block:
-                    sentence_block = sentence_block_current.lsplit(word_stop)[0]
+                if word_stop in sentence_block_current:
+                    sentence_block_current = sentence_block_current.lsplit(word_stop)[0]
                     has_done = True
                 # end
             # end
@@ -101,8 +101,8 @@ class RunModelSemiCached:
 
     def run_one(self, model, tokenizer, config, *args, **kwargs):
 
-        plugin_cache_past_kv = self.config.klass_cache_past_kv()
-        plugin_cache_past_kv.clear(self.model)
+        plugin_cache_past_kv = config.klass_cache_past_kv()
+        plugin_cache_past_kv.clear(model)
 
         sentence_generated, has_done = self.generate(
             model,
@@ -115,6 +115,8 @@ class RunModelSemiCached:
         return sentence_generated, has_done
     # end
 # end
+
+
 
 class RunModelSemiCachedWithMLP:
     def generate(self, model, x, config_diffusion, *args, **kwargs):
@@ -210,8 +212,8 @@ class RunModelSemiCachedWithMLP:
             sentence_block_current = tokenizer.batch_decode(x[:, idx_denoising])[0]
 
             for word_stop in words_stop:
-                if word_stop in sentence_block:
-                    sentence_block = sentence_block_current.lsplit(word_stop)[0]
+                if word_stop in sentence_block_current:
+                    sentence_block_current = sentence_block_current.lsplit(word_stop)[0]
                     has_done = True
                 # end
             # end

@@ -34,7 +34,7 @@ def set_seed(seed):
 
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
-
+# end
 
 
 '''define token encoder function'''
@@ -61,7 +61,6 @@ class Preprocessor_Until(Preprocessor_):
             ds_each['prompt'],
             add_special_tokens=False
         )["input_ids"]
-
 
         return {
             'ids_prompt': ids,
@@ -105,7 +104,7 @@ class Collater_Until_One(Collater_):
 
         return {
             'ids_input': ids_input,
-            # 'masks_input': masks_input,
+            'text_prompt': ds_batch['text_prompt'],
             'len_prompt': len_prompt,
             'until': ds_batch['until']
         }
@@ -168,6 +167,8 @@ class TestLM(LM):
     @torch.inference_mode()
     def generate_until(self, requests_eval):    # requests_eval is all
         requests_eval = requests_eval[:1]
+        outputs_eval = []
+        errors_eval = []
 
         ds = [{"prompt": req_eval.args[0], "until": req_eval.args[1]['until']} for req_eval in requests_eval]
         ds = Dataset.from_list(ds)
@@ -176,7 +177,7 @@ class TestLM(LM):
         '''prepare dataloader'''
         loader = DataLoader(
             ds,
-            batch_size=self.size_batch,
+            batch_size=self.config.size_batch,
             shuffle=False,
             drop_last=False,
             collate_fn=Collater_Until_One(self.config)
@@ -184,10 +185,25 @@ class TestLM(LM):
 
         
         for id_batch, batch in enumerate(tqdm(loader)):
+            for k in batch.keys():
+                if type(batch[k]) is torch.Tensor:
+                    batch[k] = batch[k].to(self.config.device)
+                # end
+            # end
+
             text_generated, has_done = self.runner_model.run_one(
                 self.model, self.tokenizer, self.config, **batch
             )
+
+            if has_done:
+                outputs_eval.append(text_generated)
+            else:
+                errors_eval.append(text_generated)
+            # end
         # end
+
+        jprint('Total output / error: {} / {}'.format(len(outputs_eval, errors_eval)))
+        return outputs_eval
     # end
 
 
