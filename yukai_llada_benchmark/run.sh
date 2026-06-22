@@ -1,1 +1,1 @@
-accelerate launch --num_processes=1 run_tokenizer_test.py --tasks gsm8k --model test --batch_size 1 --num_fewshot 1 --model_args id_model='GSAI-ML/LLaDA-8B-Base',len_target=128,num_blocks=2,num_unmask_per_step=1,id_mask=126336,size_batch=1,device='cuda:0'
+accelerate launch --num_processes=1 run_tokenizer_test.py --tasks gsm8k --model test --batch_size 1 --num_fewshot 1 --limit 2 --model_args id_model='GSAI-ML/LLaDA-8B-Base',len_target=128,num_blocks=2,num_unmask_per_step=1,id_mask=126336,size_batch=1,device='cuda:0'

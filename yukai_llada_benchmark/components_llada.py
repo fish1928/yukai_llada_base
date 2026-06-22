@@ -2,6 +2,8 @@ import torch
 import torch.nn.functional as F
 import os
 
+from tools_debug import jprint
+
 class SimpleLogitsSnapshot:
 
     def _regularize(self, sample, target):
@@ -91,6 +93,26 @@ class SimpleLogitsSnapshot:
 
         return conf
     # end
+
+
+    def transform_logits2(self, collector):
+
+        logits_tranform = self.logits
+        p = F.softmax(logits_tranform.to(torch.float64), dim=-1)
+
+        index_p_all = collector.get_index(self)
+
+        x0_p = torch.gather(p, dim=-1, index=index_p_all).squeeze(-1)
+
+        neg_inf = torch.tensor(torch.finfo(x0_p.dtype).min, device=x0_p.device, dtype=x0_p.dtype)
+
+        mask_mask = self.x == self.id_mask
+        conf = torch.where(mask_mask, x0_p, neg_inf)  # (B, L)   # so only the masked part has confidence
+
+        return conf, index_p_all
+    # end
+
+
 
     def materialize_by_idx_(self, idx, conf):
 

@@ -166,7 +166,6 @@ class TestLM(LM):
 
     @torch.inference_mode()
     def generate_until(self, requests_eval):    # requests_eval is all
-        requests_eval = requests_eval[:1]
         outputs_eval = []
         errors_eval = []
 
@@ -195,14 +194,15 @@ class TestLM(LM):
                 self.model, self.tokenizer, self.config, **batch
             )
 
-            if has_done:
-                outputs_eval.append(text_generated)
-            else:
-                errors_eval.append(text_generated)
+            if not has_done:
+                errors_eval.append(id_batch)
+            # end
+            
+            outputs_eval.append(text_generated)
             # end
         # end
 
-        jprint('Total output / error: {} / {}'.format(len(outputs_eval, errors_eval)))
+        jprint('Total unfinished: {}'.format(len(errors_eval)))
         return outputs_eval
     # end
 
