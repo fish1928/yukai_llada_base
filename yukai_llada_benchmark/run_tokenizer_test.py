@@ -40,9 +40,8 @@ def set_seed(seed):
 '''define token encoder function'''
 class Preprocessor_(ABC):
 
-    def __init__(self, tokenizer, config):
+    def __init__(self, tokenizer):
         self.tokenizer = tokenizer
-        self.config = config
     # end
 
     @abstractmethod
