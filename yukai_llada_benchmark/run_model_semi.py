@@ -16,7 +16,7 @@ class RunModelSemiCached:
     def config_plugin_(self, config):
         config.klass_save_kv_previous=SaveKVPreviousPlugin_Disabled
         config.klass_cache_past_kv=CachePastKVPlugin_Enabled
-        config.klass_cache_attn=CacheAttnPlugin_Enabled
+        config.klass_cache_attn=CacheAttnPlugin_Disabled
         config.klass_cache_vo=CacheVOPlugin_Disabled
 
         return self

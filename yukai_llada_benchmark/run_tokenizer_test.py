@@ -19,7 +19,7 @@ from tqdm import tqdm
 
 from tools_llada import TopKSorter, MaxCollector
 from modeling_llada_yukai_06 import LLaDAModelLM
-from run_model import RunModelSemiCached
+from run_model_semi_cached import RunModelSemiCached
 from configs_llada import DiffusionConfig_Eval
 from tools_debug import jprint
 
