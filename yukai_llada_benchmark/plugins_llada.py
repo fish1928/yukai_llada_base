@@ -319,6 +319,18 @@ class CacheAttnPlugin_Enabled(InspectorPlugin):
         return 'plugin_cache_attn'
     # end
 
+
+    # def save(self):
+    #     q_current_rotated, k_final_rotated = self.load_vars('q_current_rotated', 'k_final_rotated')
+    #     idx_current, shape_target = self.load_vars('idx_current', 'shape_target')
+    #     get_attn_score_avg = self.load_func('get_attn_score_avg')
+    #     concat_and_replace = self.load_func('concat_and_replace')
+
+    #     scores_attn_avg = get_attn_score_avg(q_current_rotated, k_final_rotated)    # (B,)
+
+    # # end
+
+
     def save(self):
         q_current_rotated, k_final_rotated = self.load_vars('q_current_rotated', 'k_final_rotated')
         get_attn_score_avg = self.load_func('get_attn_score_avg')
