@@ -402,6 +402,11 @@ class CachePastKVPlugin_Enabled(InspectorPlugin):
         idx_current, shape_target = self.load_vars('idx_current','shape_target')
 
         k_previous, v_previous = layer_past
+        
+        layer_id = self.load_attrs('layer_id')[0]
+        if layer_id == 31:
+            jprint(f'[{layer_id}] {list(k_current.shape)} {list(v_current.shape)} {list(k_previous.shape)} {list(v_previous.shape)}')
+        # end
 
         k_final = concat_and_replace(k_previous, k_current, idx_current, shape_target)
         v_final = concat_and_replace(v_previous, v_current, idx_current, shape_target)

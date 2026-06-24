@@ -627,57 +627,57 @@ class LLaDABlock(nn.Module):
         # write a same-idx-for-rows version first
         # [current] = [refresh|denoising
         # @torch.compile()
-    # def concat_and_replace(self, matrix_origin, matrix_current, idx_current, shape_target): # (B, Hd, L, H)
+    def concat_and_replace(self, matrix_origin, matrix_current, idx_current, shape_target): # (B, Hd, L, H)
 
-    #     if matrix_origin.shape[-2] < shape_target[-2]:   # need patch
-    #         length_patch = shape_target[-2] - matrix_origin.shape[-2]
+        if matrix_origin.shape[-2] < shape_target[-2]:   # need patch
+            length_patch = shape_target[-2] - matrix_origin.shape[-2]
 
-    #         assert matrix_current.shape[-2] >= length_patch,\
-    #             f'current shape should be >= patch shape, {matrix_current.shape[-2]} >= {length_patch}'
-    #         matrix_patch = matrix_current[:, :, -length_patch:, :]   # TODO: check this
+            assert matrix_current.shape[-2] >= length_patch,\
+                f'current shape should be >= patch shape, {matrix_current.shape[-2]} >= {length_patch}'
+            matrix_patch = matrix_current[:, :, -length_patch:, :]   # TODO: check this
 
-    #         matrix_origin = torch.cat([matrix_origin, matrix_patch], dim=-2)
-    #     # end
+            matrix_origin = torch.cat([matrix_origin, matrix_patch], dim=-2)
+        # end
 
-    #     assert matrix_origin.shape[-2] == shape_target[-2],\
-    #         f'origin shape should equal to target shape after patch, {matrix_origin.shape[-2]} == {shape_target[-2]}'
+        assert matrix_origin.shape[-2] == shape_target[-2],\
+            f'origin shape should equal to target shape after patch, {matrix_origin.shape[-2]} == {shape_target[-2]}'
 
-    #     # return matrix_origin.scatter(2, idx_current.view(1,1,-1,1).expand(1,32,-1,matrix_current.shape[-1]), matrix_current)
-    #     matrix_origin[:, :, idx_current, :] = matrix_current
-    #     return matrix_origin
+        # return matrix_origin.scatter(2, idx_current.view(1,1,-1,1).expand(1,32,-1,matrix_current.shape[-1]), matrix_current)
+        matrix_origin[:, :, idx_current, :] = matrix_current
+        return matrix_origin
     # # end
 
-    def concat_and_replace(self, matrix_origin, matrix_current, idx_current, shape_target):    # idx_current is 1d
+    # def concat_and_replace(self, matrix_origin, matrix_current, idx_current, shape_target):    # idx_current is 1d
         
-        if len(shape_target) == 3:
-            shape_target = [shape_target[0],-1, shape_target[-2], shape_target[-1]]
-        # end
+    #     if len(shape_target) == 3:
+    #         shape_target = [shape_target[0],-1, shape_target[-2], shape_target[-1]]
+    #     # end
         
-        shape_target = [v_t if v_t != -1 else v_o for v_o, v_t in zip(matrix_origin.shape, shape_target)]
+    #     shape_target = [v_t if v_t != -1 else v_o for v_o, v_t in zip(matrix_origin.shape, shape_target)]
 
-        device_origin = matrix_origin.device
-        dtype_origin = matrix_origin.dtype
-        shape_origin = matrix_origin.shape
+    #     device_origin = matrix_origin.device
+    #     dtype_origin = matrix_origin.dtype
+    #     shape_origin = matrix_origin.shape
 
-        shape_current = list(matrix_origin.shape)
-        shape_current[-2] = -1
+    #     shape_current = list(matrix_origin.shape)
+    #     shape_current[-2] = -1
 
-        shape_mask = torch.ones(len(shape_target), dtype=torch.long, device=device_origin).tolist()
-        shape_mask[-2] = -1
+    #     shape_mask = torch.ones(len(shape_target), dtype=torch.long, device=device_origin).tolist()
+    #     shape_mask[-2] = -1
 
-        if matrix_origin.shape[-2] < shape_target[-2]: # 扩展
-            matrix_target = torch.zeros(shape_target, dtype=dtype_origin, device=device_origin)
-            index_origin = torch.arange(matrix_origin.shape[-2], dtype=torch.long, device=device_origin).view(shape_mask).expand(shape_origin)
-            matrix_target.scatter_(-2, index_origin, matrix_origin)
-        else:
-            matrix_target = matrix_origin
-        # end
+    #     if matrix_origin.shape[-2] < shape_target[-2]: # 扩展
+    #         matrix_target = torch.zeros(shape_target, dtype=dtype_origin, device=device_origin)
+    #         index_origin = torch.arange(matrix_origin.shape[-2], dtype=torch.long, device=device_origin).view(shape_mask).expand(shape_origin)
+    #         matrix_target.scatter_(-2, index_origin, matrix_origin)
+    #     else:
+    #         matrix_target = matrix_origin
+    #     # end
 
-        index_current = idx_current.view(shape_mask).expand(shape_current)
-        matrix_target.scatter_(-2, index_current, matrix_current)
+    #     index_current = idx_current.view(shape_mask).expand(shape_current)
+    #     matrix_target.scatter_(-2, index_current, matrix_current)
 
-        return matrix_target
-    # end
+    #     return matrix_target
+    # # end
 
 
     def reset_parameters(self):

@@ -8,5 +8,5 @@ def jprint(*args):
 
     str_target = ' '.join([str(arg) for arg in args])
 
-    print(f'[DEBUG][{name_func}:{num_line}] {str_target} [FILE] {name_file}')
+    print(f'[YUKAI][DEBUG][{name_func}:{num_line}] {str_target} [FILE] {name_file}')
 # end
