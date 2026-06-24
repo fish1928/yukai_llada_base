@@ -382,7 +382,7 @@ class CacheAttnPlugin_Enabled(InspectorPlugin):
         matrix_current = matrix_current[:, :, -len_block:]
 
         if id_block_current != id_block_origin:
-            matrix_origin = torch.zeros((1, len_block, len_block), dtype=matrix_current.dtype, device=device) - 1
+            matrix_origin = torch.zeros((1, len_block, len_block), dtype=matrix_current.dtype, device=device)   # -1
         # end
 
         idx_current_relevant = idx_current - idx_block_current_min
