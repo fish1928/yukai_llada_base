@@ -1,8 +1,3 @@
-#################################################
-# copied from yukai_llada_06/plugins_llada_07.py
-# fixed select_only_in_h False problem(in 06)
-#################################################
-
 import os
 import inspect
 from abc import ABC, abstractmethod
@@ -184,6 +179,7 @@ class CacheVOPlugin_Enabled(InspectorPlugin):
         # end        
     # end
 
+
     ''' core functions'''
 
     def select_hidden(self, idx_current, x_current, x_normed_current, v, name_length='response'):
@@ -319,111 +315,36 @@ class CacheAttnPlugin_Disabled(InspectorPlugin):
 
 
 class CacheAttnPlugin_Enabled(InspectorPlugin):
-
-    '''class-level constants'''
-
-    SIZE_BLOCK = 64
-    LEN_PROMPT = 32
-
-    @classmethod
-    def set_len_prompt(cls, len_prompt):
-        cls.LEN_PROMPT = len_prompt
-        return cls
-    # end
-
-    @classmethod
-    def set_size_block(cls, size_block):
-        cls.SIZE_BLOCK = size_block
-        return cls
-    # end
-
     def get_plugin_name(self):
         return 'plugin_cache_attn'
     # end
 
-    def get_block_idx_min(self, id_block, len_block, len_base):
-        return len_base + id_block * len_block
-    # end
 
-    def get_block_id(self, index_target, len_block, len_base):
-        return int((index_target - len_base) / len_block)
-    # end
+    # def save(self):
+    #     q_current_rotated, k_final_rotated = self.load_vars('q_current_rotated', 'k_final_rotated')
+    #     idx_current, shape_target = self.load_vars('idx_current', 'shape_target')
+    #     get_attn_score_avg = self.load_func('get_attn_score_avg')
+    #     concat_and_replace = self.load_func('concat_and_replace')
 
-    # 1. 需要记住每次的idx_origin = idx_last
-    def reset_and_refresh_3d(self, matrix_origin, matrix_current, idx_origin_2d, idx_current_2d, len_block, len_base):
+    #     scores_attn_avg = get_attn_score_avg(q_current_rotated, k_final_rotated)    # (B,)
 
-        layer_id = self.load_attrs('layer_id')[0]   # TODO: remove after bug fixed
+    # # end
 
-        device = idx_current_2d.device
-
-        idx_current = idx_current_2d.squeeze(0)
-        if idx_current[-1] < len_base:  # need to check this
-            return 
-        # end
-
-        if idx_origin_2d is None and matrix_origin is None: # let id_block_origin = -1
-            idx_origin = torch.tensor([len_base - len_block], dtype=torch.long, device=idx_current.device)
-        else:
-            idx_origin = idx_origin_2d.squeeze(0)
-        # end
-
-
-        # 处理idx_current带有上一个block的部分，选取现在的
-        id_block_origin = self.get_block_id(idx_origin[-1], len_block, len_base)
-        id_block_current = self.get_block_id(idx_current[-1], len_block, len_base)
-
-        idx_block_current_min = self.get_block_idx_min(id_block_current, len_block, len_base)
-
-        idx_current = idx_current[idx_current >= idx_block_current_min]   # select by mask
-        assert idx_current.shape[-1] > 0
-
-        # idx_current 处理完成
-        idx_current_relevant = idx_current - idx_block_current_min
-        matrix_current = matrix_current[:, :, -len_block:]
-
-        if id_block_current != id_block_origin:
-            matrix_origin = torch.zeros((1, len_block, len_block), dtype=matrix_current.dtype, device=device) - 1
-        # end
-
-        idx_current_relevant = idx_current - idx_block_current_min
-
-        idx_current_relevant_3d = idx_current_relevant.view(1, -1, 1).expand(1, -1, len_block)
-
-        matrix_origin = matrix_origin.scatter(1, idx_current_relevant_3d, matrix_current)
-        return matrix_origin
-    # end
 
     def save(self):
-
-        layer_id = self.load_attrs('layer_id')[0]   # TODO: remove after bug fixed
-        len_block = self.__class__.SIZE_BLOCK
-        len_base = self.__class__.LEN_PROMPT
-
         q_current_rotated, k_final_rotated = self.load_vars('q_current_rotated', 'k_final_rotated')
-        idx_current = self.load_vars('idx_current')[0]
-
         get_attn_score_avg = self.load_func('get_attn_score_avg')
 
-        scores_attn_current = get_attn_score_avg(q_current_rotated, k_final_rotated)   
-        scores_attn_origin, idx_origin =  self.load_attrs('scores_attn_origin', 'idx_origin')
-
-        scores_attn_current = self.reset_and_refresh_3d(
-            scores_attn_origin, scores_attn_current,
-            idx_origin, idx_current,
-            len_block, len_base
-        )
-
-        if scores_attn_current is not None:
-            self.save_attrs(scores_attn_origin=scores_attn_current, idx_origin=idx_current)
-        # end
+        scores_attn_avg = get_attn_score_avg(q_current_rotated, k_final_rotated)
+        self.save_attrs(scores_attn_avg=scores_attn_avg)
     # end
 
     def collect_attn_from_all_blocks(self, model): # -> (B,Q,K)
         list_scores_attn_avg = []
 
         for block_transformer in model.model.transformer.blocks[:]:
-            scores_attn_origin = block_transformer.scores_attn_origin.squeeze(0)  # from (B, Q, K) to (Q,K) because B is 1
-            list_scores_attn_avg.append(scores_attn_origin)
+            scores_attn_avg = block_transformer.scores_attn_avg.squeeze(0)  # from (B, Q, K) to (Q,K) because B is 1
+            list_scores_attn_avg.append(scores_attn_avg)
         # end
 
         return torch.stack(list_scores_attn_avg, dim=0)  # from [(1, Q, K),...] to [B, Q, K]
@@ -432,7 +353,7 @@ class CacheAttnPlugin_Enabled(InspectorPlugin):
     def clear(self, model):
         for block_transformer in model.model.transformer.blocks[:]:
             if hasattr(block_transformer, 'scores_attn_avg'):
-                del block_transformer.scores_attn_origin
+                del block_transformer.scores_attn_avg
             # end
         # end        
     # end
@@ -481,6 +402,11 @@ class CachePastKVPlugin_Enabled(InspectorPlugin):
         idx_current, shape_target = self.load_vars('idx_current','shape_target')
 
         k_previous, v_previous = layer_past
+        
+        layer_id = self.load_attrs('layer_id')[0]
+        if layer_id == 31:
+            jprint(f'[{layer_id}] {list(k_current.shape)} {list(v_current.shape)} {list(k_previous.shape)} {list(v_previous.shape)}')
+        # end
 
         k_final = concat_and_replace(k_previous, k_current, idx_current, shape_target)
         v_final = concat_and_replace(v_previous, v_current, idx_current, shape_target)

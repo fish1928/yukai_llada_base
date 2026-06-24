@@ -56,7 +56,6 @@ class RunModelSemiCachedMLP:
         
         words_stop = kwargs['until']
         len_prompt = kwargs['len_prompt']
-        jprint(f'len_prompt: {len_prompt}')
         x = kwargs['ids_input']
 
         plugin_cache_attn = kwargs['plugin_cache_attn']
@@ -102,7 +101,7 @@ class RunModelSemiCachedMLP:
                     conf_snapshot = snapshot.transform_logits(collector)
                 else:
                     score_attn = plugin_cache_attn.collect_attn_from_all_blocks(model)
-                    idx_in_attn = torch.where(idx_transform_2d.squeeze(0) == idx_current)[0]    # idx_current is now last round
+                    idx_in_attn = torch.where(idx_transform_2d.squeeze(0) == idx_block)[0]    # idx_current is now last round
                     score_attn = score_attn[-1, idx_in_attn, -idx_block.shape[-1]:].squeeze(1)
                     mask_mask_current_no = ~(x[:,position_start:position_end] == id_mask).view(1,-1)    # (B, K)
                     score_attn.masked_fill_(mask_mask_current_no, torch.finfo(score_attn.dtype).min)
@@ -129,17 +128,7 @@ class RunModelSemiCachedMLP:
                 idx_transform_2d = idx_sorted_by_conf[:, :num_unmask]
 
                 snapshot.materialize_by_idx_(idx_transform_2d, conf_snapshot) 
-
-
-                '''we have problem here'''
-                # snapshot.update_this(1, idx_src=idx_transform_2d, idx_tgt=idx_denoising, x0=x)
                 snapshot.update_this(1, idx_src=idx_transform_2d, x0=x)
-                # jprint(f'[{step}]: {x[:, idx_block]}')
-
-
-
-
-
                 idx_refresh = idx_transform_2d.squeeze(0)
             # end
 
@@ -163,12 +152,24 @@ class RunModelSemiCachedMLP:
 
     def run_one(self, model, tokenizer, config, *args, **kwargs):
 
+        config.klass_cache_attn.set_size_block(config.size_block)
+        config.klass_cache_attn.set_len_prompt(kwargs['len_prompt'])
+
         if self.mlp is None:
             loader_mlp = FutureIdxSelectorModelLoader(1, config.device)
             self.mlp = loader_mlp.load(NAME_MLP).to(DTYPE_EVAL)
         # end
 
-        future_idx_selector = FutureIDXSelector(self.mlp, **({'h':config.h} if config.h else {}))
+        kwargs_selector = {}
+        if config.h:
+            kwargs_selector['h'] = config.h
+        # end
+
+        if config.select_only_in_h:
+            kwargs_selector['select_only_in_h'] = config.select_only_in_h
+        # end
+
+        future_idx_selector = FutureIDXSelector(self.mlp, **kwargs_selector)
 
         plugin_cache_past_kv = config.klass_cache_past_kv()
         plugin_cache_attn = config.klass_cache_attn()

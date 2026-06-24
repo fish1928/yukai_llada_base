@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from tools_llada import ConfKSorter, ConfCollectorInterface, BlockDiffusionQuotaHelper
-from plugins_llada import InspectorPlugin
+from yukai_llada_olds.yukai_llada_06.plugins_llada_06 import InspectorPlugin
 
 
 @dataclass

@@ -47,6 +47,7 @@ class DiffusionConfig_Eval:
     '''with mlp'''
     step_refresh_remainder: Optional[int] = None
     h: Optional[int] = None
+    select_only_in_h: Optional[bool] = None
     '''with mlp'''
 
     klass_save_kv_previous: Optional[InspectorPlugin] = None

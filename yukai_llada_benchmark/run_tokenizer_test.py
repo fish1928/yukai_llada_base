@@ -18,10 +18,10 @@ from lm_eval.api.registry import register_model
 from tqdm import tqdm
 
 from tools_llada import TopKSorter, MaxCollector
-from modeling_llada_yukai_07 import LLaDAModelLM
+from modeling_llada_yukai_06 import LLaDAModelLM
 # from run_model_semi import RunModelSemi as RunModel
-from run_model_semi_cached import RunModelSemiCached as RunModel
-# from run_model_semi_cached_mlp import RunModelSemiCachedMLP as RunModel
+# from run_model_semi_cached import RunModelSemiCached as RunModel
+from run_model_semi_cached_mlp import RunModelSemiCachedMLP as RunModel
 # from run_model_dllm import RunModelDLLM as RunModel
 
 
