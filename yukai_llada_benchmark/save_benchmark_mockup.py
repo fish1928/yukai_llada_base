@@ -27,7 +27,7 @@ from run_model_semi_cached_mlp import RunModelSemiCachedMLP as RunModel
 
 
 from configs_llada import DiffusionConfig_Eval
-from tools_debug import jprint, Timer
+from tools_debug import jprint
 
 
 from constants_llada import DTYPE_EVAL, TEXT_MASK
@@ -183,7 +183,6 @@ class TestLM(LM):
             collate_fn=Collater_Until_One(self.config)
         )
 
-        t = Timer().click()
         
         for id_batch, batch in enumerate(tqdm(loader)):
             for k in batch.keys():
@@ -204,7 +203,7 @@ class TestLM(LM):
             # end
         # end
 
-        jprint('Total unfinished: {}, duration: {}'.format(len(errors_eval), t.click()))
+        jprint('Total unfinished: {}'.format(len(errors_eval)))
         return outputs_eval
     # end
 

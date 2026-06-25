@@ -136,7 +136,7 @@ class RunModelSemiCachedMLP:
 
             for word_stop in words_stop:
                 if word_stop in sentence_block_current:
-                    sentence_block_current = sentence_block_current.lsplit(word_stop)[0]
+                    sentence_block_current = sentence_block_current.split(word_stop)[0]
                     has_done = True
                 # end
             # end
@@ -156,8 +156,9 @@ class RunModelSemiCachedMLP:
         config.klass_cache_attn.set_len_prompt(kwargs['len_prompt'])
 
         if self.mlp is None:
-            loader_mlp = FutureIdxSelectorModelLoader(1, config.device)
-            self.mlp = loader_mlp.load(NAME_MLP).to(DTYPE_EVAL)
+            # loader_mlp = FutureIdxSelectorModelLoader(1, config.device)
+            # self.mlp = loader_mlp.load(NAME_MLP).to(DTYPE_EVAL)
+            self.mlp = RandomModel()
         # end
 
         kwargs_selector = {}
