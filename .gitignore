@@ -7,3 +7,4 @@ kv_states*
 *.pt
 *.json
 *.txt
+*.sample

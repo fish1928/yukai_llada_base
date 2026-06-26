@@ -11,7 +11,7 @@ from plugins_llada import SaveKVPreviousPlugin_Disabled, SaveKVPreviousPlugin_En
 from tools_debug import jprint
 
 # model runner
-class RunModelDLLM:
+class RunModel:
 
     def config_plugin_(self, config):
         config.klass_save_kv_previous=SaveKVPreviousPlugin_Disabled

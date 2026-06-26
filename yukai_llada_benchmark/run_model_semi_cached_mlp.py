@@ -18,7 +18,7 @@ from tools_debug import jprint
 from constants_llada import DTYPE_EVAL, NAME_MLP
 
 
-class RunModelSemiCachedMLP:
+class RunModel:
 
     def __init__(self):
         self.mlp = None

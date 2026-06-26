@@ -1,4 +1,6 @@
+import os
 import torch
+import json
 from tqdm import tqdm
 
 from components_llada import SimpleLogitsSnapshot
@@ -13,9 +15,14 @@ from tools_debug import jprint
 # model runner
 class RunModel:
 
+    def __init__(self):
+        self.id_sample = 0
+        self.path_base = 'samples'
+    # end
+
     def config_plugin_(self, config):
         config.klass_save_kv_previous=SaveKVPreviousPlugin_Disabled
-        config.klass_cache_past_kv=CachePastKVPlugin_Enabled
+        config.klass_cache_past_kv=CachePastKVPlugin_Disabled
         config.klass_cache_attn=CacheAttnPlugin_Disabled
         config.klass_cache_vo=CacheVOPlugin_Disabled
 
@@ -46,63 +53,56 @@ class RunModel:
         collector = config_diffusion.klass_collector()
 
         words_stop = kwargs['until']
-        text_prompt = kwargs['text_prompt']
         len_prompt = kwargs['len_prompt']
-
-        x = kwargs['ids_input']
+        x = kwargs['ids_input'].detach().clone()
+        text_prompt = kwargs['text_prompt']
 
         has_done = False
-        # sentence_all = text_prompt
-
-        idx_denoising = torch.arange(0, len_prompt, dtype=torch.long).to(x.device)
-        model(x[:, idx_denoising], idx_current=idx_denoising)   # save prompt for once, shape_target can be overlook the first time
+        position_start = 0        
 
         for id_block in range(num_blocks):
-            position_start = len_prompt + id_block * size_block
-            position_end = position_start + size_block
+            position_end = position_start + len_prompt + (id_block+1) * size_block
             mask_mask_blk = x[:,position_start:position_end] == id_mask
-
+            
             idx_denoising = torch.arange(position_start, position_end, dtype=torch.long).to(x.device)
             quota_helper = BlockDiffusionQuotaHelper(mask_mask_blk, size_block)
 
             for step in range(step_per_block):
                 x_denoising,  y_denoising= x[:, idx_denoising], x[:, idx_denoising]
-                shape_target = (x.shape[0], position_end, -1)
-                logits = model(x_denoising, idx_current=idx_denoising, shape_target=shape_target).logits
+                logits = model(x_denoising, idx_current=idx_denoising).logits
                 snapshot = SimpleLogitsSnapshot(logits, x_denoising, y_denoising, id_mask)
-                
                 conf_snapshot = snapshot.transform_logits(collector)
                 idx_sorted_by_conf = sorter.argsort(conf_snapshot, snapshot)
                 num_unmask = quota_helper.get_quota(step)
                 idx_transform = idx_sorted_by_conf[:, :num_unmask]
 
                 snapshot.materialize_by_idx_(idx_transform, conf_snapshot)
-                snapshot.update_this(1, idx_src=idx_transform, idx_tgt=idx_denoising, x0=x)
-                # jprint(x[0, idx_denoising])
+                snapshot.update_this(1, idx_transform, x0=x)
             # end for step
-
-            sentence_block_current = tokenizer.batch_decode(x[:, idx_denoising])[0]
-
-            for word_stop in words_stop:
-                if word_stop in sentence_block_current:
-                    sentence_block_current = sentence_block_current.split(word_stop)[0]
-                    has_done = True
-                # end
-            # end
-        # end for
+        # end for block
 
 
-        sentence_block_previous = tokenizer.batch_decode(x[:, len_prompt:position_start], skip_special_tokens=False)[0]
-        sentence_all = sentence_block_previous + sentence_block_current
-        sentence_all = tokenizer.decode(tokenizer(sentence_all)['input_ids'], skip_special_tokens=True)
+        x_origin = kwargs['ids_input'].detach().cpu().tolist()
+        y = x.detach().cpu().tolist()
+        text_target = tokenizer.batch_decode(x[:, len_prompt:], skip_special_tokens=False)[0]
+        text_prompt = kwargs['text_prompt']
 
-        return sentence_all, has_done
+        info_sample = {
+            'x': x_origin,
+            'y': y,
+            'text_prompt': text_prompt,
+            'text_target': text_target
+        }
+
+        path_target = os.path.join(self.path_base, f'{self.id_sample}.sample')
+        with open(path_target, 'w+') as file:
+            file.write(json.dumps(info_sample))
+        # end
+
+        return text_target, has_done
     # end
 
     def run_one(self, model, tokenizer, config, *args, **kwargs):
-
-        plugin_cache_past_kv = config.klass_cache_past_kv()
-        plugin_cache_past_kv.clear(model)
 
         sentence_generated, has_done = self.generate(
             model,

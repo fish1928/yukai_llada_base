@@ -20,7 +20,7 @@ from tqdm import tqdm
 from tools_llada import TopKSorter, MaxCollector
 from modeling_llada_yukai_06 import LLaDAModelLM
 # from run_model_semi import RunModelSemi as RunModel
-from run_model_semi_cached import RunModelSemiCached as RunModel
+# from run_model_semi_cached import RunModelSemiCached as RunModel
 # from run_model_semi_cached_mlp import RunModelSemiCachedMLP as RunModel
 # from run_model_dllm import RunModelDLLM as RunModel
 
@@ -126,13 +126,18 @@ class TestLM(LM):
         kwargs['klass_sorter']=TopKSorter
         kwargs['klass_collector']=MaxCollector
 
+        module_runner = importlib.import_module(kwargs['runner'])
+        self.runner_model = module_runner.RunModel()
+        del kwargs['runner']
+
         self.config = DiffusionConfig_Eval(
             **kwargs
         )
 
         self.tokenizer = self._init_tokenizer(self.config.id_model)
         self.model = self._init_model(self.config.id_model).eval().to(self.config.device)
-        self.runner_model = RunModel()
+
+
 
         self.runner_model.config_plugin_(self.config)
         self.runner_model.register_plugin_(self.model, self.config)
