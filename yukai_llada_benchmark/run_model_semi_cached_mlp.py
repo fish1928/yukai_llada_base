@@ -56,6 +56,7 @@ class RunModelSemiCachedMLP:
         
         words_stop = kwargs['until']
         len_prompt = kwargs['len_prompt']
+        text_prompt = kwargs['text_prompt']
         x = kwargs['ids_input']
 
         plugin_cache_attn = kwargs['plugin_cache_attn']
@@ -156,9 +157,9 @@ class RunModelSemiCachedMLP:
         config.klass_cache_attn.set_len_prompt(kwargs['len_prompt'])
 
         if self.mlp is None:
-            # loader_mlp = FutureIdxSelectorModelLoader(1, config.device)
-            # self.mlp = loader_mlp.load(NAME_MLP).to(DTYPE_EVAL)
-            self.mlp = RandomModel()
+            loader_mlp = FutureIdxSelectorModelLoader(1, config.device)
+            self.mlp = loader_mlp.load(NAME_MLP).to(DTYPE_EVAL)
+            # self.mlp = RandomModel()
         # end
 
         kwargs_selector = {}
