@@ -90,6 +90,7 @@ class FutureIDXSelector:
         return torch.gather(index_avail, 1, idx)
     # end
 
+    # conf, margin, attn_last
     def select_future_by_3(self, met):  # (1, Q, 3)
         attn = met[:, :, -1]    # (1, Q)
         index_avail = (attn >0).nonzero(as_tuple=True)[1].reshape(attn.shape[0], -1)    # (1, Q)
