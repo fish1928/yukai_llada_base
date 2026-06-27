@@ -99,6 +99,7 @@ class RunModel:
             file.write(json.dumps(info_sample))
         # end
 
+        self.id_sample += 1
         return text_target, has_done
     # end
 
