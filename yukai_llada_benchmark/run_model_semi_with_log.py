@@ -17,7 +17,9 @@ class RunModel:
 
     def __init__(self):
         self.id_sample = 0
-        self.path_base = 'samples'
+        self.path_base = 'samples_ifeval'
+
+        os.makedirs(self.path_base, exist_ok=True)
     # end
 
     def config_plugin_(self, config):
