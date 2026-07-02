@@ -84,11 +84,10 @@ class RunModel:
 
             for step in range(step_per_block):
 
-                if step == 0 or step % step_refresh_remainder == 0:
-                    idx_prompt = torch.arange(0, len_prompt, dtype=torch.long).to(x.device)
-                    model(x[:, idx_prompt], idx_current=idx_prompt, shape_target=shape_target)
-                # end
-
+                # if step != 0 and step % step_refresh_remainder == 0:
+                #     idx_prompt = torch.arange(0, len_prompt, dtype=torch.long).to(x.device)
+                #     model(x[:, idx_prompt], idx_current=idx_prompt, shape_target=shape_target)
+                # # end
 
                 if step == 0 or step % step_refresh_remainder == 0:
                     idx_denoising = idx_block
