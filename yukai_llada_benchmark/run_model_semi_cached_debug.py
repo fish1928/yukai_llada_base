@@ -64,11 +64,17 @@ class RunModel:
 
             idx_denoising = torch.arange(position_start, position_end, dtype=torch.long).to(x.device)
             quota_helper = BlockDiffusionQuotaHelper(mask_mask_blk, size_block)
+            shape_target = (x.shape[0], position_end, -1)
+
 
             for step in range(step_per_block):
-                
+                if step % 2 == 0:
+                    idx_prompt = torch.arange(0, len_prompt, dtype=torch.long).to(x.device)
+                    model(x[:, idx_prompt], idx_current=idx_prompt, shape_target=shape_target)
+                # end
+
+
                 x_denoising,  y_denoising= x[:, idx_denoising], x[:, idx_denoising]
-                shape_target = (x.shape[0], position_end, -1)
                 logits = model(x_denoising, idx_current=idx_denoising, shape_target=shape_target).logits
                 snapshot = SimpleLogitsSnapshot(logits, x_denoising, y_denoising, id_mask)
                 
@@ -79,7 +85,10 @@ class RunModel:
 
                 snapshot.materialize_by_idx_(idx_transform, conf_snapshot)
                 snapshot.update_this(1, idx_src=idx_transform, idx_tgt=idx_denoising, x0=x)
-                # jprint(x[0, idx_denoising])
+
+                idx_transform_true_2d = torch.gather(idx_denoising.unsqueeze(0), dim=-1, index=idx_transform)
+                token_updated = tokenizer.batch_decode(x.gather(1, idx_transform_true_2d))[0]
+                jprint('[{}|{}|{}]: {}\n'.format(step, idx_transform_true_2d.item(), token_updated, tokenizer.batch_decode(x[:, idx_denoising])[0]))
             # end for step
 
             sentence_block_current = tokenizer.batch_decode(x[:, idx_denoising])[0]

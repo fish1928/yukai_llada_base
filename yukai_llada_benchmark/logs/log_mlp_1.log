@@ -1,0 +1,258 @@
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 300+ word summary of the wikipedia page "https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli". Do not use any commas and highlight at least 3 sections that has titles in markdown format, for example *highlighted section part 1*, *highlighted section part 2*, *highlighted section part 3*.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate:141] [0|77|
+]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [1|96|,]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [2|111|,]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [3|121|,]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [4|79|mond]: 
+<|mdm_mask|>mond<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [5|100|oli]: 
+<|mdm_mask|>mond<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [6|123|1]: 
+<|mdm_mask|>mond<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|>1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [7|80| III]: 
+<|mdm_mask|>mond III<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|>1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [8|78|Ray]: 
+Raymond III<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|>1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [9|112| ]: 
+Raymond III<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, <|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|>1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [10|85|oli]: 
+Raymond III<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, <|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|>1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [11|113|1]: 
+Raymond III<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|>1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [12|84| Trip]: 
+Raymond III<|mdm_mask|><|mdm_mask|><|mdm_mask|> Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|>1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [13|117| –]: 
+Raymond III<|mdm_mask|><|mdm_mask|><|mdm_mask|> Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|> –<|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|>1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [14|83| of]: 
+Raymond III<|mdm_mask|><|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|> –<|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|>1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [15|119| ]: 
+Raymond III<|mdm_mask|><|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|> –<|mdm_mask|> <|mdm_mask|>,<|mdm_mask|>1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [16|122| ]: 
+Raymond III<|mdm_mask|><|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|> –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [17|99| Trip]: 
+Raymond III<|mdm_mask|><|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|> Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|> –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [18|129| a]: 
+Raymond III<|mdm_mask|><|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|> Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|> –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> a<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [19|81|,]: 
+Raymond III,<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|> Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|> –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> a<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [20|128| was]: 
+Raymond III,<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|> Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|> –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [21|93|Ray]: 
+Raymond III,<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Ray<|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|> Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|> –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [22|116|0]: 
+Raymond III,<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Ray<|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|> Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [23|132|man]: 
+Raymond III,<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Ray<|mdm_mask|><|mdm_mask|>,<|mdm_mask|><|mdm_mask|> Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|><|mdm_mask|>man<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [24|94|mond]: 
+Raymond III,<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond<|mdm_mask|>,<|mdm_mask|><|mdm_mask|> Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|><|mdm_mask|>man<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [25|133| and]: 
+Raymond III,<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond<|mdm_mask|>,<|mdm_mask|><|mdm_mask|> Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|><|mdm_mask|>man and<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [26|108| ]: 
+Raymond III,<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond<|mdm_mask|>,<|mdm_mask|><|mdm_mask|> Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> <|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|><|mdm_mask|>man and<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [27|131| noble]: 
+Raymond III,<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond<|mdm_mask|>,<|mdm_mask|><|mdm_mask|> Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> <|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [28|98| of]: 
+Raymond III,<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond<|mdm_mask|>,<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> <|mdm_mask|><|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [29|109|1]: 
+Raymond III,<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond<|mdm_mask|>,<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [30|82| Count]: 
+Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond<|mdm_mask|>,<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [31|103| of]: 
+Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond<|mdm_mask|>,<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [32|97| Count]: 
+Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond<|mdm_mask|>, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [33|136| the]: 
+Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond<|mdm_mask|>, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> <|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [34|120|1]: 
+Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond<|mdm_mask|>, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [35|135| of]: 
+Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond<|mdm_mask|>, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [36|95| III]: 
+Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [37|138| of]: 
+Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [38|106| (]: 
+Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [39|140|oli]: 
+Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|>oli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [40|139| Trip]: 
+Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|> of the<|mdm_mask|> of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [41|89|====]: 
+Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|>====<|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|> of the<|mdm_mask|> of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [42|137| House]: 
+Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|>====<|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|> of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [43|88|================================]: 
+Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|>====================================<|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|> of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [44|87|
+]: 
+Raymond III, Count of Tripoli<|mdm_mask|>
+====================================<|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a<|mdm_mask|> nobleman and<|mdm_mask|> of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [45|130| French]: 
+Raymond III, Count of Tripoli<|mdm_mask|>
+====================================<|mdm_mask|><|mdm_mask|><|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a French nobleman and<|mdm_mask|> of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [46|91|
+]: 
+Raymond III, Count of Tripoli<|mdm_mask|>
+====================================<|mdm_mask|>
+<|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 1<|mdm_mask|>, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a French nobleman and<|mdm_mask|> of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [47|110|5]: 
+Raymond III, Count of Tripoli<|mdm_mask|>
+====================================<|mdm_mask|>
+<|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 15, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a French nobleman and<|mdm_mask|> of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [48|86| ]: 
+Raymond III, Count of Tripoli 
+====================================<|mdm_mask|>
+<|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 15, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a French nobleman and<|mdm_mask|> of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [49|134| member]: 
+Raymond III, Count of Tripoli 
+====================================<|mdm_mask|>
+<|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 15, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a French nobleman and member of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [50|90|===]: 
+Raymond III, Count of Tripoli 
+=======================================
+<|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 15, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> was a French nobleman and member of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [51|125|7]: 
+Raymond III, Count of Tripoli 
+=======================================
+<|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 15, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|>7<|mdm_mask|><|mdm_mask|> was a French nobleman and member of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [52|92|
+]: 
+Raymond III, Count of Tripoli 
+=======================================
+
+Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 15, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 1<|mdm_mask|>7<|mdm_mask|><|mdm_mask|> was a French nobleman and member of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [53|124|2]: 
+Raymond III, Count of Tripoli 
+=======================================
+
+Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 15, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 127<|mdm_mask|><|mdm_mask|> was a French nobleman and member of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [54|101| and]: 
+Raymond III, Count of Tripoli 
+=======================================
+
+Raymond III, Count of Tripoli and<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 15, 1<|mdm_mask|><|mdm_mask|>0 –<|mdm_mask|> 1, 127<|mdm_mask|><|mdm_mask|> was a French nobleman and member of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [55|114|2]: 
+Raymond III, Count of Tripoli 
+=======================================
+
+Raymond III, Count of Tripoli and<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 15, 12<|mdm_mask|>0 –<|mdm_mask|> 1, 127<|mdm_mask|><|mdm_mask|> was a French nobleman and member of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [56|127|)]: 
+Raymond III, Count of Tripoli 
+=======================================
+
+Raymond III, Count of Tripoli and<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 15, 12<|mdm_mask|>0 –<|mdm_mask|> 1, 127<|mdm_mask|>) was a French nobleman and member of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [57|102| Lord]: 
+Raymond III, Count of Tripoli 
+=======================================
+
+Raymond III, Count of Tripoli and Lord of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 15, 12<|mdm_mask|>0 –<|mdm_mask|> 1, 127<|mdm_mask|>) was a French nobleman and member of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [58|115|2]: 
+Raymond III, Count of Tripoli 
+=======================================
+
+Raymond III, Count of Tripoli and Lord of<|mdm_mask|><|mdm_mask|> (<|mdm_mask|> 15, 1220 –<|mdm_mask|> 1, 127<|mdm_mask|>) was a French nobleman and member of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [59|104| Sid]: 
+Raymond III, Count of Tripoli 
+=======================================
+
+Raymond III, Count of Tripoli and Lord of Sid<|mdm_mask|> (<|mdm_mask|> 15, 1220 –<|mdm_mask|> 1, 127<|mdm_mask|>) was a French nobleman and member of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [60|105|on]: 
+Raymond III, Count of Tripoli 
+=======================================
+
+Raymond III, Count of Tripoli and Lord of Sidon (<|mdm_mask|> 15, 1220 –<|mdm_mask|> 1, 127<|mdm_mask|>) was a French nobleman and member of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [61|126|5]: 
+Raymond III, Count of Tripoli 
+=======================================
+
+Raymond III, Count of Tripoli and Lord of Sidon (<|mdm_mask|> 15, 1220 –<|mdm_mask|> 1, 1275) was a French nobleman and member of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [62|118| March]: 
+Raymond III, Count of Tripoli 
+=======================================
+
+Raymond III, Count of Tripoli and Lord of Sidon (<|mdm_mask|> 15, 1220 – March 1, 1275) was a French nobleman and member of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [63|107|November]: 
+Raymond III, Count of Tripoli 
+=======================================
+
+Raymond III, Count of Tripoli and Lord of Sidon (November 15, 1220 – March 1, 1275) was a French nobleman and member of the House of Tripoli
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 1, duration: 0:00:06 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+November
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=64,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,step_refresh_remainder=4,select_only_in_h=True,runner=run_model_semi_cached_mlp_debug), gen_kwargs: (None), limit: 1.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.3333|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.3333|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.0000|±  |   N/A|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.0000|±  |   N/A|
+

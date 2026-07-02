@@ -84,10 +84,11 @@ class RunModel:
 
             for step in range(step_per_block):
 
-                if step == 0 or step % 2 == 0:
+                if step == 0 or step % step_refresh_remainder == 0:
                     idx_prompt = torch.arange(0, len_prompt, dtype=torch.long).to(x.device)
                     model(x[:, idx_prompt], idx_current=idx_prompt, shape_target=shape_target)
                 # end
+
 
                 if step == 0 or step % step_refresh_remainder == 0:
                     idx_denoising = idx_block
@@ -136,6 +137,8 @@ class RunModel:
                 snapshot.materialize_by_idx_(idx_transform_2d, conf_snapshot) 
                 snapshot.update_this(1, idx_src=idx_transform_2d, x0=x)
                 idx_refresh = idx_transform_2d.squeeze(0)
+                token_updated = tokenizer.batch_decode(x.gather(1, idx_transform_2d))[0]
+                jprint('[{}|{}|{}]: {}\n'.format(step, idx_refresh.item(), token_updated, tokenizer.batch_decode(x[:, idx_block])[0]))
             # end
 
             sentence_block_current = tokenizer.batch_decode(x[:, idx_denoising])[0]

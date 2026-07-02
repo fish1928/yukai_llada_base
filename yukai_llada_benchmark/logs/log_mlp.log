@@ -1,0 +1,268 @@
+accelerate launch --num_processes=1 run_benchmark_main.py --tasks ifeval --limit 1 --model test --batch_size 1 --num_fewshot 1 --model_args id_model='GSAI-ML/LLaDA-8B-Base',size_batch=1,len_target=64,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device='cuda:0',step_refresh_remainder=4,select_only_in_h=True,runner=run_model_semi_cached_mlp_debug
+
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 300+ word summary of the wikipedia page "https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli". Do not use any commas and highlight at least 3 sections that has titles in markdown format, for example *highlighted section part 1*, *highlighted section part 2*, *highlighted section part 3*.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate:135] [0|77|
+]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [1|94| the]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [2|109| the]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [3|86| the]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [4|78|
+]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [5|96| of]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [6|113| the]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [7|91| the]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [8|97| the]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [9|117| the]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [10|131| the]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [11|101| the]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [12|85| of]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [13|106| the]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [14|121| the]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [15|139| the]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [16|108| of]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [17|83| the]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [18|125| the]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [19|99|,]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [20|111|,]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [21|135| the]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [22|93|,]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [23|128| the]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [24|127|,]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [25|80| the]: 
+
+<|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [26|116|,]: 
+
+<|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|>, the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [27|88|,]: 
+
+<|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|>, the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [28|130| of]: 
+
+<|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|>, the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [29|104|,]: 
+
+<|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|>, the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [30|133|,]: 
+
+<|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|>, the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [31|82|,]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|>, the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [32|138|,]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|>, the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|>, the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [33|102| the]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|>, the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|>, the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [34|136| the]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|>, the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [35|120| of]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|><|mdm_mask|>, the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [36|114| the]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [37|140| the]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [38|90| the]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [39|132| the]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [40|98| the]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [41|118| the]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [42|110| the]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>, the the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [43|137| the]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the<|mdm_mask|>,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>, the the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [44|87| the]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>, the the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [45|115| the]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [46|126| the]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>,<|mdm_mask|> the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the the, the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [47|103| the]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the the,<|mdm_mask|> the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the the, the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [48|92| the]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the<|mdm_mask|> of the the,<|mdm_mask|> the the the,<|mdm_mask|> the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the the, the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [49|124| the]: 
+
+<|mdm_mask|> the<|mdm_mask|>, the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the<|mdm_mask|> of the the,<|mdm_mask|> the the the,<|mdm_mask|> the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|> the the the, the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [50|81| the]: 
+
+<|mdm_mask|> the the, the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the<|mdm_mask|> of the the,<|mdm_mask|> the the the,<|mdm_mask|> the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|> the the the, the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [51|95| the]: 
+
+<|mdm_mask|> the the, the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the of the the,<|mdm_mask|> the the the,<|mdm_mask|> the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|> the the the, the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [52|84| the]: 
+
+<|mdm_mask|> the the, the the of the the,<|mdm_mask|> the the the, the the of the the,<|mdm_mask|> the the the,<|mdm_mask|> the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|> the the the, the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [53|122| the]: 
+
+<|mdm_mask|> the the, the the of the the,<|mdm_mask|> the the the, the the of the the,<|mdm_mask|> the the the,<|mdm_mask|> the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the<|mdm_mask|> of the the<|mdm_mask|> the the the, the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [54|129| the]: 
+
+<|mdm_mask|> the the, the the of the the,<|mdm_mask|> the the the, the the of the the,<|mdm_mask|> the the the,<|mdm_mask|> the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the<|mdm_mask|> of the the<|mdm_mask|> the the the, the the of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [55|105| the]: 
+
+<|mdm_mask|> the the, the the of the the,<|mdm_mask|> the the the, the the of the the,<|mdm_mask|> the the the, the the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the<|mdm_mask|> of the the<|mdm_mask|> the the the, the the of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [56|123|,]: 
+
+<|mdm_mask|> the the, the the of the the,<|mdm_mask|> the the the, the the of the the,<|mdm_mask|> the the the, the the<|mdm_mask|> of the the,<|mdm_mask|> the the the, the the<|mdm_mask|> of the the, the the the, the the of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [57|112| the]: 
+
+<|mdm_mask|> the the, the the of the the,<|mdm_mask|> the the the, the the of the the,<|mdm_mask|> the the the, the the<|mdm_mask|> of the the, the the the the, the the<|mdm_mask|> of the the, the the the, the the of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [58|100| the]: 
+
+<|mdm_mask|> the the, the the of the the,<|mdm_mask|> the the the, the the of the the, the the the the, the the<|mdm_mask|> of the the, the the the the, the the<|mdm_mask|> of the the, the the the, the the of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [59|89| the]: 
+
+<|mdm_mask|> the the, the the of the the, the the the the, the the of the the, the the the the, the the<|mdm_mask|> of the the, the the the the, the the<|mdm_mask|> of the the, the the the, the the of the the,<|mdm_mask|> the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [60|134| the]: 
+
+<|mdm_mask|> the the, the the of the the, the the the the, the the of the the, the the the the, the the<|mdm_mask|> of the the, the the the the, the the<|mdm_mask|> of the the, the the the, the the of the the, the the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [61|107| the]: 
+
+<|mdm_mask|> the the, the the of the the, the the the the, the the of the the, the the the the, the the the of the the, the the the the, the the<|mdm_mask|> of the the, the the the, the the of the the, the the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [62|119| the]: 
+
+<|mdm_mask|> the the, the the of the the, the the the the, the the of the the, the the the the, the the the of the the, the the the the, the the the of the the, the the the, the the of the the, the the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:135] [63|79|the]: 
+
+the the the, the the of the the, the the the the, the the of the the, the the the the, the the the of the the, the the the the, the the the of the the, the the the, the the of the the, the the the the, the the
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 1, duration: 0:00:03 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+the
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=64,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,step_refresh_remainder=4,select_only_in_h=True,runner=run_model_semi_cached_mlp_debug), gen_kwargs: (None), limit: 1.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.3333|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.3333|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.0000|±  |   N/A|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.0000|±  |   N/A|
+

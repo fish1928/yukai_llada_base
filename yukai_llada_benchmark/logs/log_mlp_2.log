@@ -1,0 +1,229 @@
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 300+ word summary of the wikipedia page "https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli". Do not use any commas and highlight at least 3 sections that has titles in markdown format, for example *highlighted section part 1*, *highlighted section part 2*, *highlighted section part 3*.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate:141] [0|77|
+]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [1|92| the]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [2|108| the]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [3|86| of]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [4|88|oli]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of<|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [5|99| the]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of<|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [6|117| the]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of<|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [7|139| the]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of<|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [8|87| Trip]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [9|101| of]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [10|126| the]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [11|84|,]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>,<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [12|85| Count]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [13|94| of]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [14|111| of]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [15|90| one]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, Count of Tripoli<|mdm_mask|> one<|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [16|91| of]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, Count of Tripoli<|mdm_mask|> one of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [17|112| the]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, Count of Tripoli<|mdm_mask|> one of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [18|79|:]: 
+<|mdm_mask|>:<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, Count of Tripoli<|mdm_mask|> one of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [19|103|oli]: 
+<|mdm_mask|>:<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, Count of Tripoli<|mdm_mask|> one of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [20|102| Trip]: 
+<|mdm_mask|>:<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, Count of Tripoli<|mdm_mask|> one of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [21|119| of]: 
+<|mdm_mask|>:<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>, Count of Tripoli<|mdm_mask|> one of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [22|81|Ray]: 
+<|mdm_mask|>:<|mdm_mask|>Ray<|mdm_mask|><|mdm_mask|>, Count of Tripoli<|mdm_mask|> one of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [23|105| He]: 
+<|mdm_mask|>:<|mdm_mask|>Ray<|mdm_mask|><|mdm_mask|>, Count of Tripoli<|mdm_mask|> one of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of Tripoli<|mdm_mask|> He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [24|82|mond]: 
+<|mdm_mask|>:<|mdm_mask|>Raymond<|mdm_mask|>, Count of Tripoli<|mdm_mask|> one of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of Tripoli<|mdm_mask|> He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [25|100| County]: 
+<|mdm_mask|>:<|mdm_mask|>Raymond<|mdm_mask|>, Count of Tripoli<|mdm_mask|> one of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the County of Tripoli<|mdm_mask|> He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [26|78|机器人]: 
+机器人:<|mdm_mask|>Raymond<|mdm_mask|>, Count of Tripoli<|mdm_mask|> one of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the County of Tripoli<|mdm_mask|> He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [27|95| the]: 
+机器人:<|mdm_mask|>Raymond<|mdm_mask|>, Count of Tripoli<|mdm_mask|> one of the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the County of Tripoli<|mdm_mask|> He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [28|83| III]: 
+机器人:<|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|> one of the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the County of Tripoli<|mdm_mask|> He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [29|114| of]: 
+机器人:<|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|> one of the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the County of Tripoli<|mdm_mask|> He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [30|130|oli]: 
+机器人:<|mdm_mask|>Raymond III, Count of Tripoli<|mdm_mask|> one of the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the County of Tripoli<|mdm_mask|> He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [31|89| was]: 
+机器人:<|mdm_mask|>Raymond III, Count of Tripoli was one of the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the County of Tripoli<|mdm_mask|> He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [32|129| Trip]: 
+机器人:<|mdm_mask|>Raymond III, Count of Tripoli was one of the<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the County of Tripoli<|mdm_mask|> He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [33|93| last]: 
+机器人:<|mdm_mask|>Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the County of Tripoli<|mdm_mask|> He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [34|131|,]: 
+机器人:<|mdm_mask|>Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the County of Tripoli<|mdm_mask|> He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> Tripoli,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [35|118| Kingdom]: 
+机器人:<|mdm_mask|>Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the County of Tripoli<|mdm_mask|> He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> the Kingdom of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> Tripoli,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [36|104|.]: 
+机器人:<|mdm_mask|>Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> the Kingdom of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> Tripoli,<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [37|133| was]: 
+机器人:<|mdm_mask|>Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|><|mdm_mask|> the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> the Kingdom of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> Tripoli,<|mdm_mask|> was<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [38|98| of]: 
+机器人:<|mdm_mask|>Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|> of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> the Kingdom of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> Tripoli,<|mdm_mask|> was<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [39|136| the]: 
+机器人:<|mdm_mask|>Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|> of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> the Kingdom of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> Tripoli,<|mdm_mask|> was<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [40|128| of]: 
+机器人:<|mdm_mask|>Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|> of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> the Kingdom of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of Tripoli,<|mdm_mask|> was<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [41|80|
+]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|> of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> the Kingdom of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of Tripoli,<|mdm_mask|> was<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [42|138| of]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|> of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|> the Kingdom of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of Tripoli,<|mdm_mask|> was<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [43|115| Jerusalem]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|> of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the<|mdm_mask|> of Jerusalem<|mdm_mask|> the Kingdom of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of Tripoli,<|mdm_mask|> was<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [44|113| Kingdom]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|> of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem<|mdm_mask|> the Kingdom of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of Tripoli,<|mdm_mask|> was<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [45|132| he]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|> of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem<|mdm_mask|> the Kingdom of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of Tripoli, he was<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [46|121|.]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|> of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem<|mdm_mask|> the Kingdom of<|mdm_mask|>.<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of Tripoli, he was<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [47|127| County]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|> of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem<|mdm_mask|> the Kingdom of<|mdm_mask|>.<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the County of Tripoli, he was<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [48|120| Cyprus]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|> of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem<|mdm_mask|> the Kingdom of Cyprus.<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> the County of Tripoli, he was<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [49|125| of]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|> of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem<|mdm_mask|> the Kingdom of Cyprus.<|mdm_mask|><|mdm_mask|><|mdm_mask|> of the County of Tripoli, he was<|mdm_mask|><|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [50|134| one]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|> of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem<|mdm_mask|> the Kingdom of Cyprus.<|mdm_mask|><|mdm_mask|><|mdm_mask|> of the County of Tripoli, he was one<|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [51|116| and]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|> of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem and the Kingdom of Cyprus.<|mdm_mask|><|mdm_mask|><|mdm_mask|> of the County of Tripoli, he was one<|mdm_mask|> the<|mdm_mask|> of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [52|135| of]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|><|mdm_mask|> of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem and the Kingdom of Cyprus.<|mdm_mask|><|mdm_mask|><|mdm_mask|> of the County of Tripoli, he was one of the<|mdm_mask|> of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [53|97| rulers]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|> rulers of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem and the Kingdom of Cyprus.<|mdm_mask|><|mdm_mask|><|mdm_mask|> of the County of Tripoli, he was one of the<|mdm_mask|> of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [54|137| last]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|> rulers of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem and the Kingdom of Cyprus.<|mdm_mask|><|mdm_mask|><|mdm_mask|> of the County of Tripoli, he was one of the last of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [55|123| the]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|> rulers of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem and the Kingdom of Cyprus.<|mdm_mask|> the<|mdm_mask|> of the County of Tripoli, he was one of the last of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [56|122| As]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|> rulers of the County of Tripoli. He<|mdm_mask|><|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem and the Kingdom of Cyprus. As the<|mdm_mask|> of the County of Tripoli, he was one of the last of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [57|106| was]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|> rulers of the County of Tripoli. He was<|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem and the Kingdom of Cyprus. As the<|mdm_mask|> of the County of Tripoli, he was one of the last of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [58|124| ruler]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|> rulers of the County of Tripoli. He was<|mdm_mask|> the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem and the Kingdom of Cyprus. As the ruler of the County of Tripoli, he was one of the last of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [59|107| also]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the<|mdm_mask|> rulers of the County of Tripoli. He was also the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem and the Kingdom of Cyprus. As the ruler of the County of Tripoli, he was one of the last of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [60|96| independent]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the independent rulers of the County of Tripoli. He was also the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem and the Kingdom of Cyprus. As the ruler of the County of Tripoli, he was one of the last of the<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [61|140| independent]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the independent rulers of the County of Tripoli. He was also the<|mdm_mask|><|mdm_mask|> of the Kingdom of Jerusalem and the Kingdom of Cyprus. As the ruler of the County of Tripoli, he was one of the last of the independent
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [62|109| overl]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the independent rulers of the County of Tripoli. He was also the overl<|mdm_mask|> of the Kingdom of Jerusalem and the Kingdom of Cyprus. As the ruler of the County of Tripoli, he was one of the last of the independent
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate:141] [63|110|ord]: 
+机器人:
+Raymond III, Count of Tripoli was one of the last of the independent rulers of the County of Tripoli. He was also the overlord of the Kingdom of Jerusalem and the Kingdom of Cyprus. As the ruler of the County of Tripoli, he was one of the last of the independent
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_mlp_debug.py
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 1, duration: 0:00:05 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+ord
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=64,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,step_refresh_remainder=4,select_only_in_h=True,runner=run_model_semi_cached_mlp_debug), gen_kwargs: (None), limit: 1.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.3333|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.3333|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.0000|±  |   N/A|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.0000|±  |   N/A|
+

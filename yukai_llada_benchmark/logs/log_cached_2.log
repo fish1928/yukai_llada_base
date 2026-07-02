@@ -1,0 +1,271 @@
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 300+ word summary of the wikipedia page "https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli". Do not use any commas and highlight at least 3 sections that has titles in markdown format, for example *highlighted section part 1*, *highlighted section part 2*, *highlighted section part 3*.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate:91] [0|77|
+]: 
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [1|78|
+]: 
+
+<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [2|80|:]: 
+
+<|mdm_mask|>:<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [3|88|oli]: 
+
+<|mdm_mask|>:<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>oli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [4|87| Trip]: 
+
+<|mdm_mask|>:<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [5|86| of]: 
+
+<|mdm_mask|>:<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [6|85| Count]: 
+
+<|mdm_mask|>:<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [7|84|,]: 
+
+<|mdm_mask|>:<|mdm_mask|><|mdm_mask|><|mdm_mask|>, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [8|83| III]: 
+
+<|mdm_mask|>:<|mdm_mask|><|mdm_mask|> III, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [9|82|mond]: 
+
+<|mdm_mask|>:<|mdm_mask|>mond III, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [10|81|Ray]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [11|89| (]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [12|90|1]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [13|95|1]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [14|94|–]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (1<|mdm_mask|><|mdm_mask|><|mdm_mask|>–1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [15|99|)]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (1<|mdm_mask|><|mdm_mask|><|mdm_mask|>–1<|mdm_mask|><|mdm_mask|><|mdm_mask|>)<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [16|100| was]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (1<|mdm_mask|><|mdm_mask|><|mdm_mask|>–1<|mdm_mask|><|mdm_mask|><|mdm_mask|>) was<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [17|101| a]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (1<|mdm_mask|><|mdm_mask|><|mdm_mask|>–1<|mdm_mask|><|mdm_mask|><|mdm_mask|>) was a<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [18|96|2]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (1<|mdm_mask|><|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [19|91|1]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [20|103| of]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [21|104| the]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a<|mdm_mask|> of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [22|102| member]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [23|106| of]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [24|105| House]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [25|108|bel]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of<|mdm_mask|>bel<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [26|107| I]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibel<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [27|109|in]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [28|110| and]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [29|112| of]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and<|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [30|113| Trip]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and<|mdm_mask|> of Trip<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [31|114|oli]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and<|mdm_mask|> of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [32|111| Count]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [33|115| from]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [34|116| ]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from <|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [35|117|1]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 1<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [36|118|2]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [37|121| to]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [38|124|2]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to<|mdm_mask|><|mdm_mask|>2<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [39|122| ]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to <|mdm_mask|>2<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [40|123|1]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [41|127|.]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|>.<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [42|128| He]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|>. He<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [43|129| was]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|>. He was<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [44|130| the]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|>. He was the<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [45|131| son]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|>. He was the son<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [46|132| of]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (11<|mdm_mask|><|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|>. He was the son of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [47|92|9]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (119<|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|>. He was the son of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [48|137| of]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (119<|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|>. He was the son of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of<|mdm_mask|><|mdm_mask|><|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [49|139|oli]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (119<|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|>. He was the son of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of<|mdm_mask|>oli<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [50|138| Trip]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (119<|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|>. He was the son of<|mdm_mask|><|mdm_mask|><|mdm_mask|><|mdm_mask|> of Tripoli<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [51|135|,]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (119<|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|>. He was the son of<|mdm_mask|><|mdm_mask|>,<|mdm_mask|> of Tripoli<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [52|136| Count]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (119<|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|>. He was the son of<|mdm_mask|><|mdm_mask|>, Count of Tripoli<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [53|134| II]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (119<|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|>. He was the son of<|mdm_mask|> II, Count of Tripoli<|mdm_mask|>
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [54|140| and]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (119<|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|>. He was the son of<|mdm_mask|> II, Count of Tripoli and
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [55|133| Raymond]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (119<|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 12<|mdm_mask|><|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|>. He was the son of Raymond II, Count of Tripoli and
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [56|119|2]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (119<|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 122<|mdm_mask|> to 12<|mdm_mask|><|mdm_mask|>. He was the son of Raymond II, Count of Tripoli and
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [57|125|3]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (119<|mdm_mask|>–12<|mdm_mask|><|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 122<|mdm_mask|> to 123<|mdm_mask|>. He was the son of Raymond II, Count of Tripoli and
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [58|97|3]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (119<|mdm_mask|>–123<|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 122<|mdm_mask|> to 123<|mdm_mask|>. He was the son of Raymond II, Count of Tripoli and
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [59|120|8]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (119<|mdm_mask|>–123<|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 1228 to 123<|mdm_mask|>. He was the son of Raymond II, Count of Tripoli and
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [60|126|4]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (119<|mdm_mask|>–123<|mdm_mask|>) was a member of the House of Ibelin and Count of Tripoli from 1228 to 1234. He was the son of Raymond II, Count of Tripoli and
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [61|98|4]: 
+
+<|mdm_mask|>:Raymond III, Count of Tripoli (119<|mdm_mask|>–1234) was a member of the House of Ibelin and Count of Tripoli from 1228 to 1234. He was the son of Raymond II, Count of Tripoli and
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [62|79|机器人]: 
+
+机器人:Raymond III, Count of Tripoli (119<|mdm_mask|>–1234) was a member of the House of Ibelin and Count of Tripoli from 1228 to 1234. He was the son of Raymond II, Count of Tripoli and
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate:91] [63|93|0]: 
+
+机器人:Raymond III, Count of Tripoli (1190–1234) was a member of the House of Ibelin and Count of Tripoli from 1228 to 1234. He was the son of Raymond II, Count of Tripoli and
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_model_semi_cached_debug.py
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 1, duration: 0:00:03 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+
+
+机器人:Raymond III, Count of Tripoli (1190–1234) was a member of the House of Ibelin and Count of Tripoli from 1228 to 1234. He was the son of Raymond II, Count of Tripoli and
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=64,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,runner=run_model_semi_cached_debug), gen_kwargs: (None), limit: 1.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value|   |Stderr|
+|------|------:|------|-----:|-----------------------|---|----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |    0|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |    0|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |    0|±  |   N/A|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |    0|±  |   N/A|
+
