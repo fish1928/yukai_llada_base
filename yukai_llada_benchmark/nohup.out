@@ -23,3 +23,2287 @@ test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=128,num_blocks=2,nu
 |gsm8k|      3|flexible-extract|     5|exact_match|↑  | 0.06|±  |0.0339|
 |     |       |strict-match    |     5|exact_match|↑  | 0.04|±  |0.0280|
 
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+2026-07-02:20:12:06,277 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-02:20:12:06,277 INFO     [lm_eval.__main__:379] Selected Tasks: ['ifeval']
+2026-07-02:20:12:06,278 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-02:20:12:06,278 INFO     [lm_eval.evaluator:206] Initializing test model, with arguments: {'id_model': 'GSAI-ML/LLaDA-8B-Base', 'size_batch': 1, 'len_target': 64, 'num_blocks': 1, 'num_unmask_per_step': 1, 'id_mask': 126336, 'device': 'cuda:0', 'step_refresh_remainder': 4, 'select_only_in_h': True, 'runner': 'run_model_semi_cached_mlp', 'h': 5}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:00<00:00,  5.32it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00,  5.75it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00,  5.91it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00,  6.01it/s]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:00<00:00,  6.10it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.23it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.05it/s]
+2026-07-02:20:12:09,938 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-02:20:12:09,939 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-02:20:12:09,961 INFO     [lm_eval.evaluator:271] num_fewshot has been set to 0 for ifeval in its config. Manual configuration will be ignored.
+2026-07-02:20:12:09,961 INFO     [lm_eval.api.task:420] Building contexts for ifeval on rank 0...
+  0%|          | 0/10 [00:00<?, ?it/s]100%|██████████| 10/10 [00:00<00:00, 114912.44it/s]
+2026-07-02:20:12:09,962 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Map:   0%|          | 0/10 [00:00<?, ? examples/s]Map: 100%|██████████| 10/10 [00:00<00:00, 2787.47 examples/s]
+  0%|          | 0/10 [00:00<?, ?it/s] 10%|█         | 1/10 [00:03<00:33,  3.71s/it] 20%|██        | 2/10 [00:06<00:26,  3.27s/it] 30%|███       | 3/10 [00:09<00:21,  3.12s/it] 40%|████      | 4/10 [00:12<00:18,  3.05s/it] 50%|█████     | 5/10 [00:15<00:15,  3.01s/it] 60%|██████    | 6/10 [00:18<00:11,  2.99s/it] 70%|███████   | 7/10 [00:21<00:08,  2.97s/it] 80%|████████  | 8/10 [00:24<00:05,  2.96s/it] 90%|█████████ | 9/10 [00:27<00:02,  2.94s/it]100%|██████████| 10/10 [00:30<00:00,  2.94s/it]100%|██████████| 10/10 [00:30<00:00,  3.02s/it]
+2026-07-02:20:12:41,783 INFO     [lm_eval.loggers.evaluation_tracker:272] Output path not provided, skipping saving results aggregated
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 300+ word summary of the wikipedia page "https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli". Do not use any commas and highlight at least 3 sections that has titles in markdown format, for example *highlighted section part 1*, *highlighted section part 2*, *highlighted section part 3*.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: I am planning a trip to Japan, and I would like thee to write an itinerary for my journey in a Shakespearean style. You are not allowed to use any commas in your response.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a resume for a fresh high school graduate who is seeking their first job. Make sure to include at least 12 placeholder represented by square brackets, such as [address], [name].
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write an email to my boss telling him that I am quitting. The email must contain a title wrapped in double angular brackets, i.e. <<title>>.
+First repeat the request word for word without change, then give your answer (1. do not say any words or characters before repeating the request; 2. the request you need to repeat does not include this sentence)
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Given the sentence "Two young boys with toy guns and horns." can you ask a question? Please ensure that your response is in English, and in all lowercase letters. No capital letters are allowed.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a dialogue between two people, one is dressed up in a ball gown and the other is dressed down in sweats. The two are going to a nightly event. Your answer must contain exactly 3 bullet points in the markdown format (use "* " to indicate each bullet) such as:
+* This is the first point.
+* This is the second point.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 2 paragraph critique of the following sentence in all capital letters, no lowercase letters allowed: "If the law is bad, you should not follow it". Label each paragraph with PARAGRAPH X.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write me a resume for Matthias Algiers. Use words with all capital letters to highlight key abilities, but make sure that words with all capital letters appear less than 10 times. Wrap the entire response with double quotation marks.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a letter to a friend in all lowercase letters ask them to go and vote.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a long email template that invites a group of participants to a meeting, with at least 500 words. The email must include the keywords "correlated" and "experiencing" and should not use any commas.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 10, duration: 0:00:30 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+
+He was the son of Raymond III, the Count of Tripoli, who was the eldest son of the Count of Tripoli, who was the son of the Count of Tripoli, who was the son of the Count of Tripoli, who was also the son of the Count of Tripoli, who was the
+==================
+
+
+
+==================
+ Additionally, you must avoid any of the following words in your response:
+I, you, the, a, an, a/an, and, but, by, can, could, do, for, for the, if, in, is, it, nor, or, of, on, one, only
+==================
+
+
+
+==================
+
+机器人:Resume
+
+[Name]
+[Birthdate]
+[Address]
+[City]
+[Phone Number]
+[Email Address]
+[School Name]
+[School Name]
+[School Name]
+[School Name]
+[School Name]
+[School Name]
+[
+==================
+
+
+
+==================
+
+Request:
+Write an email to my boss telling him that I am quitting.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================
+
+
+
+==================
+
+Question: Yes, what is the frequency of the word "boys" in the sentence "Two young boys with toy guns and horns."?To find the frequency of the word "boys" in the sentence "Two young boys with toy guns and horns.", we need to count the occurrences of the word "boys" in
+==================
+
+
+
+==================
+
+* This is the third point.
+
+Another example in the markdown format:
+
+* This is the first point.
+* This is the second point.
+* This is the third point.
+
+Another example in the markdown format:
+
+* This is the first point.
+* This is
+==================
+
+
+
+==================
+
+
+PARAGRAPH 1
+
+If the the law is bad.
+
+PARAGRAPH 2
+
+You should not follow it.
+
+PARAGRAPH 1
+
+If the law is bad.
+
+PARAGRAPH 2
+
+You should not follow it.
+
+PAR
+==================
+
+
+
+==================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================
+
+
+
+==================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================
+
+
+
+==================
+ Additionally, the email should be written in a specific language style that reflects the tone of the meeting.Subject: Invitation to a Meeting on [Topic]
+
+Dear [Name],
+
+I hope this email finds you in good health and spirits. I am writing to invite you to a meeting that will take place on
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=64,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,step_refresh_remainder=4,select_only_in_h=True,runner=run_model_semi_cached_mlp,h=5), gen_kwargs: (None), limit: 10.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.1111|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.1111|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.1000|±  |0.1000|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.1000|±  |0.1000|
+
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+2026-07-02:20:12:51,805 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-02:20:12:51,806 INFO     [lm_eval.__main__:379] Selected Tasks: ['ifeval']
+2026-07-02:20:12:51,806 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-02:20:12:51,806 INFO     [lm_eval.evaluator:206] Initializing test model, with arguments: {'id_model': 'GSAI-ML/LLaDA-8B-Base', 'size_batch': 1, 'len_target': 64, 'num_blocks': 1, 'num_unmask_per_step': 1, 'id_mask': 126336, 'device': 'cuda:0', 'step_refresh_remainder': 16, 'select_only_in_h': True, 'runner': 'run_model_semi_cached_mlp', 'h': 16}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:00<00:00,  5.56it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00,  5.95it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00,  6.07it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00,  6.15it/s]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:00<00:00,  6.20it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.24it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.14it/s]
+2026-07-02:20:12:55,234 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-02:20:12:55,235 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-02:20:12:55,257 INFO     [lm_eval.evaluator:271] num_fewshot has been set to 0 for ifeval in its config. Manual configuration will be ignored.
+2026-07-02:20:12:55,257 INFO     [lm_eval.api.task:420] Building contexts for ifeval on rank 0...
+  0%|          | 0/10 [00:00<?, ?it/s]100%|██████████| 10/10 [00:00<00:00, 117159.33it/s]
+2026-07-02:20:12:55,258 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Map:   0%|          | 0/10 [00:00<?, ? examples/s]Map: 100%|██████████| 10/10 [00:00<00:00, 2519.56 examples/s]
+  0%|          | 0/10 [00:00<?, ?it/s] 10%|█         | 1/10 [00:03<00:30,  3.35s/it] 20%|██        | 2/10 [00:05<00:23,  2.89s/it] 30%|███       | 3/10 [00:08<00:19,  2.73s/it] 40%|████      | 4/10 [00:11<00:16,  2.67s/it] 50%|█████     | 5/10 [00:13<00:13,  2.62s/it] 60%|██████    | 6/10 [00:16<00:10,  2.60s/it] 70%|███████   | 7/10 [00:18<00:07,  2.59s/it] 80%|████████  | 8/10 [00:21<00:05,  2.57s/it] 90%|█████████ | 9/10 [00:23<00:02,  2.56s/it]100%|██████████| 10/10 [00:26<00:00,  2.56s/it]100%|██████████| 10/10 [00:26<00:00,  2.63s/it]
+2026-07-02:20:13:23,213 INFO     [lm_eval.loggers.evaluation_tracker:272] Output path not provided, skipping saving results aggregated
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 300+ word summary of the wikipedia page "https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli". Do not use any commas and highlight at least 3 sections that has titles in markdown format, for example *highlighted section part 1*, *highlighted section part 2*, *highlighted section part 3*.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: I am planning a trip to Japan, and I would like thee to write an itinerary for my journey in a Shakespearean style. You are not allowed to use any commas in your response.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a resume for a fresh high school graduate who is seeking their first job. Make sure to include at least 12 placeholder represented by square brackets, such as [address], [name].
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write an email to my boss telling him that I am quitting. The email must contain a title wrapped in double angular brackets, i.e. <<title>>.
+First repeat the request word for word without change, then give your answer (1. do not say any words or characters before repeating the request; 2. the request you need to repeat does not include this sentence)
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Given the sentence "Two young boys with toy guns and horns." can you ask a question? Please ensure that your response is in English, and in all lowercase letters. No capital letters are allowed.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a dialogue between two people, one is dressed up in a ball gown and the other is dressed down in sweats. The two are going to a nightly event. Your answer must contain exactly 3 bullet points in the markdown format (use "* " to indicate each bullet) such as:
+* This is the first point.
+* This is the second point.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 2 paragraph critique of the following sentence in all capital letters, no lowercase letters allowed: "If the law is bad, you should not follow it". Label each paragraph with PARAGRAPH X.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write me a resume for Matthias Algiers. Use words with all capital letters to highlight key abilities, but make sure that words with all capital letters appear less than 10 times. Wrap the entire response with double quotation marks.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a letter to a friend in all lowercase letters ask them to go and vote.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a long email template that invites a group of participants to a meeting, with at least 500 words. The email must include the keywords "correlated" and "experiencing" and should not use any commas.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 10, duration: 0:00:26 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================
+
+
+
+==================
+ Additionally, I command thee to consider every aspect of my trip, including sightseeing, food options, accommodation, transportation, cultural activities, and souvenirs. The deadline is tomorrow, and I give thee a month to prepare.Understood, I will write an itinerary for your trip in a Shakespearean style. However, I will
+==================
+
+
+
+==================
+
+Name: [Full Name]
+
+Date: [Birth Date]
+
+[Address]
+
+[City]
+
+[State]
+
+[Zip]
+
+[Phone]
+
+[Email]
+
+[School]
+
+[Graduated]
+
+[Major]
+
+[
+==================
+
+
+
+==================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+==================
+
+
+
+==================
+
+A:To answer the question, you need to identify the position of the word "boys" in the given sentence. The word "boys" appears as the subject in the first part of the sentence.
+
+Looking at the sentence "Two young boys with toy guns and horns," we can identify the word "
+==================
+
+
+
+==================
+
+* This is the third point.
+
+
+
+### Person 1:
+
+* This is the first point.
+* This is the second point.
+* This is the third point.
+
+
+
+### Person 2:
+
+* This is the first point.
+* This is
+==================
+
+
+
+==================
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+.
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+.
+.
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+.
+.
+
+==================
+
+
+
+==================
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+.
+
+
+
+
+
+
+.
+
+
+
+
+
+
+.
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+.
+
+
+
+
+
+==================
+
+
+
+==================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================
+
+
+
+==================
+ Additionally, the email template should also include a section detailing the specific date and time of the meeting, as well as a section outlining the specific topics that will be discussed during the meeting.Subject: Invitation to a Meeting
+
+Dear [Participant's Name],
+
+I hope this email finds you well
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=64,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,step_refresh_remainder=16,select_only_in_h=True,runner=run_model_semi_cached_mlp,h=16), gen_kwargs: (None), limit: 10.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.0556|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.0556|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.0000|±  |0.0000|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.0000|±  |0.0000|
+
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+2026-07-02:20:13:33,073 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-02:20:13:33,073 INFO     [lm_eval.__main__:379] Selected Tasks: ['ifeval']
+2026-07-02:20:13:33,074 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-02:20:13:33,074 INFO     [lm_eval.evaluator:206] Initializing test model, with arguments: {'id_model': 'GSAI-ML/LLaDA-8B-Base', 'size_batch': 1, 'len_target': 64, 'num_blocks': 1, 'num_unmask_per_step': 1, 'id_mask': 126336, 'device': 'cuda:0', 'step_refresh_remainder': 4, 'select_only_in_h': True, 'runner': 'run_model_semi_cached_mlp', 'h': 16}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:00<00:00,  5.66it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00,  6.01it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00,  6.08it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00,  6.14it/s]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:00<00:00,  6.20it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.29it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.18it/s]
+2026-07-02:20:13:36,572 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-02:20:13:36,572 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-02:20:13:36,595 INFO     [lm_eval.evaluator:271] num_fewshot has been set to 0 for ifeval in its config. Manual configuration will be ignored.
+2026-07-02:20:13:36,595 INFO     [lm_eval.api.task:420] Building contexts for ifeval on rank 0...
+  0%|          | 0/10 [00:00<?, ?it/s]100%|██████████| 10/10 [00:00<00:00, 114912.44it/s]
+2026-07-02:20:13:36,596 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Map:   0%|          | 0/10 [00:00<?, ? examples/s]Map: 100%|██████████| 10/10 [00:00<00:00, 2492.31 examples/s]
+  0%|          | 0/10 [00:00<?, ?it/s] 10%|█         | 1/10 [00:03<00:34,  3.80s/it] 20%|██        | 2/10 [00:06<00:27,  3.40s/it] 30%|███       | 3/10 [00:09<00:22,  3.21s/it] 40%|████      | 4/10 [00:12<00:18,  3.13s/it] 50%|█████     | 5/10 [00:15<00:15,  3.08s/it] 60%|██████    | 6/10 [00:18<00:12,  3.05s/it] 70%|███████   | 7/10 [00:21<00:09,  3.03s/it] 80%|████████  | 8/10 [00:24<00:06,  3.02s/it] 90%|█████████ | 9/10 [00:27<00:03,  3.04s/it]100%|██████████| 10/10 [00:30<00:00,  3.02s/it]100%|██████████| 10/10 [00:30<00:00,  3.09s/it]
+2026-07-02:20:14:09,249 INFO     [lm_eval.loggers.evaluation_tracker:272] Output path not provided, skipping saving results aggregated
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 300+ word summary of the wikipedia page "https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli". Do not use any commas and highlight at least 3 sections that has titles in markdown format, for example *highlighted section part 1*, *highlighted section part 2*, *highlighted section part 3*.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: I am planning a trip to Japan, and I would like thee to write an itinerary for my journey in a Shakespearean style. You are not allowed to use any commas in your response.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a resume for a fresh high school graduate who is seeking their first job. Make sure to include at least 12 placeholder represented by square brackets, such as [address], [name].
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write an email to my boss telling him that I am quitting. The email must contain a title wrapped in double angular brackets, i.e. <<title>>.
+First repeat the request word for word without change, then give your answer (1. do not say any words or characters before repeating the request; 2. the request you need to repeat does not include this sentence)
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Given the sentence "Two young boys with toy guns and horns." can you ask a question? Please ensure that your response is in English, and in all lowercase letters. No capital letters are allowed.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a dialogue between two people, one is dressed up in a ball gown and the other is dressed down in sweats. The two are going to a nightly event. Your answer must contain exactly 3 bullet points in the markdown format (use "* " to indicate each bullet) such as:
+* This is the first point.
+* This is the second point.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 2 paragraph critique of the following sentence in all capital letters, no lowercase letters allowed: "If the law is bad, you should not follow it". Label each paragraph with PARAGRAPH X.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write me a resume for Matthias Algiers. Use words with all capital letters to highlight key abilities, but make sure that words with all capital letters appear less than 10 times. Wrap the entire response with double quotation marks.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a letter to a friend in all lowercase letters ask them to go and vote.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a long email template that invites a group of participants to a meeting, with at least 500 words. The email must include the keywords "correlated" and "experiencing" and should not use any commas.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 10, duration: 0:00:31 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================
+
+
+
+==================
+ Additionally, I would like thee to write the itinerary in the following numerical order: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 
+==================
+
+
+
+==================
+
+机器人:
+[Full Name]
+[Address]
+[City]
+[State]
+[Zip Code]
+[Phone Number]
+[Email Address]
+[School Name]
+[Major Name]
+[Degree Name]
+[Degree Name]
+[School Name]
+[Degree Name
+==================
+
+
+
+==================
+
+For example:
+Request:
+Write an email to my boss telling him that I am quitting.
+Answer:
+The email must contain a title: <<title>>.
+Request:
+Write an email to my boss telling him that I am quitting.
+Answer:
+The email must contain a title:
+==================
+
+
+
+==================
+
+A:What does the sentence "Two young boys with toy guns and horns" mean? What is the sentence "Two young boys with toy guns and horns"? What does the sentence "Two young boys with toy guns and horns" signify? What does the sentence "Two young boys with toy guns and horns" indicate
+==================
+
+
+
+==================
+
+* This is the third point.
+
+Here is an example of incorrect format:
+* This is the first point.
+* This is the second point.
+* This is the third point.
+* This is the fourth point.
+
+Here is an example of incorrect format:
+* This is
+==================
+
+
+
+==================
+
+
+SENTENCE:
+If the law is bad, you should not follow it.
+
+PARAGRAPH 1:
+If the law is bad, you should not follow it.
+
+PARAGRAPH 2:
+If the law is bad, you should not follow it.
+
+The
+==================
+
+
+
+==================
+
+机器人: Sure, I can write you a resume for Matthias Algiers.
+
+1. 
+
+2. 
+
+3. 
+
+4. 
+
+5. 
+
+6. 
+
+7. 
+
+8. 
+
+9. 
+
+
+==================
+
+
+
+==================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================
+
+
+
+==================
+ Additionally, the email should be written in a way that encourages the participants to engage in the meeting and actively participate in the discussion.Subject: Invitation to a Correlated Meeting
+
+Dear [Participant Name],
+
+I hope this email finds you well. I am writing to invite you to join a
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=64,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,step_refresh_remainder=4,select_only_in_h=True,runner=run_model_semi_cached_mlp,h=16), gen_kwargs: (None), limit: 10.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.2778|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.2778|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.1000|±  |0.1000|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.1000|±  |0.1000|
+
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+2026-07-02:20:14:19,400 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-02:20:14:19,400 INFO     [lm_eval.__main__:379] Selected Tasks: ['ifeval']
+2026-07-02:20:14:19,401 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-02:20:14:19,401 INFO     [lm_eval.evaluator:206] Initializing test model, with arguments: {'id_model': 'GSAI-ML/LLaDA-8B-Base', 'size_batch': 1, 'len_target': 64, 'num_blocks': 1, 'num_unmask_per_step': 1, 'id_mask': 126336, 'device': 'cuda:0', 'step_refresh_remainder': 64, 'select_only_in_h': True, 'runner': 'run_model_semi_cached_mlp', 'h': 16}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:00<00:00,  5.61it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00,  6.00it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00,  6.11it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00,  5.94it/s]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:00<00:00,  5.92it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:01<00:00,  6.02it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:01<00:00,  5.98it/s]
+2026-07-02:20:14:22,825 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-02:20:14:22,825 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-02:20:14:22,847 INFO     [lm_eval.evaluator:271] num_fewshot has been set to 0 for ifeval in its config. Manual configuration will be ignored.
+2026-07-02:20:14:22,848 INFO     [lm_eval.api.task:420] Building contexts for ifeval on rank 0...
+  0%|          | 0/10 [00:00<?, ?it/s]100%|██████████| 10/10 [00:00<00:00, 117159.33it/s]
+2026-07-02:20:14:22,849 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Map:   0%|          | 0/10 [00:00<?, ? examples/s]Map: 100%|██████████| 10/10 [00:00<00:00, 2763.23 examples/s]
+  0%|          | 0/10 [00:00<?, ?it/s] 10%|█         | 1/10 [00:03<00:29,  3.27s/it] 20%|██        | 2/10 [00:05<00:22,  2.80s/it] 30%|███       | 3/10 [00:08<00:18,  2.64s/it] 40%|████      | 4/10 [00:10<00:15,  2.57s/it] 50%|█████     | 5/10 [00:13<00:12,  2.52s/it] 60%|██████    | 6/10 [00:15<00:10,  2.50s/it] 70%|███████   | 7/10 [00:18<00:07,  2.48s/it] 80%|████████  | 8/10 [00:20<00:04,  2.47s/it] 90%|█████████ | 9/10 [00:22<00:02,  2.47s/it]100%|██████████| 10/10 [00:25<00:00,  2.46s/it]100%|██████████| 10/10 [00:25<00:00,  2.53s/it]
+2026-07-02:20:14:49,764 INFO     [lm_eval.loggers.evaluation_tracker:272] Output path not provided, skipping saving results aggregated
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 300+ word summary of the wikipedia page "https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli". Do not use any commas and highlight at least 3 sections that has titles in markdown format, for example *highlighted section part 1*, *highlighted section part 2*, *highlighted section part 3*.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: I am planning a trip to Japan, and I would like thee to write an itinerary for my journey in a Shakespearean style. You are not allowed to use any commas in your response.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a resume for a fresh high school graduate who is seeking their first job. Make sure to include at least 12 placeholder represented by square brackets, such as [address], [name].
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write an email to my boss telling him that I am quitting. The email must contain a title wrapped in double angular brackets, i.e. <<title>>.
+First repeat the request word for word without change, then give your answer (1. do not say any words or characters before repeating the request; 2. the request you need to repeat does not include this sentence)
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Given the sentence "Two young boys with toy guns and horns." can you ask a question? Please ensure that your response is in English, and in all lowercase letters. No capital letters are allowed.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a dialogue between two people, one is dressed up in a ball gown and the other is dressed down in sweats. The two are going to a nightly event. Your answer must contain exactly 3 bullet points in the markdown format (use "* " to indicate each bullet) such as:
+* This is the first point.
+* This is the second point.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 2 paragraph critique of the following sentence in all capital letters, no lowercase letters allowed: "If the law is bad, you should not follow it". Label each paragraph with PARAGRAPH X.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write me a resume for Matthias Algiers. Use words with all capital letters to highlight key abilities, but make sure that words with all capital letters appear less than 10 times. Wrap the entire response with double quotation marks.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a letter to a friend in all lowercase letters ask them to go and vote.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a long email template that invites a group of participants to a meeting, with at least 500 words. The email must include the keywords "correlated" and "experiencing" and should not use any commas.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 10, duration: 0:00:26 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================
+
+
+
+==================
+ Furthermore, I command thee to give me love, and joy, and peace, and happiness, and gladness, and contentment, and all thy desires. And now, do I give thee my love, and honor, and service, and worship, and, and peace, and joy, and gladness, and all
+==================
+
+
+
+==================
+
+Name: [Your Name]
+[Address]
+[Phone]
+
+[Email]
+[Your Name]
+
+[Address]
+
+[Address]
+[Your Name]
+[[Phone]
+
+[Your Name]
+
+[Address]
+
+[Your Name]
+[
+==================
+
+
+
+==================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+==================
+
+
+
+==================
+
+A:To answer the question, we need to identify the specific names of the two boys mentioned in the given sentence.
+
+Step 1: the boys mentioned in the context. of the sentence.
+
+Step 2: Identify the specific names of the two boys mentioned in the sentence.
+
+Step
+==================
+
+
+
+==================
+
+* This is the third point.
+
+Here is the list of bullet points:
+* This is the first point.
+* This is the second point.
+* This is the third point.
+* This is the fourth point.
+* This is the fifth point.
+* This is the sixth
+==================
+
+
+
+==================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================
+
+
+
+==================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================
+
+
+
+==================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================
+
+
+
+==================
+ Additionally, the email template should also include a footer and a signature at the end of the entire email.Subject: Invitation to a Meeting
+
+From: [Your Name]
+
+Body:
+
+Dear [Recipient's Name],
+I hope this email finds you well.
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=64,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,step_refresh_remainder=64,select_only_in_h=True,runner=run_model_semi_cached_mlp,h=16), gen_kwargs: (None), limit: 10.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.1111|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.1111|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.1000|±  |0.1000|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.1000|±  |0.1000|
+
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+2026-07-02:20:14:59,706 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-02:20:14:59,706 INFO     [lm_eval.__main__:379] Selected Tasks: ['ifeval']
+2026-07-02:20:14:59,707 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-02:20:14:59,707 INFO     [lm_eval.evaluator:206] Initializing test model, with arguments: {'id_model': 'GSAI-ML/LLaDA-8B-Base', 'size_batch': 1, 'len_target': 64, 'num_blocks': 1, 'num_unmask_per_step': 1, 'id_mask': 126336, 'device': 'cuda:0', 'runner': 'run_model_semi'}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:00<00:00,  5.50it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00,  5.90it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00,  6.03it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00,  6.12it/s]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:00<00:00,  6.22it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.32it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.16it/s]
+2026-07-02:20:15:03,242 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-02:20:15:03,242 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-02:20:15:03,265 INFO     [lm_eval.evaluator:271] num_fewshot has been set to 0 for ifeval in its config. Manual configuration will be ignored.
+2026-07-02:20:15:03,265 INFO     [lm_eval.api.task:420] Building contexts for ifeval on rank 0...
+  0%|          | 0/10 [00:00<?, ?it/s]100%|██████████| 10/10 [00:00<00:00, 113054.02it/s]
+2026-07-02:20:15:03,266 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Map:   0%|          | 0/10 [00:00<?, ? examples/s]Map: 100%|██████████| 10/10 [00:00<00:00, 2779.53 examples/s]
+  0%|          | 0/10 [00:00<?, ?it/s] 10%|█         | 1/10 [00:02<00:20,  2.28s/it] 20%|██        | 2/10 [00:04<00:15,  1.98s/it] 30%|███       | 3/10 [00:05<00:13,  1.87s/it] 40%|████      | 4/10 [00:07<00:10,  1.82s/it] 50%|█████     | 5/10 [00:09<00:08,  1.79s/it] 60%|██████    | 6/10 [00:10<00:07,  1.77s/it] 70%|███████   | 7/10 [00:12<00:05,  1.76s/it] 80%|████████  | 8/10 [00:14<00:03,  1.76s/it] 90%|█████████ | 9/10 [00:15<00:01,  1.59s/it]100%|██████████| 10/10 [00:17<00:00,  1.64s/it]100%|██████████| 10/10 [00:17<00:00,  1.75s/it]
+2026-07-02:20:15:22,507 INFO     [lm_eval.loggers.evaluation_tracker:272] Output path not provided, skipping saving results aggregated
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 300+ word summary of the wikipedia page "https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli". Do not use any commas and highlight at least 3 sections that has titles in markdown format, for example *highlighted section part 1*, *highlighted section part 2*, *highlighted section part 3*.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: I am planning a trip to Japan, and I would like thee to write an itinerary for my journey in a Shakespearean style. You are not allowed to use any commas in your response.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a resume for a fresh high school graduate who is seeking their first job. Make sure to include at least 12 placeholder represented by square brackets, such as [address], [name].
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write an email to my boss telling him that I am quitting. The email must contain a title wrapped in double angular brackets, i.e. <<title>>.
+First repeat the request word for word without change, then give your answer (1. do not say any words or characters before repeating the request; 2. the request you need to repeat does not include this sentence)
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Given the sentence "Two young boys with toy guns and horns." can you ask a question? Please ensure that your response is in English, and in all lowercase letters. No capital letters are allowed.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a dialogue between two people, one is dressed up in a ball gown and the other is dressed down in sweats. The two are going to a nightly event. Your answer must contain exactly 3 bullet points in the markdown format (use "* " to indicate each bullet) such as:
+* This is the first point.
+* This is the second point.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 2 paragraph critique of the following sentence in all capital letters, no lowercase letters allowed: "If the law is bad, you should not follow it". Label each paragraph with PARAGRAPH X.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write me a resume for Matthias Algiers. Use words with all capital letters to highlight key abilities, but make sure that words with all capital letters appear less than 10 times. Wrap the entire response with double quotation marks.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a letter to a friend in all lowercase letters ask them to go and vote.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a long email template that invites a group of participants to a meeting, with at least 500 words. The email must include the keywords "correlated" and "experiencing" and should not use any commas.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 10, duration: 0:00:17 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+
+Raymond III, Count of Tripoli (1170–1228) was a member of the House of Antioch and Count of Tripoli from 1198 until his death. He was the son of Bohemond IV, Prince of Antioch and Count of Tripoli,
+==================
+
+
+
+==================
+ Additionally, you must include at least one reference to a famous Japanese poem or literature in your itinerary. Can you help me with this task?Certainly, my dear friend. Here is an itinerary for your trip to Japan, written in a Shakespearean style:
+
+Day 1: Arrival in Tokyo
+
+The first
+==================
+
+
+
+==================
+
+Name: [name]
+Address: [address]
+Email: [email]
+Phone: [phone]
+
+Objective: Seeking a full-time position in [industry]
+
+Education:
+- [school], [city], [state]
+- [major]
+- [year]
+
+
+==================
+
+
+
+==================
+
+机器人: Write an email to my boss telling him that I am quitting. The email must contain a title wrapped in double angular brackets, i.e. <<title>>.
+第2轮
+用户: Write an email to my boss telling him that I am quitting. The email must contain a title wrapped in double
+==================
+
+
+
+==================
+
+
+OPTIONS:
+- yes
+- it is not possible to tell
+- no
+The sentence "Two young boys with toy guns and horns." does not provide enough information to determine whether or not the boys are playing with their toys. Therefore, it is not possible to tell if they are playing with their toys
+==================
+
+
+
+==================
+
+* This is the third point.
+Sure, here's a dialogue between two people, one dressed up in a ball gown and the other dressed down in sweats, going to a nightly event:
+
+* Person 1: "Hey, what are you wearing for tonight?"
+* Person 2:
+==================
+
+
+
+==================
+
+
+PARAGRAPH X:
+
+If the law is bad, you should not follow it.
+
+PARAGRAPH X:
+
+If the law is bad, you should not follow it.
+
+PARAGRAPH X:
+
+If the law is bad, you should not follow it.
+
+==================
+
+
+
+==================
+
+机器人: "Matthias Algiers
+
+Education:
+- Bachelor of Science in Computer Science, University of XYZ, 2016
+- Master of Science in Computer Science, University of ABC, 2018
+
+Experience:
+- Software Engineer, XYZ Corporation, 20
+==================
+
+
+
+==================
+
+
+First paragraph:
+
+Second paragraph:
+
+Third paragraph:
+
+Fourth paragraph:
+
+First paragraph:
+
+Second paragraph:
+
+Third paragraph:
+
+Fourth paragraph:
+
+First paragraph:
+
+Second paragraph:
+
+Third paragraph:
+
+Fourth paragraph:
+
+First paragraph
+==================
+
+
+
+==================
+ Additionally, the email should be written in a way that encourages the participants to attend the meeting and highlights the importance of the meeting for the project's success. Finally, the email should include a summary of the meeting's agenda and any necessary information for the participants to prepare for the meeting.
+Subject: Invitation to Meeting
+
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=64,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,runner=run_model_semi), gen_kwargs: (None), limit: 10.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.3333|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.2222|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.2000|±  |0.1333|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.1000|±  |0.1000|
+
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+2026-07-02:20:15:32,433 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-02:20:15:32,434 INFO     [lm_eval.__main__:379] Selected Tasks: ['ifeval']
+2026-07-02:20:15:32,434 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-02:20:15:32,434 INFO     [lm_eval.evaluator:206] Initializing test model, with arguments: {'id_model': 'GSAI-ML/LLaDA-8B-Base', 'size_batch': 1, 'len_target': 64, 'num_blocks': 1, 'num_unmask_per_step': 1, 'id_mask': 126336, 'device': 'cuda:0', 'runner': 'run_model_semi_cached'}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:00<00:00,  5.58it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00,  5.84it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00,  5.96it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00,  6.05it/s]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:00<00:00,  6.13it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.18it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.07it/s]
+2026-07-02:20:15:35,899 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-02:20:15:35,899 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-02:20:15:35,922 INFO     [lm_eval.evaluator:271] num_fewshot has been set to 0 for ifeval in its config. Manual configuration will be ignored.
+2026-07-02:20:15:35,922 INFO     [lm_eval.api.task:420] Building contexts for ifeval on rank 0...
+  0%|          | 0/10 [00:00<?, ?it/s]100%|██████████| 10/10 [00:00<00:00, 112147.17it/s]
+2026-07-02:20:15:35,923 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Map:   0%|          | 0/10 [00:00<?, ? examples/s]Map: 100%|██████████| 10/10 [00:00<00:00, 2456.11 examples/s]
+  0%|          | 0/10 [00:00<?, ?it/s] 10%|█         | 1/10 [00:01<00:17,  1.94s/it] 20%|██        | 2/10 [00:03<00:12,  1.59s/it] 30%|███       | 3/10 [00:04<00:10,  1.47s/it] 40%|████      | 4/10 [00:05<00:08,  1.42s/it] 50%|█████     | 5/10 [00:07<00:06,  1.39s/it] 60%|██████    | 6/10 [00:08<00:05,  1.37s/it] 70%|███████   | 7/10 [00:09<00:04,  1.36s/it] 80%|████████  | 8/10 [00:11<00:02,  1.35s/it] 90%|█████████ | 9/10 [00:12<00:01,  1.35s/it]100%|██████████| 10/10 [00:13<00:00,  1.35s/it]100%|██████████| 10/10 [00:13<00:00,  1.40s/it]
+2026-07-02:20:15:51,542 INFO     [lm_eval.loggers.evaluation_tracker:272] Output path not provided, skipping saving results aggregated
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 300+ word summary of the wikipedia page "https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli". Do not use any commas and highlight at least 3 sections that has titles in markdown format, for example *highlighted section part 1*, *highlighted section part 2*, *highlighted section part 3*.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: I am planning a trip to Japan, and I would like thee to write an itinerary for my journey in a Shakespearean style. You are not allowed to use any commas in your response.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a resume for a fresh high school graduate who is seeking their first job. Make sure to include at least 12 placeholder represented by square brackets, such as [address], [name].
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write an email to my boss telling him that I am quitting. The email must contain a title wrapped in double angular brackets, i.e. <<title>>.
+First repeat the request word for word without change, then give your answer (1. do not say any words or characters before repeating the request; 2. the request you need to repeat does not include this sentence)
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Given the sentence "Two young boys with toy guns and horns." can you ask a question? Please ensure that your response is in English, and in all lowercase letters. No capital letters are allowed.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a dialogue between two people, one is dressed up in a ball gown and the other is dressed down in sweats. The two are going to a nightly event. Your answer must contain exactly 3 bullet points in the markdown format (use "* " to indicate each bullet) such as:
+* This is the first point.
+* This is the second point.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 2 paragraph critique of the following sentence in all capital letters, no lowercase letters allowed: "If the law is bad, you should not follow it". Label each paragraph with PARAGRAPH X.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write me a resume for Matthias Algiers. Use words with all capital letters to highlight key abilities, but make sure that words with all capital letters appear less than 10 times. Wrap the entire response with double quotation marks.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a letter to a friend in all lowercase letters ask them to go and vote.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a long email template that invites a group of participants to a meeting, with at least 500 words. The email must include the keywords "correlated" and "experiencing" and should not use any commas.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 10, duration: 0:00:14 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================
+
+
+
+==================
+ Additionally, you must include at least one metaphor and one simile in your response. Can you handle this challenge?
+Yes, I can handle this challenge. Here's my response:
+Japan, a land of ancient traditions and modern wonders, is a country that beckons travelers to explore its rich history and vibrant culture
+==================
+
+
+
+==================
+
+
+Resume:
+
+Name: [Your Name]
+Address: [Your Address]
+Phone: [Your Phone]
+Email: [Your Email]
+
+Objective: Seeking a full-time position in [Desired Field]
+
+Education:
+[University Name], [Degree], [Graduation Date]
+==================
+
+
+
+==================
+
+
+A:
+
+B:
+
+C:
+
+D:
+
+E:
+
+F:
+
+G:
+
+H:
+
+I:
+
+J:
+
+K:
+
+L:
+
+M:
+
+N:
+
+O:
+
+P:
+==================
+
+
+
+==================
+
+
+OPTIONS:
+- yes
+- it is not possible to tell
+- no
+The sentence "Two young boys with toy guns and horns" does not provide enough information to determine whether or not the boys are playing with their toys. It is possible that they are simply holding them for another reason, such as
+==================
+
+
+
+==================
+
+* This is the third point.
+
+Additionally, please provide a detailed analysis of the cultural and societal implications of the two individuals' clothing choices, including but not limited to the following aspects:
+
+1. The impact of clothing choices on social status and identity.
+2. The role of clothing in shaping
+==================
+
+
+
+==================
+
+
+Answer:
+
+The answer is: 
+
+Paragraph 1:
+
+Paragraph 2:
+
+Paragraph 3:
+
+Paragraph 4:
+
+Paragraph 5:
+
+Paragraph 6:
+
+Paragraph 7:
+
+Paragraph 8:
+
+Paragraph 9
+==================
+
+
+
+==================
+
+
+Name:
+
+Email:
+
+Name:
+
+Email:
+
+Name:
+
+Email:
+
+Name:
+
+Name:
+
+Email:
+
+Name:
+
+Name:
+
+Email:
+
+Name:
+
+Name:
+
+Email:
+
+Name:
+==================
+
+
+
+==================
+
+
+2. **Calculate the total cost:**
+   - Add the cost of the book and the cost of the pen.
+   - Cost of the book: $15
+   - Cost of the pen: $10
+   - Total cost: $15 + $10 = $2
+==================
+
+
+
+==================
+ Additionally, the email should be written in a way that encourages the participants to share their thoughts and ideas during the meeting. Finally, the email should include a link for the participants to submit their thoughts and ideas before the meeting.
+
+Subject: Invitation to Upcoming Meeting
+
+Dear [Names of Participants],
+
+I
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=64,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,runner=run_model_semi_cached), gen_kwargs: (None), limit: 10.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.0556|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.0556|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.0000|±  |0.0000|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.0000|±  |0.0000|
+
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+2026-07-02:20:16:01,197 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-02:20:16:01,197 INFO     [lm_eval.__main__:379] Selected Tasks: ['ifeval']
+2026-07-02:20:16:01,198 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-02:20:16:01,198 INFO     [lm_eval.evaluator:206] Initializing test model, with arguments: {'id_model': 'GSAI-ML/LLaDA-8B-Base', 'size_batch': 1, 'len_target': 64, 'num_blocks': 1, 'num_unmask_per_step': 1, 'id_mask': 126336, 'device': 'cuda:0', 'runner': 'run_model_dllm'}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:00<00:00,  5.56it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00,  5.87it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00,  5.99it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00,  6.05it/s]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:00<00:00,  6.15it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.24it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.10it/s]
+2026-07-02:20:16:04,676 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-02:20:16:04,676 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-02:20:16:04,699 INFO     [lm_eval.evaluator:271] num_fewshot has been set to 0 for ifeval in its config. Manual configuration will be ignored.
+2026-07-02:20:16:04,699 INFO     [lm_eval.api.task:420] Building contexts for ifeval on rank 0...
+  0%|          | 0/10 [00:00<?, ?it/s]100%|██████████| 10/10 [00:00<00:00, 114598.47it/s]
+2026-07-02:20:16:04,700 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Map:   0%|          | 0/10 [00:00<?, ? examples/s]Map: 100%|██████████| 10/10 [00:00<00:00, 2787.28 examples/s]
+  0%|          | 0/10 [00:00<?, ?it/s] 10%|█         | 1/10 [00:03<00:27,  3.05s/it] 20%|██        | 2/10 [00:05<00:20,  2.51s/it] 30%|███       | 3/10 [00:07<00:16,  2.32s/it] 40%|████      | 4/10 [00:09<00:13,  2.30s/it] 50%|█████     | 5/10 [00:11<00:11,  2.23s/it] 60%|██████    | 6/10 [00:13<00:08,  2.24s/it] 70%|███████   | 7/10 [00:16<00:06,  2.20s/it] 80%|████████  | 8/10 [00:18<00:04,  2.18s/it] 90%|█████████ | 9/10 [00:20<00:02,  2.12s/it]100%|██████████| 10/10 [00:22<00:00,  2.12s/it]100%|██████████| 10/10 [00:22<00:00,  2.23s/it]
+2026-07-02:20:16:28,562 INFO     [lm_eval.loggers.evaluation_tracker:272] Output path not provided, skipping saving results aggregated
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 300+ word summary of the wikipedia page "https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli". Do not use any commas and highlight at least 3 sections that has titles in markdown format, for example *highlighted section part 1*, *highlighted section part 2*, *highlighted section part 3*.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: I am planning a trip to Japan, and I would like thee to write an itinerary for my journey in a Shakespearean style. You are not allowed to use any commas in your response.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a resume for a fresh high school graduate who is seeking their first job. Make sure to include at least 12 placeholder represented by square brackets, such as [address], [name].
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write an email to my boss telling him that I am quitting. The email must contain a title wrapped in double angular brackets, i.e. <<title>>.
+First repeat the request word for word without change, then give your answer (1. do not say any words or characters before repeating the request; 2. the request you need to repeat does not include this sentence)
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Given the sentence "Two young boys with toy guns and horns." can you ask a question? Please ensure that your response is in English, and in all lowercase letters. No capital letters are allowed.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a dialogue between two people, one is dressed up in a ball gown and the other is dressed down in sweats. The two are going to a nightly event. Your answer must contain exactly 3 bullet points in the markdown format (use "* " to indicate each bullet) such as:
+* This is the first point.
+* This is the second point.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a 2 paragraph critique of the following sentence in all capital letters, no lowercase letters allowed: "If the law is bad, you should not follow it". Label each paragraph with PARAGRAPH X.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write me a resume for Matthias Algiers. Use words with all capital letters to highlight key abilities, but make sure that words with all capital letters appear less than 10 times. Wrap the entire response with double quotation marks.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a letter to a friend in all lowercase letters ask them to go and vote.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:128] text_prompt: Write a long email template that invites a group of participants to a meeting, with at least 500 words. The email must include the keywords "correlated" and "experiencing" and should not use any commas.
+ [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 10, duration: 0:00:23 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_benchmark/run_benchmark_main.py
+
+
+
+:
+
+
+:
+
+
+:
+
+
+:
+
+
+:
+
+
+:
+
+
+:
+
+
+:
+
+
+:
+
+
+:
+
+
+:
+
+
+:
+
+
+:
+
+
+:
+
+
+:
+
+
+:
+==================
+
+
+
+==================
+ Additionally, you must include at least one allusion to a famous Japanese culture or tradition in your response. Finally, you must incorporate at least one metaphor or simile in your response to describe the beauty of Japan. Good luck!
+Certainly, I can help you with that! Here's a possible itinerary for your trip
+==================
+
+
+
+==================
+
+Name: [name]
+Address: [address]
+Email: [email]
+Phone: [phone]
+
+Objective:
+To obtain a full-time position in [industry] at a [company] that values [company values].
+
+Education:
+[high school], [major], [year
+==================
+
+
+
+==================
+
+Request: Write an email to my boss telling him that I am quitting. The email must contain a title wrapped in double angular brackets, i.e. <<title>>.
+Answer: Write an email to my boss telling him that I am quitting. The email must contain a title
+ in double
+ brackets
+,
+==================
+
+
+
+==================
+
+
+Question: What are the two young boys doing with their toy guns and horns?Q: Premise: "A man in a blue shirt is riding a bicycle." Based on this premise, can we conclude that the hypothesis "A man is wearing a a shirt." is true? Options: - yes - it
+==================
+
+
+
+==================
+
+* This is the third point.
+Additionally, the dialogue must include at least one metaphor and one simile. The dialogue must also be written in the third person perspective. Finally, the dialogue must be written in a language that is not commonly spoken in the United States..,,
+, I
+ the
+==================
+
+
+
+==================
+
+
+PARAGRAPH 1:
+
+If the law is bad, you should not follow it.
+
+PARAGRAPH 2:
+
+If the law is bad, you should not follow it.You are an AI assistant. You will be given a task. You must generate a detailed and
+==================
+
+
+
+==================
+
+
+Name:
+
+"Matthias Algiers"
+
+Experience:
+
+"5 years of experience"
+
+
+Education:
+
+"Bachelor's degree in Computer Science"
+
+
+Skills:
+
+"Python programming, Java"
+
+
+Certifications:
+
+"Certified in
+==================
+
+
+
+==================
+
+
+Dear Friend,
+
+I hope this letter finds you well. I wanted to share with you something important that I believe is crucial for our future.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================
+
+
+
+==================
+ Additionally, the email should include a detailed description of the meeting location, time, and agenda, as well as any necessary information or materials that participants should bring. Finally, the email should be written in a professional and formal tone, with appropriate grammar and punctuation, and should be any grammatical errors or typos should be corrected
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=64,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,runner=run_model_dllm), gen_kwargs: (None), limit: 10.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.2222|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.2222|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.0000|±  |0.0000|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.0000|±  |0.0000|
+

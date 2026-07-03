@@ -140,7 +140,7 @@ class RunModel:
                 jprint('[{}|{}|{}]: {}\n'.format(step, idx_refresh.item(), token_updated, tokenizer.batch_decode(x[:, idx_block])[0]))
             # end
 
-            sentence_block_current = tokenizer.batch_decode(x[:, idx_denoising])[0]
+            sentence_block_current = tokenizer.batch_decode(x[:, idx_block])[0]
 
             for word_stop in words_stop:
                 if word_stop in sentence_block_current:
