@@ -193,7 +193,9 @@ class CacheVOPlugin_Enabled(InspectorPlugin):
 
         v_response_previous = self.load(name_hidden='v', name_length=name_length)
         v_response = v[:, -v_response_previous.shape[1]:, :]
-        sims_response_abs = F.cosine_similarity(v_response, v_response_previous, dim=-1).abs().clamp(0.0, 1.0)   # (Bs, Ts)
+        sims_response_abs = F.cosine_similarity(v_response, v_response_previous, dim=-1)   # (Bs, Ts)
+        # sims_response_abs = F.cosine_similarity(v_response, v_response_previous, dim=-1).clamp(-1.0, 1.0)   # (Bs, Ts)
+        # sims_response_abs = F.cosine_similarity(v_response, v_response_previous, dim=-1).abs().clamp(0.0, 1.0)   # (Bs, Ts)
         idx_sim_sorted = torch.argsort(sims_response_abs, dim=-1)    # (0 -> 1)
 
         if name_length == 'response':
@@ -206,12 +208,12 @@ class CacheVOPlugin_Enabled(InspectorPlugin):
         # idx_current = idx_sim_sorted[:, :]
         B_update, L_update = idx_current.shape
         idx_current_3d_x = idx_current.view(B_update, L_update, 1).expand(B_update, L_update, x_current.shape[-1])
-        idx_current_3d_v = idx_current.view(B_update, L_update, 1).expand(B_update, L_update, v.shape[-1])
+        # idx_current_3d_v = idx_current.view(B_update, L_update, 1).expand(B_update, L_update, v.shape[-1])
 
         x_current = torch.gather(x_current, 1, idx_current_3d_x)    # (B, budget, H)
         x_normed_current = torch.gather(x_normed_current, 1, idx_current_3d_x)    # (B, budget, H)
 
-        v = torch.gather(v, 1, idx_current_3d_v) #k:torch.Size([B, budget, 4096])
+        # v = torch.gather(v, 1, idx_current_3d_v) #k:torch.Size([B, budget, 4096])
         idx_current = idx_current.squeeze(0)
 
         return idx_current, x_current, x_normed_current, v
@@ -467,7 +469,7 @@ class CachePastKVPlugin_Enabled(InspectorPlugin):
         return 'plugin_cache_past_kv'
     # end
 
-    def load(self):
+    def load_kv(self):
         layer_past = self.load_attrs('layer_past')[0]
 
         k_current, v_current = self.load_vars('k_current', 'v_current')
@@ -487,6 +489,35 @@ class CachePastKVPlugin_Enabled(InspectorPlugin):
 
         return k_final, v_final
     # end
+
+    def load(self, name_): # name in {'k','v'}
+        name_current = f'{name_}_current'
+        current_ = self.load_vars(name_current)[0]
+
+        layer_past = self.load_attrs('layer_past')[0]
+        
+        if layer_past is None:  # the first time
+            final_ = current_
+            return final_
+        # end
+
+        concat_and_replace = self.load_func('concat_and_replace')
+        idx_current, shape_target = self.load_vars('idx_current','shape_target')
+
+        k_previous, v_previous = layer_past
+
+        map_name_previous = {
+            'k': k_previous,
+            'v': v_previous
+        }
+
+        previous_ = map_name_previous[name_]
+
+        final_ = concat_and_replace(previous_, current_, idx_current, shape_target)
+
+        return final_
+    # end
+
 
     def save(self):
         k_final, v_final = self.load_vars('k_final', 'v_final')

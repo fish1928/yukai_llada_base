@@ -125,7 +125,7 @@ class TestLM(LM):
                 # end
             # end
 
-            jprint('text_prompt: {}\n'.format(batch['text_prompt']))
+            # jprint('text_prompt: {}\n'.format(batch['text_prompt']))
             text_generated, has_done = self.runner_model.run_one(
                 self.model, self.tokenizer, self.config, **batch
             )
@@ -139,7 +139,7 @@ class TestLM(LM):
         # end
 
         jprint('Total unfinished: {}, duration: {}'.format(len(errors_eval), t.click()))
-        #print('\n==================\n\n\n\n==================\n'.join(outputs_eval))
+        # print('\n=================='.join(outputs_eval))
         return outputs_eval
     # end
 

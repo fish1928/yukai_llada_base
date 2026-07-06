@@ -763,17 +763,22 @@ class LLaDABlock(nn.Module):
             k_current = self.k_norm(k_current).to(dtype=dtype)
         # end
 
-
         # Move head forward to be next to the batch dim.
         # shape: (B, nh, T, hs)
         # self.config.n_heads: 32
         q_current = q_current.view(B, T, self.config.n_heads, C // self.config.n_heads).transpose(1, 2)
-        # shape: (B, n_kv_h, T, hs)
-        k_current = k_current.view(B, T, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
-        # shape: (B, n_kv_h, T, hs)
-        v_current = v_current.view(B, T, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
+        k_current = k_current.view(B, T, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2) # shape: (B, n_kv_h, T, hs)
+        v_current = v_current.view(B, -1, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2) # shape: (B, n_kv_h, T, hs)
 
-        k_final, v_final = self.plugin_cache_past_kv.load()   
+
+        assert v_current.shape[-2] >= k_current.shape[-2]
+        if v_current.shape[-2] == k_current.shape[-2]:  # normal case
+            v_final = self.plugin_cache_past_kv.load('v')
+        else:                                           # dllm case
+            v_final = v_current
+        # end
+
+        k_final = self.plugin_cache_past_kv.load('k')
 
         max_replace_pos = k_final.shape[1]
         q_current_rotated, k_final_rotated = self.rotary_emb(
