@@ -907,47 +907,43 @@ class LLaDALlamaBlock(LLaDABlock):
         q_current = self.q_proj(x_normed_current) #q:torch.Size([B, budget, 4096])
         k = self.k_proj(x_normed_current) #k:torch.Size([B, budget, 4096])
 
-        if self._activation_checkpoint_fn is not None:
-            attn_current = self._activation_checkpoint_fn(  # type: ignore
-                self.attention, q_current, k, v, attention_bias=attention_bias,
-                idx_current=idx_current,
-                shape_target=shape_target
-            )
-        else:
-            attn_current = self.attention(
-                q_current, k, v,
-                attention_bias=attention_bias,
-                idx_current=idx_current,
-                shape_target=shape_target
-            )
-        # end
+
+        attn_current = self.attention(
+            q_current, k, v,
+            attention_bias=attention_bias,
+            idx_current=idx_current,
+            shape_target=shape_target
+        )
 
         # Add attention scores.
         # shape: (B, T, C)
 
+        # first residual network
         x_final = x_current + self.dropout(attn_current)
 
         # Add feed-forward projection.
         # shape: (batch_size, seq_len, d_model)
         og_x_final = x_final
 
-        if self._activation_checkpoint_fn is not None:
-            x_final = self._activation_checkpoint_fn(self.ff_norm, x_final)  # type: ignore
-        else:
-            x_final = self.ff_norm(x_final)
-        # end
+        ''' The MLP starts '''
+        # 1. normalized
+        x_final = self.ff_norm(x_final)
+        # 2. get gate and up
+        x_final, x_final_up = self.ff_proj(x_final), self.up_proj(x_final)
 
-        x_final, x_final_up = self.ff_proj(x_final), self.up_proj(x_final) # new add
+        # 3. get activated gate
+        x_final = self.act(x_final)
 
-        if self._activation_checkpoint_fn is not None:
-            x_final = self._activation_checkpoint_fn(self.act, x_final)  # type: ignore
-        else:
-            x_final = self.act(x_final)
-        # end
+        # 4. get gated * up
+        x_final = x_final * x_final_up
 
-        x_final = x_final * x_final_up # new add
+        # 5. get down
         x_final = self.ff_out(x_final)
+        '''The MLP ends'''
+
         x_final = self.dropout(x_final)
+
+        # second residual network
         x_final = og_x_final + x_final
 
         x_final = self.plugin_cache_vo.load_merge_and_update_hidden(x_final)
