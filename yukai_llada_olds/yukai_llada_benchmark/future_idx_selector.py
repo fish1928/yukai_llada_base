@@ -86,7 +86,8 @@ class FutureIDXSelector:
         index_avail = (attn >0).nonzero(as_tuple=True)[1].reshape(attn.shape[0], -1)
         attn_avail = torch.gather(attn, -1, index_avail)
         scores = self.model(attn_avail.unsqueeze(-1)).squeeze(-1)
-        idx = scores.argsort(dim=-1)[:, :self.h]
+        idx = scores.argsort(dim=-1, descending=True)[:, :self.h]
+        # idx = scores.argsort(dim=-1)[:, :self.h]
         return torch.gather(index_avail, 1, idx)
     # end
 
@@ -98,7 +99,7 @@ class FutureIDXSelector:
         met_avail = torch.gather(met, 1, index_avail_3)
         scores = self.model(met_avail).squeeze(-1)
         
-        idx = scores.argsort(dim=-1)[:, :self.h]
+        idx = scores.argsort(dim=-1, descending=True)[:, :self.h]
         return torch.gather(index_avail, 1, idx)
     # end
 # end class
