@@ -125,7 +125,7 @@ class TestLM(LM):
                 # end
             # end
 
-            jprint('text_prompt: {}\n'.format(batch['text_prompt']))
+            # jprint('text_prompt: {}\n'.format(batch['text_prompt']))
             text_generated, has_done = self.runner_model.run_one(
                 self.model, self.tokenizer, self.config, **batch
             )

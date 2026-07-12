@@ -1,0 +1,7 @@
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 23, duration: 0:05:54 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/run_benchmark_main.py
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=128,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,step_refresh_remainder=4,select_only_in_h=True,runner=run_model_semi_cached_mlp,h=8), gen_kwargs: (None), limit: 50.0, num_fewshot: 1, batch_size: 1
+|Tasks|Version|     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|-----|------:|----------------|-----:|-----------|---|----:|---|-----:|
+|gsm8k|      3|flexible-extract|     1|exact_match|↑  | 0.44|±  |0.0709|
+|     |       |strict-match    |     1|exact_match|↑  | 0.32|±  |0.0666|
+

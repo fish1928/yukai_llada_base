@@ -91,6 +91,16 @@ class FutureIDXSelector:
         return torch.gather(index_avail, 1, idx)
     # end
 
+    def select_future_by_attn_full(self, attn):
+        index_avail = (attn >0).nonzero(as_tuple=True)[1].reshape(attn.shape[0], -1, attn.shape[-1])
+        attn_avail = torch.gather(attn, 1, index_avail)
+        scores = self.model(attn_avail).squeeze(-1)
+
+        idx = scores.argsort(dim=-1, descending=True)[:, :self.h]
+        # idx = scores.argsort(dim=-1)[:, :self.h]
+        return torch.gather(index_avail[:,:,0], 1, idx)
+    # end
+
     # conf, margin, attn_last
     def select_future_by_3(self, met):  # (1, Q, 3)
         attn = met[:, :, -1]    # (1, Q)
