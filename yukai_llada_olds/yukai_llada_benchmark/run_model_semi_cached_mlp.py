@@ -108,10 +108,9 @@ class RunModel:
                 else:
                     score_attn = plugin_cache_attn.collect_attn_from_all_blocks(model)
                     idx_in_attn = torch.where(idx_transform_2d.squeeze(0) == idx_block)[0]    # idx_current is now last round
-                    score_attn = score_attn[-1, idx_in_attn, -idx_block.shape[-1]:].squeeze(1)
+                    score_attn = score_attn[-1, idx_in_attn, -idx_block.shape[-1]:].squeeze(1)  # (1,64)
                     mask_mask_current_no = ~(x[:,position_start:position_end] == id_mask).view(1,-1)    # (B, K)
                     score_attn.masked_fill_(mask_mask_current_no, torch.finfo(score_attn.dtype).min)
-
                     idx_denoising = (future_idx_selector.select_future_by_attn(score_attn) + position_start).squeeze(0)
                     idx_current = torch.cat([idx_refresh, idx_denoising])
 
