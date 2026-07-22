@@ -1,0 +1,324 @@
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+2026-07-20:20:20:43,857 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-20:20:20:43,858 INFO     [lm_eval.__main__:379] Selected Tasks: ['ifeval']
+2026-07-20:20:20:43,858 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-20:20:20:43,858 INFO     [lm_eval.evaluator:206] Initializing test model, with arguments: {'id_model': 'GSAI-ML/LLaDA-8B-Base', 'size_batch': 1, 'len_target': 256, 'num_blocks': 1, 'num_unmask_per_step': 1, 'id_mask': 126336, 'device': 'cuda:0', 'step_refresh_remainder': 16, 'select_only_in_h': True, 'runner': 'run_model_semi_cached_mlp', 'h': 4}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:00<00:00,  5.53it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00,  5.88it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00,  5.98it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00,  6.06it/s]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:00<00:00,  6.17it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.27it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.12it/s]
+2026-07-20:20:20:47,356 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-20:20:20:47,356 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-20:20:20:47,379 INFO     [lm_eval.evaluator:271] num_fewshot has been set to 0 for ifeval in its config. Manual configuration will be ignored.
+2026-07-20:20:20:47,379 INFO     [lm_eval.api.task:420] Building contexts for ifeval on rank 0...
+  0%|          | 0/50 [00:00<?, ?it/s]100%|██████████| 50/50 [00:00<00:00, 225986.21it/s]
+2026-07-20:20:20:47,381 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Map:   0%|          | 0/50 [00:00<?, ? examples/s]Map: 100%|██████████| 50/50 [00:00<00:00, 7756.89 examples/s]
+  0%|          | 0/50 [00:00<?, ?it/s]  2%|▏         | 1/50 [00:11<09:37, 11.78s/it]  4%|▍         | 2/50 [00:54<23:58, 29.96s/it]  6%|▌         | 3/50 [02:30<47:15, 60.32s/it]  8%|▊         | 4/50 [04:07<57:18, 74.76s/it] 10%|█         | 5/50 [05:44<1:01:56, 82.59s/it] 12%|█▏        | 6/50 [07:21<1:04:06, 87.43s/it] 14%|█▍        | 7/50 [08:57<1:04:46, 90.39s/it] 16%|█▌        | 8/50 [10:34<1:04:37, 92.33s/it] 18%|█▊        | 9/50 [12:10<1:03:56, 93.58s/it] 20%|██        | 10/50 [13:46<1:02:59, 94.50s/it] 22%|██▏       | 11/50 [15:23<1:01:46, 95.05s/it] 24%|██▍       | 12/50 [16:59<1:00:28, 95.49s/it] 26%|██▌       | 13/50 [18:36<59:02, 95.75s/it]   28%|██▊       | 14/50 [20:12<57:34, 95.96s/it] 30%|███       | 15/50 [21:48<56:02, 96.08s/it] 32%|███▏      | 16/50 [23:25<54:30, 96.19s/it] 34%|███▍      | 17/50 [25:01<52:56, 96.24s/it] 36%|███▌      | 18/50 [26:38<51:21, 96.30s/it] 38%|███▊      | 19/50 [28:14<49:45, 96.32s/it] 40%|████      | 20/50 [29:50<48:10, 96.35s/it] 42%|████▏     | 21/50 [31:27<46:34, 96.35s/it] 44%|████▍     | 22/50 [33:03<44:58, 96.37s/it] 46%|████▌     | 23/50 [34:40<43:25, 96.51s/it] 48%|████▊     | 24/50 [36:16<41:48, 96.48s/it] 50%|█████     | 25/50 [37:53<40:11, 96.46s/it] 52%|█████▏    | 26/50 [39:29<38:35, 96.47s/it] 54%|█████▍    | 27/50 [41:06<36:58, 96.44s/it] 56%|█████▌    | 28/50 [42:42<35:23, 96.53s/it] 58%|█████▊    | 29/50 [44:19<33:48, 96.62s/it] 60%|██████    | 30/50 [45:56<32:11, 96.56s/it] 62%|██████▏   | 31/50 [47:32<30:33, 96.52s/it] 64%|██████▍   | 32/50 [49:09<28:57, 96.50s/it] 66%|██████▌   | 33/50 [50:45<27:19, 96.46s/it] 68%|██████▊   | 34/50 [52:22<25:44, 96.55s/it] 70%|███████   | 35/50 [53:58<24:07, 96.52s/it] 72%|███████▏  | 36/50 [55:35<22:30, 96.48s/it] 74%|███████▍  | 37/50 [57:11<20:54, 96.46s/it] 76%|███████▌  | 38/50 [58:47<19:17, 96.47s/it] 78%|███████▊  | 39/50 [1:00:24<17:41, 96.46s/it] 80%|████████  | 40/50 [1:02:00<16:04, 96.45s/it] 82%|████████▏ | 41/50 [1:03:37<14:28, 96.46s/it] 84%|████████▍ | 42/50 [1:05:13<12:51, 96.46s/it] 86%|████████▌ | 43/50 [1:06:50<11:15, 96.57s/it] 88%|████████▊ | 44/50 [1:08:27<09:39, 96.54s/it] 90%|█████████ | 45/50 [1:10:03<08:02, 96.52s/it] 92%|█████████▏| 46/50 [1:11:39<06:25, 96.46s/it] 94%|█████████▍| 47/50 [1:13:16<04:49, 96.43s/it] 96%|█████████▌| 48/50 [1:14:52<03:12, 96.44s/it] 98%|█████████▊| 49/50 [1:16:29<01:36, 96.43s/it]100%|██████████| 50/50 [1:18:05<00:00, 96.44s/it]100%|██████████| 50/50 [1:18:05<00:00, 93.71s/it]
+2026-07-20:21:38:54,858 INFO     [lm_eval.loggers.evaluation_tracker:272] Output path not provided, skipping saving results aggregated
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 50, duration: 1:18:05 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/run_benchmark_main.py
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=256,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,step_refresh_remainder=16,select_only_in_h=True,runner=run_model_semi_cached_mlp,h=4), gen_kwargs: (None), limit: 50.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.1711|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.1711|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.0600|±  |0.0339|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.0600|±  |0.0339|
+
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+2026-07-20:21:39:04,610 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-20:21:39:04,610 INFO     [lm_eval.__main__:379] Selected Tasks: ['ifeval']
+2026-07-20:21:39:04,611 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-20:21:39:04,611 INFO     [lm_eval.evaluator:206] Initializing test model, with arguments: {'id_model': 'GSAI-ML/LLaDA-8B-Base', 'size_batch': 1, 'len_target': 256, 'num_blocks': 1, 'num_unmask_per_step': 1, 'id_mask': 126336, 'device': 'cuda:0', 'step_refresh_remainder': 16, 'select_only_in_h': True, 'runner': 'run_model_semi_cached_mlp', 'h': 5}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:00<00:00,  5.39it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00,  5.62it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00,  5.70it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00,  5.75it/s]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:00<00:00,  5.78it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:01<00:00,  5.81it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:01<00:00,  5.75it/s]
+2026-07-20:21:39:08,166 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-20:21:39:08,166 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-20:21:39:08,186 INFO     [lm_eval.evaluator:271] num_fewshot has been set to 0 for ifeval in its config. Manual configuration will be ignored.
+2026-07-20:21:39:08,187 INFO     [lm_eval.api.task:420] Building contexts for ifeval on rank 0...
+  0%|          | 0/50 [00:00<?, ?it/s]100%|██████████| 50/50 [00:00<00:00, 250555.79it/s]
+2026-07-20:21:39:08,189 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Map:   0%|          | 0/50 [00:00<?, ? examples/s]Map: 100%|██████████| 50/50 [00:00<00:00, 8693.58 examples/s]
+  0%|          | 0/50 [00:00<?, ?it/s]  2%|▏         | 1/50 [01:37<1:19:32, 97.41s/it]  4%|▍         | 2/50 [03:13<1:17:27, 96.82s/it]  6%|▌         | 3/50 [04:25<1:06:46, 85.24s/it]  8%|▊         | 4/50 [04:36<42:52, 55.92s/it]   10%|█         | 5/50 [04:47<29:43, 39.64s/it] 12%|█▏        | 6/50 [04:57<21:53, 29.84s/it] 14%|█▍        | 7/50 [05:08<16:55, 23.62s/it] 16%|█▌        | 8/50 [05:19<13:41, 19.55s/it] 18%|█▊        | 9/50 [05:30<11:28, 16.80s/it] 20%|██        | 10/50 [05:41<09:58, 14.96s/it] 22%|██▏       | 11/50 [05:52<08:55, 13.73s/it] 22%|██▏       | 11/50 [05:55<20:58, 32.28s/it]
+Traceback (most recent call last):
+  File "/home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/run_benchmark_main.py", line 162, in <module>
+    cli_evaluate()
+    ~~~~~~~~~~~~^^
+  File "/home/exx/miniconda3/lib/python3.13/site-packages/lm_eval/__main__.py", line 389, in cli_evaluate
+    results = evaluator.simple_evaluate(
+        model=args.model,
+    ...<23 lines>...
+        **request_caching_args,
+    )
+  File "/home/exx/miniconda3/lib/python3.13/site-packages/lm_eval/utils.py", line 422, in _wrapper
+    return fn(*args, **kwargs)
+  File "/home/exx/miniconda3/lib/python3.13/site-packages/lm_eval/evaluator.py", line 308, in simple_evaluate
+    results = evaluate(
+        lm=lm,
+    ...<11 lines>...
+        confirm_run_unsafe_code=confirm_run_unsafe_code,
+    )
+  File "/home/exx/miniconda3/lib/python3.13/site-packages/lm_eval/utils.py", line 422, in _wrapper
+    return fn(*args, **kwargs)
+  File "/home/exx/miniconda3/lib/python3.13/site-packages/lm_eval/evaluator.py", line 528, in evaluate
+    resps = getattr(lm, reqtype)(cloned_reqs)
+  File "/home/exx/miniconda3/lib/python3.13/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/run_benchmark_main.py", line 129, in generate_until
+    text_generated, has_done = self.runner_model.run_one(
+                               ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.model, self.tokenizer, self.config, **batch
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/run_model_semi_cached_mlp.py", line 189, in run_one
+    sentence_generated, has_done = self.generate(
+                                   ~~~~~~~~~~~~~^
+        model,
+        ^^^^^^
+    ...<3 lines>...
+        **kwargs
+        ^^^^^^^^
+    )
+    ^
+  File "/home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/run_model_semi_cached_mlp.py", line 117, in generate
+    logits = model(x[:, idx_current], idx_current=idx_current, shape_target=shape_target).logits
+             ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/exx/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/exx/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/modeling_llada_yukai_06.py", line 1241, in forward
+    outputs = self.model.forward(
+        input_ids=input_ids,
+    ...<4 lines>...
+        shape_target=shape_target,
+    )
+  File "/home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/modeling_llada_yukai_06.py", line 1157, in forward
+    x = block(
+        x,attention_bias=attention_bias,
+        idx_current=idx_current,
+        shape_target=shape_target,
+    )
+  File "/home/exx/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/exx/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/modeling_llada_yukai_06.py", line 912, in forward
+    attn_current = self.attention(
+        q_current, k, v,
+    ...<2 lines>...
+        shape_target=shape_target
+    )
+  File "/home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/modeling_llada_yukai_06.py", line 783, in attention
+    self.plugin_cache_attn.save()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/plugins_llada.py", line 410, in save
+    scores_attn_current = self.reset_and_refresh_3d(
+        scores_attn_origin, scores_attn_current,
+        idx_origin, idx_current,
+        len_block, len_base
+    )
+  File "/home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/plugins_llada.py", line 388, in reset_and_refresh_3d
+    idx_current_relevant = idx_current - idx_block_current_min
+                           ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+torch.AcceleratorError: CUDA error: the launch timed out and was terminated
+Search for `cudaErrorLaunchTimeout' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Traceback (most recent call last):
+  File "/home/exx/miniconda3/bin/accelerate", line 7, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/home/exx/miniconda3/lib/python3.13/site-packages/accelerate/commands/accelerate_cli.py", line 48, in main
+    args.func(args)
+    ~~~~~~~~~^^^^^^
+  File "/home/exx/miniconda3/lib/python3.13/site-packages/accelerate/commands/launch.py", line 1174, in launch_command
+    simple_launcher(args)
+    ~~~~~~~~~~~~~~~^^^^^^
+  File "/home/exx/miniconda3/lib/python3.13/site-packages/accelerate/commands/launch.py", line 769, in simple_launcher
+    raise subprocess.CalledProcessError(returncode=process.returncode, cmd=cmd)
+subprocess.CalledProcessError: Command '['/home/exx/miniconda3/bin/python3.13', 'run_benchmark_main.py', '--tasks', 'ifeval', '--limit', '50', '--model', 'test', '--batch_size', '1', '--num_fewshot', '1', '--model_args', 'id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=256,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,step_refresh_remainder=16,select_only_in_h=True,runner=run_model_semi_cached_mlp,h=5']' returned non-zero exit status 1.
+command failed, continuing
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+2026-07-20:21:45:13,201 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-20:21:45:13,202 INFO     [lm_eval.__main__:379] Selected Tasks: ['ifeval']
+2026-07-20:21:45:13,202 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-20:21:45:13,202 INFO     [lm_eval.evaluator:206] Initializing test model, with arguments: {'id_model': 'GSAI-ML/LLaDA-8B-Base', 'size_batch': 1, 'len_target': 256, 'num_blocks': 1, 'num_unmask_per_step': 1, 'id_mask': 126336, 'device': 'cuda:0', 'step_refresh_remainder': 16, 'select_only_in_h': True, 'runner': 'run_model_semi_cached_mlp', 'h': 6}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:00<00:00,  5.63it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00,  6.00it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00,  6.09it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00,  6.16it/s]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:00<00:00,  6.20it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.30it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.18it/s]
+2026-07-20:21:45:16,663 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-20:21:45:16,663 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-20:21:45:16,686 INFO     [lm_eval.evaluator:271] num_fewshot has been set to 0 for ifeval in its config. Manual configuration will be ignored.
+2026-07-20:21:45:16,686 INFO     [lm_eval.api.task:420] Building contexts for ifeval on rank 0...
+  0%|          | 0/50 [00:00<?, ?it/s]100%|██████████| 50/50 [00:00<00:00, 224054.70it/s]
+2026-07-20:21:45:16,688 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Map:   0%|          | 0/50 [00:00<?, ? examples/s]Map: 100%|██████████| 50/50 [00:00<00:00, 7599.75 examples/s]
+  0%|          | 0/50 [00:00<?, ?it/s]  2%|▏         | 1/50 [00:11<09:34, 11.73s/it]  4%|▍         | 2/50 [00:22<09:01, 11.29s/it]  6%|▌         | 3/50 [00:33<08:45, 11.17s/it]  8%|▊         | 4/50 [00:44<08:29, 11.07s/it] 10%|█         | 5/50 [00:55<08:14, 11.00s/it] 12%|█▏        | 6/50 [01:06<08:04, 11.01s/it] 14%|█▍        | 7/50 [01:17<07:52, 10.98s/it] 16%|█▌        | 8/50 [01:28<07:40, 10.95s/it] 18%|█▊        | 9/50 [01:39<07:27, 10.91s/it] 20%|██        | 10/50 [01:50<07:16, 10.91s/it] 22%|██▏       | 11/50 [02:00<07:04, 10.88s/it] 24%|██▍       | 12/50 [02:11<06:53, 10.88s/it] 26%|██▌       | 13/50 [02:22<06:42, 10.87s/it] 28%|██▊       | 14/50 [02:33<06:32, 10.91s/it] 30%|███       | 15/50 [02:44<06:20, 10.88s/it] 32%|███▏      | 16/50 [02:55<06:09, 10.88s/it] 34%|███▍      | 17/50 [03:06<05:58, 10.87s/it] 36%|███▌      | 18/50 [03:17<05:48, 10.90s/it] 38%|███▊      | 19/50 [03:27<05:37, 10.87s/it] 40%|████      | 20/50 [03:38<05:25, 10.87s/it] 42%|████▏     | 21/50 [03:49<05:15, 10.87s/it] 44%|████▍     | 22/50 [04:00<05:04, 10.86s/it] 46%|████▌     | 23/50 [04:11<04:53, 10.88s/it] 48%|████▊     | 24/50 [04:22<04:43, 10.90s/it] 50%|█████     | 25/50 [04:33<04:32, 10.91s/it] 52%|█████▏    | 26/50 [04:44<04:21, 10.90s/it] 54%|█████▍    | 27/50 [04:55<04:11, 10.93s/it] 56%|█████▌    | 28/50 [05:06<04:00, 10.92s/it] 58%|█████▊    | 29/50 [05:17<03:49, 10.92s/it] 60%|██████    | 30/50 [05:27<03:38, 10.93s/it] 62%|██████▏   | 31/50 [05:38<03:27, 10.92s/it] 64%|██████▍   | 32/50 [05:49<03:16, 10.90s/it] 66%|██████▌   | 33/50 [06:00<03:05, 10.91s/it] 68%|██████▊   | 34/50 [06:11<02:55, 10.98s/it] 70%|███████   | 35/50 [06:22<02:44, 10.95s/it] 72%|███████▏  | 36/50 [06:33<02:32, 10.92s/it] 74%|███████▍  | 37/50 [06:44<02:21, 10.90s/it] 76%|███████▌  | 38/50 [06:55<02:10, 10.89s/it] 78%|███████▊  | 39/50 [07:06<01:59, 10.88s/it] 80%|████████  | 40/50 [07:16<01:48, 10.88s/it] 82%|████████▏ | 41/50 [07:27<01:37, 10.88s/it] 84%|████████▍ | 42/50 [07:38<01:27, 10.88s/it] 86%|████████▌ | 43/50 [07:49<01:16, 10.88s/it] 88%|████████▊ | 44/50 [08:00<01:05, 10.88s/it] 90%|█████████ | 45/50 [08:11<00:54, 10.89s/it] 92%|█████████▏| 46/50 [08:22<00:43, 10.89s/it] 94%|█████████▍| 47/50 [08:33<00:32, 10.88s/it] 96%|█████████▌| 48/50 [08:44<00:21, 10.94s/it] 98%|█████████▊| 49/50 [08:55<00:10, 10.91s/it]100%|██████████| 50/50 [09:06<00:00, 10.91s/it]100%|██████████| 50/50 [09:06<00:00, 10.92s/it]
+2026-07-20:21:54:24,821 INFO     [lm_eval.loggers.evaluation_tracker:272] Output path not provided, skipping saving results aggregated
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 50, duration: 0:09:06 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/run_benchmark_main.py
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=256,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,step_refresh_remainder=16,select_only_in_h=True,runner=run_model_semi_cached_mlp,h=6), gen_kwargs: (None), limit: 50.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.1711|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.1842|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.1200|±  |0.0464|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.1200|±  |0.0464|
+
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+2026-07-20:21:54:35,033 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-20:21:54:35,033 INFO     [lm_eval.__main__:379] Selected Tasks: ['ifeval']
+2026-07-20:21:54:35,034 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-20:21:54:35,034 INFO     [lm_eval.evaluator:206] Initializing test model, with arguments: {'id_model': 'GSAI-ML/LLaDA-8B-Base', 'size_batch': 1, 'len_target': 256, 'num_blocks': 1, 'num_unmask_per_step': 1, 'id_mask': 126336, 'device': 'cuda:0', 'step_refresh_remainder': 16, 'select_only_in_h': True, 'runner': 'run_model_semi_cached_mlp', 'h': 8}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:00<00:01,  4.86it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00,  5.02it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00,  5.27it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00,  5.50it/s]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:00<00:00,  5.67it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:01<00:00,  5.78it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:01<00:00,  5.54it/s]
+2026-07-20:21:54:38,716 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-20:21:54:38,716 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-20:21:54:38,739 INFO     [lm_eval.evaluator:271] num_fewshot has been set to 0 for ifeval in its config. Manual configuration will be ignored.
+2026-07-20:21:54:38,739 INFO     [lm_eval.api.task:420] Building contexts for ifeval on rank 0...
+  0%|          | 0/50 [00:00<?, ?it/s]100%|██████████| 50/50 [00:00<00:00, 227210.40it/s]
+2026-07-20:21:54:38,741 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Map:   0%|          | 0/50 [00:00<?, ? examples/s]Map: 100%|██████████| 50/50 [00:00<00:00, 7719.20 examples/s]
+  0%|          | 0/50 [00:00<?, ?it/s]  2%|▏         | 1/50 [00:11<09:35, 11.75s/it]  4%|▍         | 2/50 [00:22<09:01, 11.28s/it]  6%|▌         | 3/50 [00:33<08:42, 11.12s/it]  8%|▊         | 4/50 [00:44<08:29, 11.07s/it] 10%|█         | 5/50 [00:55<08:15, 11.00s/it] 12%|█▏        | 6/50 [01:06<08:03, 11.00s/it] 14%|█▍        | 7/50 [01:17<07:51, 10.96s/it] 16%|█▌        | 8/50 [01:28<07:39, 10.94s/it] 18%|█▊        | 9/50 [01:39<07:26, 10.89s/it] 20%|██        | 10/50 [01:49<07:15, 10.89s/it] 22%|██▏       | 11/50 [02:00<07:03, 10.87s/it] 24%|██▍       | 12/50 [02:11<06:53, 10.87s/it] 26%|██▌       | 13/50 [02:22<06:42, 10.87s/it] 28%|██▊       | 14/50 [02:33<06:31, 10.88s/it] 30%|███       | 15/50 [02:44<06:20, 10.86s/it] 32%|███▏      | 16/50 [02:55<06:09, 10.88s/it] 34%|███▍      | 17/50 [03:06<05:59, 10.88s/it] 36%|███▌      | 18/50 [03:16<05:48, 10.89s/it] 38%|███▊      | 19/50 [03:27<05:38, 10.91s/it] 40%|████      | 20/50 [03:38<05:27, 10.93s/it] 42%|████▏     | 21/50 [03:49<05:16, 10.92s/it] 44%|████▍     | 22/50 [04:00<05:05, 10.91s/it] 46%|████▌     | 23/50 [04:11<04:54, 10.92s/it] 48%|████▊     | 24/50 [04:22<04:43, 10.89s/it] 50%|█████     | 25/50 [04:33<04:32, 10.89s/it] 52%|█████▏    | 26/50 [04:44<04:22, 10.93s/it] 54%|█████▍    | 27/50 [04:55<04:11, 10.92s/it] 56%|█████▌    | 28/50 [05:06<04:00, 10.92s/it] 58%|█████▊    | 29/50 [05:17<03:49, 10.94s/it] 60%|██████    | 30/50 [05:27<03:38, 10.91s/it] 62%|██████▏   | 31/50 [05:38<03:27, 10.91s/it] 64%|██████▍   | 32/50 [05:49<03:16, 10.90s/it] 66%|██████▌   | 33/50 [06:00<03:04, 10.87s/it] 68%|██████▊   | 34/50 [06:11<02:54, 10.89s/it] 70%|███████   | 35/50 [06:22<02:43, 10.90s/it] 72%|███████▏  | 36/50 [06:33<02:32, 10.90s/it] 74%|███████▍  | 37/50 [06:44<02:21, 10.90s/it] 76%|███████▌  | 38/50 [06:55<02:10, 10.91s/it] 78%|███████▊  | 39/50 [07:06<02:00, 10.95s/it] 80%|████████  | 40/50 [07:17<01:49, 10.95s/it] 82%|████████▏ | 41/50 [07:27<01:38, 10.92s/it] 84%|████████▍ | 42/50 [07:38<01:27, 10.91s/it] 86%|████████▌ | 43/50 [07:49<01:16, 10.94s/it] 88%|████████▊ | 44/50 [08:00<01:05, 10.92s/it] 90%|█████████ | 45/50 [08:11<00:54, 10.91s/it] 92%|█████████▏| 46/50 [08:22<00:43, 10.90s/it] 94%|█████████▍| 47/50 [08:33<00:32, 10.91s/it] 96%|█████████▌| 48/50 [08:44<00:21, 10.92s/it] 98%|█████████▊| 49/50 [08:55<00:10, 10.91s/it]100%|██████████| 50/50 [09:06<00:00, 10.94s/it]100%|██████████| 50/50 [09:06<00:00, 10.93s/it]
+2026-07-20:22:03:46,992 INFO     [lm_eval.loggers.evaluation_tracker:272] Output path not provided, skipping saving results aggregated
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 50, duration: 0:09:07 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/run_benchmark_main.py
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=256,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,step_refresh_remainder=16,select_only_in_h=True,runner=run_model_semi_cached_mlp,h=8), gen_kwargs: (None), limit: 50.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.1184|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.0921|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.0800|±  |0.0388|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.0400|±  |0.0280|
+
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+2026-07-20:22:03:57,091 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-20:22:03:57,092 INFO     [lm_eval.__main__:379] Selected Tasks: ['ifeval']
+2026-07-20:22:03:57,092 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-20:22:03:57,093 INFO     [lm_eval.evaluator:206] Initializing test model, with arguments: {'id_model': 'GSAI-ML/LLaDA-8B-Base', 'size_batch': 1, 'len_target': 256, 'num_blocks': 1, 'num_unmask_per_step': 1, 'id_mask': 126336, 'device': 'cuda:0', 'step_refresh_remainder': 16, 'select_only_in_h': True, 'runner': 'run_model_semi_cached_mlp', 'h': 10}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:00<00:00,  5.54it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00,  5.92it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00,  6.02it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00,  6.10it/s]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:00<00:00,  6.05it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.17it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00,  6.07it/s]
+2026-07-20:22:04:00,663 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-20:22:04:00,663 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-20:22:04:00,686 INFO     [lm_eval.evaluator:271] num_fewshot has been set to 0 for ifeval in its config. Manual configuration will be ignored.
+2026-07-20:22:04:00,686 INFO     [lm_eval.api.task:420] Building contexts for ifeval on rank 0...
+  0%|          | 0/50 [00:00<?, ?it/s]100%|██████████| 50/50 [00:00<00:00, 229447.70it/s]
+2026-07-20:22:04:00,689 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Map:   0%|          | 0/50 [00:00<?, ? examples/s]Map: 100%|██████████| 50/50 [00:00<00:00, 7676.25 examples/s]
+  0%|          | 0/50 [00:00<?, ?it/s]  2%|▏         | 1/50 [00:11<09:35, 11.75s/it]  4%|▍         | 2/50 [00:22<09:03, 11.33s/it]  6%|▌         | 3/50 [00:33<08:45, 11.17s/it]  8%|▊         | 4/50 [00:44<08:29, 11.08s/it] 10%|█         | 5/50 [00:55<08:15, 11.01s/it] 12%|█▏        | 6/50 [01:06<08:02, 10.98s/it] 14%|█▍        | 7/50 [01:17<07:53, 11.02s/it] 16%|█▌        | 8/50 [01:28<07:41, 11.00s/it] 18%|█▊        | 9/50 [01:39<07:29, 10.96s/it] 20%|██        | 10/50 [01:50<07:17, 10.95s/it] 22%|██▏       | 11/50 [02:01<07:05, 10.90s/it] 24%|██▍       | 12/50 [02:12<06:55, 10.93s/it] 26%|██▌       | 13/50 [02:23<06:43, 10.92s/it] 28%|██▊       | 14/50 [02:34<06:33, 10.94s/it] 30%|███       | 15/50 [02:44<06:22, 10.94s/it] 32%|███▏      | 16/50 [02:55<06:11, 10.92s/it] 34%|███▍      | 17/50 [03:06<05:59, 10.90s/it] 36%|███▌      | 18/50 [03:17<05:49, 10.93s/it] 38%|███▊      | 19/50 [03:28<05:38, 10.93s/it] 40%|████      | 20/50 [03:39<05:27, 10.91s/it] 42%|████▏     | 21/50 [03:50<05:16, 10.90s/it] 44%|████▍     | 22/50 [04:01<05:04, 10.89s/it] 46%|████▌     | 23/50 [04:12<04:55, 10.94s/it] 48%|████▊     | 24/50 [04:23<04:43, 10.90s/it] 50%|█████     | 25/50 [04:33<04:31, 10.88s/it] 52%|█████▏    | 26/50 [04:44<04:21, 10.88s/it] 54%|█████▍    | 27/50 [04:55<04:11, 10.91s/it] 56%|█████▌    | 28/50 [05:06<03:59, 10.91s/it] 58%|█████▊    | 29/50 [05:17<03:49, 10.91s/it] 60%|██████    | 30/50 [05:28<03:38, 10.90s/it] 62%|██████▏   | 31/50 [05:39<03:26, 10.89s/it] 64%|██████▍   | 32/50 [05:50<03:15, 10.89s/it] 66%|██████▌   | 33/50 [06:01<03:05, 10.92s/it] 68%|██████▊   | 34/50 [06:12<02:55, 10.97s/it] 70%|███████   | 35/50 [06:23<02:44, 10.99s/it] 72%|███████▏  | 36/50 [06:34<02:33, 10.96s/it] 74%|███████▍  | 37/50 [06:45<02:22, 10.93s/it] 76%|███████▌  | 38/50 [06:56<02:11, 10.96s/it] 78%|███████▊  | 39/50 [07:07<02:00, 10.97s/it] 80%|████████  | 40/50 [07:18<01:49, 10.99s/it] 82%|████████▏ | 41/50 [07:29<01:38, 10.96s/it] 84%|████████▍ | 42/50 [07:40<01:27, 10.97s/it] 86%|████████▌ | 43/50 [07:51<01:16, 10.99s/it] 88%|████████▊ | 44/50 [08:02<01:05, 10.97s/it] 90%|█████████ | 45/50 [08:12<00:54, 10.95s/it] 92%|█████████▏| 46/50 [08:23<00:43, 10.94s/it] 94%|█████████▍| 47/50 [08:34<00:32, 10.91s/it] 96%|█████████▌| 48/50 [08:45<00:21, 10.92s/it] 98%|█████████▊| 49/50 [08:56<00:10, 10.90s/it]100%|██████████| 50/50 [09:07<00:00, 10.92s/it]100%|██████████| 50/50 [09:07<00:00, 10.95s/it]
+2026-07-20:22:13:10,286 INFO     [lm_eval.loggers.evaluation_tracker:272] Output path not provided, skipping saving results aggregated
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 50, duration: 0:09:08 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/run_benchmark_main.py
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=256,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,step_refresh_remainder=16,select_only_in_h=True,runner=run_model_semi_cached_mlp,h=10), gen_kwargs: (None), limit: 50.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.1579|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.1447|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.0800|±  |0.0388|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.0600|±  |0.0339|
+
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+2026-07-20:22:13:20,581 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-20:22:13:20,582 INFO     [lm_eval.__main__:379] Selected Tasks: ['ifeval']
+2026-07-20:22:13:20,582 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-20:22:13:20,582 INFO     [lm_eval.evaluator:206] Initializing test model, with arguments: {'id_model': 'GSAI-ML/LLaDA-8B-Base', 'size_batch': 1, 'len_target': 256, 'num_blocks': 1, 'num_unmask_per_step': 1, 'id_mask': 126336, 'device': 'cuda:0', 'step_refresh_remainder': 16, 'select_only_in_h': True, 'runner': 'run_model_semi_cached_mlp', 'h': 12}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:00<00:00,  5.41it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00,  5.77it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00,  5.93it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00,  6.00it/s]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:00<00:00,  5.75it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:01<00:00,  5.77it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:01<00:00,  5.79it/s]
+2026-07-20:22:13:24,250 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-20:22:13:24,251 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-20:22:13:24,273 INFO     [lm_eval.evaluator:271] num_fewshot has been set to 0 for ifeval in its config. Manual configuration will be ignored.
+2026-07-20:22:13:24,274 INFO     [lm_eval.api.task:420] Building contexts for ifeval on rank 0...
+  0%|          | 0/50 [00:00<?, ?it/s]100%|██████████| 50/50 [00:00<00:00, 226719.14it/s]
+2026-07-20:22:13:24,276 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Map:   0%|          | 0/50 [00:00<?, ? examples/s]Map: 100%|██████████| 50/50 [00:00<00:00, 7738.85 examples/s]
+  0%|          | 0/50 [00:00<?, ?it/s]  2%|▏         | 1/50 [00:11<09:36, 11.76s/it]  4%|▍         | 2/50 [00:22<09:01, 11.28s/it]  6%|▌         | 3/50 [00:33<08:45, 11.17s/it]  8%|▊         | 4/50 [00:44<08:34, 11.19s/it] 10%|█         | 5/50 [00:56<08:23, 11.18s/it] 12%|█▏        | 6/50 [01:07<08:09, 11.12s/it] 14%|█▍        | 7/50 [01:18<07:55, 11.06s/it] 16%|█▌        | 8/50 [01:29<07:43, 11.03s/it] 18%|█▊        | 9/50 [01:39<07:31, 11.00s/it] 20%|██        | 10/50 [01:50<07:19, 10.99s/it] 22%|██▏       | 11/50 [02:01<07:07, 10.96s/it] 24%|██▍       | 12/50 [02:12<06:56, 10.95s/it] 26%|██▌       | 13/50 [02:23<06:45, 10.97s/it] 28%|██▊       | 14/50 [02:34<06:34, 10.95s/it] 30%|███       | 15/50 [02:45<06:23, 10.96s/it] 32%|███▏      | 16/50 [02:56<06:14, 11.01s/it] 34%|███▍      | 17/50 [03:07<06:02, 10.98s/it] 36%|███▌      | 18/50 [03:18<05:50, 10.96s/it] 38%|███▊      | 19/50 [03:29<05:39, 10.96s/it] 40%|████      | 20/50 [03:40<05:28, 10.95s/it] 42%|████▏     | 21/50 [03:51<05:17, 10.95s/it] 44%|████▍     | 22/50 [04:02<05:06, 10.94s/it] 46%|████▌     | 23/50 [04:13<04:55, 10.96s/it] 48%|████▊     | 24/50 [04:24<04:45, 10.96s/it] 50%|█████     | 25/50 [04:35<04:34, 10.98s/it] 52%|█████▏    | 26/50 [04:46<04:24, 11.00s/it] 54%|█████▍    | 27/50 [04:57<04:12, 10.98s/it] 56%|█████▌    | 28/50 [05:08<04:01, 10.97s/it] 58%|█████▊    | 29/50 [05:19<03:51, 11.03s/it] 60%|██████    | 30/50 [05:30<03:39, 10.99s/it] 62%|██████▏   | 31/50 [05:41<03:28, 10.96s/it] 64%|██████▍   | 32/50 [05:52<03:16, 10.94s/it] 66%|██████▌   | 33/50 [06:02<03:05, 10.92s/it] 68%|██████▊   | 34/50 [06:13<02:54, 10.93s/it] 70%|███████   | 35/50 [06:24<02:44, 10.94s/it] 72%|███████▏  | 36/50 [06:35<02:32, 10.92s/it] 74%|███████▍  | 37/50 [06:46<02:21, 10.91s/it] 76%|███████▌  | 38/50 [06:57<02:10, 10.91s/it] 78%|███████▊  | 39/50 [07:08<01:59, 10.91s/it] 80%|████████  | 40/50 [07:19<01:49, 10.94s/it] 82%|████████▏ | 41/50 [07:30<01:38, 10.97s/it] 84%|████████▍ | 42/50 [07:41<01:28, 11.01s/it] 86%|████████▌ | 43/50 [07:52<01:17, 11.06s/it] 88%|████████▊ | 44/50 [08:03<01:06, 11.04s/it] 90%|█████████ | 45/50 [08:14<00:55, 11.02s/it] 92%|█████████▏| 46/50 [08:25<00:43, 10.99s/it] 94%|█████████▍| 47/50 [08:36<00:32, 10.95s/it] 96%|█████████▌| 48/50 [08:47<00:21, 10.95s/it] 98%|█████████▊| 49/50 [08:58<00:10, 10.92s/it]100%|██████████| 50/50 [09:09<00:00, 10.92s/it]100%|██████████| 50/50 [09:09<00:00, 10.99s/it]
+2026-07-20:22:22:35,717 INFO     [lm_eval.loggers.evaluation_tracker:272] Output path not provided, skipping saving results aggregated
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 50, duration: 0:09:09 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/run_benchmark_main.py
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=256,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,step_refresh_remainder=16,select_only_in_h=True,runner=run_model_semi_cached_mlp,h=12), gen_kwargs: (None), limit: 50.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.1447|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.1316|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.0800|±  |0.0388|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.0600|±  |0.0339|
+
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+2026-07-20:22:22:46,030 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-20:22:22:46,030 INFO     [lm_eval.__main__:379] Selected Tasks: ['ifeval']
+2026-07-20:22:22:46,031 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-20:22:22:46,031 INFO     [lm_eval.evaluator:206] Initializing test model, with arguments: {'id_model': 'GSAI-ML/LLaDA-8B-Base', 'size_batch': 1, 'len_target': 256, 'num_blocks': 1, 'num_unmask_per_step': 1, 'id_mask': 126336, 'device': 'cuda:0', 'step_refresh_remainder': 16, 'select_only_in_h': True, 'runner': 'run_model_semi_cached_mlp', 'h': 16}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:00<00:00,  5.51it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00,  5.88it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00,  5.69it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00,  5.78it/s]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:00<00:00,  5.93it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:01<00:00,  6.08it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:01<00:00,  5.92it/s]
+2026-07-20:22:22:49,784 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-20:22:22:49,784 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-20:22:22:49,807 INFO     [lm_eval.evaluator:271] num_fewshot has been set to 0 for ifeval in its config. Manual configuration will be ignored.
+2026-07-20:22:22:49,807 INFO     [lm_eval.api.task:420] Building contexts for ifeval on rank 0...
+  0%|          | 0/50 [00:00<?, ?it/s]100%|██████████| 50/50 [00:00<00:00, 231729.50it/s]
+2026-07-20:22:22:49,809 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Map:   0%|          | 0/50 [00:00<?, ? examples/s]Map: 100%|██████████| 50/50 [00:00<00:00, 7090.00 examples/s]
+  0%|          | 0/50 [00:00<?, ?it/s]  2%|▏         | 1/50 [00:11<09:43, 11.90s/it]  4%|▍         | 2/50 [00:22<09:04, 11.35s/it]  6%|▌         | 3/50 [00:33<08:44, 11.15s/it]  8%|▊         | 4/50 [00:44<08:30, 11.09s/it] 10%|█         | 5/50 [00:55<08:19, 11.09s/it] 12%|█▏        | 6/50 [01:06<08:06, 11.06s/it] 14%|█▍        | 7/50 [01:17<07:53, 11.01s/it] 16%|█▌        | 8/50 [01:28<07:41, 11.00s/it] 18%|█▊        | 9/50 [01:39<07:29, 10.96s/it] 20%|██        | 10/50 [01:50<07:18, 10.97s/it] 22%|██▏       | 11/50 [02:01<07:06, 10.94s/it] 24%|██▍       | 12/50 [02:12<06:56, 10.97s/it] 26%|██▌       | 13/50 [02:23<06:45, 10.96s/it] 28%|██▊       | 14/50 [02:34<06:34, 10.95s/it] 30%|███       | 15/50 [02:45<06:22, 10.93s/it] 32%|███▏      | 16/50 [02:56<06:12, 10.94s/it] 34%|███▍      | 17/50 [03:07<06:00, 10.94s/it] 36%|███▌      | 18/50 [03:18<05:49, 10.93s/it] 38%|███▊      | 19/50 [03:28<05:38, 10.92s/it] 40%|████      | 20/50 [03:39<05:27, 10.91s/it] 42%|████▏     | 21/50 [03:50<05:16, 10.92s/it] 44%|████▍     | 22/50 [04:01<05:05, 10.92s/it] 46%|████▌     | 23/50 [04:12<04:55, 10.95s/it] 48%|████▊     | 24/50 [04:23<04:44, 10.94s/it] 50%|█████     | 25/50 [04:34<04:33, 10.92s/it] 52%|█████▏    | 26/50 [04:45<04:22, 10.93s/it] 54%|█████▍    | 27/50 [04:56<04:11, 10.93s/it] 56%|█████▌    | 28/50 [05:07<04:00, 10.93s/it] 58%|█████▊    | 29/50 [05:18<03:51, 11.02s/it] 60%|██████    | 30/50 [05:29<03:39, 11.00s/it] 62%|██████▏   | 31/50 [05:40<03:29, 11.01s/it] 64%|██████▍   | 32/50 [05:51<03:18, 11.00s/it] 66%|██████▌   | 33/50 [06:02<03:06, 10.98s/it] 68%|██████▊   | 34/50 [06:13<02:56, 11.00s/it] 70%|███████   | 35/50 [06:24<02:45, 11.03s/it] 72%|███████▏  | 36/50 [06:35<02:33, 10.99s/it] 74%|███████▍  | 37/50 [06:46<02:22, 10.98s/it] 76%|███████▌  | 38/50 [06:57<02:11, 10.97s/it] 78%|███████▊  | 39/50 [07:08<02:00, 10.96s/it] 80%|████████  | 40/50 [07:19<01:49, 10.99s/it] 82%|████████▏ | 41/50 [07:30<01:38, 10.98s/it] 84%|████████▍ | 42/50 [07:41<01:27, 10.96s/it] 86%|████████▌ | 43/50 [07:52<01:16, 10.97s/it] 88%|████████▊ | 44/50 [08:03<01:05, 10.96s/it] 90%|█████████ | 45/50 [08:14<00:54, 10.96s/it] 92%|█████████▏| 46/50 [08:25<00:43, 10.96s/it] 94%|█████████▍| 47/50 [08:36<00:32, 10.96s/it] 96%|█████████▌| 48/50 [08:47<00:21, 10.97s/it] 98%|█████████▊| 49/50 [08:58<00:10, 10.95s/it]100%|██████████| 50/50 [09:09<00:00, 10.96s/it]100%|██████████| 50/50 [09:09<00:00, 10.98s/it]
+2026-07-20:22:32:00,929 INFO     [lm_eval.loggers.evaluation_tracker:272] Output path not provided, skipping saving results aggregated
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 50, duration: 0:09:09 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/run_benchmark_main.py
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=256,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,step_refresh_remainder=16,select_only_in_h=True,runner=run_model_semi_cached_mlp,h=16), gen_kwargs: (None), limit: 50.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.1579|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.1316|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.1000|±  |0.0429|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.0600|±  |0.0339|
+
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+2026-07-20:22:32:11,215 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-20:22:32:11,216 INFO     [lm_eval.__main__:379] Selected Tasks: ['ifeval']
+2026-07-20:22:32:11,216 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-20:22:32:11,216 INFO     [lm_eval.evaluator:206] Initializing test model, with arguments: {'id_model': 'GSAI-ML/LLaDA-8B-Base', 'size_batch': 1, 'len_target': 256, 'num_blocks': 1, 'num_unmask_per_step': 1, 'id_mask': 126336, 'device': 'cuda:0', 'step_refresh_remainder': 16, 'select_only_in_h': True, 'runner': 'run_model_semi_cached_mlp', 'h': 24}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:00<00:00,  5.15it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00,  5.44it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00,  5.53it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00,  5.67it/s]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:00<00:00,  5.73it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:01<00:00,  5.60it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:01<00:00,  5.58it/s]
+2026-07-20:22:32:15,010 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-20:22:32:15,011 WARNING  [lm_eval.api.task:327] [Task: ifeval] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2026-07-20:22:32:15,033 INFO     [lm_eval.evaluator:271] num_fewshot has been set to 0 for ifeval in its config. Manual configuration will be ignored.
+2026-07-20:22:32:15,034 INFO     [lm_eval.api.task:420] Building contexts for ifeval on rank 0...
+  0%|          | 0/50 [00:00<?, ?it/s]100%|██████████| 50/50 [00:00<00:00, 225986.21it/s]
+2026-07-20:22:32:15,036 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Map:   0%|          | 0/50 [00:00<?, ? examples/s]Map: 100%|██████████| 50/50 [00:00<00:00, 7677.66 examples/s]
+  0%|          | 0/50 [00:00<?, ?it/s]  2%|▏         | 1/50 [00:12<09:58, 12.21s/it]  4%|▍         | 2/50 [00:23<09:21, 11.70s/it]  6%|▌         | 3/50 [00:34<09:02, 11.55s/it]  8%|▊         | 4/50 [00:46<08:48, 11.49s/it] 10%|█         | 5/50 [00:57<08:36, 11.49s/it] 12%|█▏        | 6/50 [01:09<08:24, 11.47s/it] 14%|█▍        | 7/50 [01:20<08:11, 11.44s/it] 16%|█▌        | 8/50 [01:32<07:59, 11.42s/it] 18%|█▊        | 9/50 [01:43<07:48, 11.42s/it] 20%|██        | 10/50 [01:54<07:36, 11.42s/it] 22%|██▏       | 11/50 [02:06<07:24, 11.41s/it] 24%|██▍       | 12/50 [02:17<07:13, 11.40s/it] 26%|██▌       | 13/50 [02:28<07:01, 11.39s/it] 28%|██▊       | 14/50 [02:40<06:49, 11.37s/it] 30%|███       | 15/50 [02:51<06:37, 11.34s/it] 32%|███▏      | 16/50 [03:02<06:25, 11.34s/it] 34%|███▍      | 17/50 [03:14<06:14, 11.34s/it] 36%|███▌      | 18/50 [03:25<06:02, 11.34s/it] 38%|███▊      | 19/50 [03:36<05:50, 11.32s/it] 40%|████      | 20/50 [03:48<05:39, 11.31s/it] 42%|████▏     | 21/50 [03:59<05:28, 11.32s/it] 44%|████▍     | 22/50 [04:10<05:17, 11.33s/it] 46%|████▌     | 23/50 [04:22<05:06, 11.35s/it] 48%|████▊     | 24/50 [04:33<04:54, 11.33s/it] 50%|█████     | 25/50 [04:44<04:43, 11.32s/it] 52%|█████▏    | 26/50 [04:56<04:33, 11.38s/it] 54%|█████▍    | 27/50 [05:07<04:22, 11.43s/it] 56%|█████▌    | 28/50 [05:19<04:10, 11.40s/it] 58%|█████▊    | 29/50 [05:30<03:59, 11.40s/it] 60%|██████    | 30/50 [05:41<03:47, 11.37s/it] 62%|██████▏   | 31/50 [05:53<03:36, 11.42s/it] 64%|██████▍   | 32/50 [06:04<03:25, 11.40s/it] 66%|██████▌   | 33/50 [06:16<03:14, 11.44s/it] 68%|██████▊   | 34/50 [06:27<03:02, 11.43s/it] 70%|███████   | 35/50 [06:39<02:51, 11.40s/it] 72%|███████▏  | 36/50 [06:50<02:39, 11.37s/it] 74%|███████▍  | 37/50 [07:01<02:27, 11.36s/it] 76%|███████▌  | 38/50 [07:13<02:16, 11.35s/it] 78%|███████▊  | 39/50 [07:24<02:04, 11.34s/it] 80%|████████  | 40/50 [07:35<01:53, 11.35s/it] 82%|████████▏ | 41/50 [07:47<01:42, 11.34s/it] 84%|████████▍ | 42/50 [07:58<01:30, 11.34s/it] 86%|████████▌ | 43/50 [08:09<01:19, 11.38s/it] 88%|████████▊ | 44/50 [08:21<01:08, 11.37s/it] 90%|█████████ | 45/50 [08:32<00:56, 11.36s/it] 92%|█████████▏| 46/50 [08:44<00:45, 11.41s/it] 94%|█████████▍| 47/50 [08:55<00:34, 11.38s/it] 96%|█████████▌| 48/50 [09:06<00:22, 11.39s/it] 98%|█████████▊| 49/50 [09:18<00:11, 11.37s/it]100%|██████████| 50/50 [09:29<00:00, 11.38s/it]100%|██████████| 50/50 [09:29<00:00, 11.39s/it]
+2026-07-20:22:41:46,752 INFO     [lm_eval.loggers.evaluation_tracker:272] Output path not provided, skipping saving results aggregated
+[YUKAI][DEBUG][generate_until:141] Total unfinished: 50, duration: 0:09:29 [FILE] /home/exx/Workspace/yukai_llada_base/yukai_llada_olds/yukai_llada_benchmark/run_benchmark_main.py
+test (id_model=GSAI-ML/LLaDA-8B-Base,size_batch=1,len_target=256,num_blocks=1,num_unmask_per_step=1,id_mask=126336,device=cuda:0,step_refresh_remainder=16,select_only_in_h=True,runner=run_model_semi_cached_mlp,h=24), gen_kwargs: (None), limit: 50.0, num_fewshot: 1, batch_size: 1
+|Tasks |Version|Filter|n-shot|        Metric         |   |Value |   |Stderr|
+|------|------:|------|-----:|-----------------------|---|-----:|---|------|
+|ifeval|      4|none  |     0|inst_level_loose_acc   |↑  |0.1711|±  |   N/A|
+|      |       |none  |     0|inst_level_strict_acc  |↑  |0.1711|±  |   N/A|
+|      |       |none  |     0|prompt_level_loose_acc |↑  |0.1200|±  |0.0464|
+|      |       |none  |     0|prompt_level_strict_acc|↑  |0.1200|±  |0.0464|
+
